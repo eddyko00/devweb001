@@ -1,5 +1,7 @@
 
 var app = {
+    // How to close Netbeans html debug Chrome connection when silent mode is on?
+    // Simply open Chrome Developer Tools in given page.
     // Application Constructor
     initialize: function() {
     
