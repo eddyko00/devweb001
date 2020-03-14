@@ -19,7 +19,7 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.coolappz.iiswebapp"
+      "PACKAGE_NAME": "com.coolappz.iisweb100"
     }
   },
   "dependent_plugins": {},
