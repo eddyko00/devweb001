@@ -3,12 +3,12 @@ var app = {
     // Application Constructor
     initialize: function () {
 
-        var url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
-//        var url = "https://iiswebsrv.herokuapp.com/cust/login?email=guest&pass=guest";
+
+        var iisurl = "https://iiswebsrv.herokuapp.com/";
 
         $("#loadImage").click(function () {
             $.ajax({
-                url: "https://iiswebsrv.herokuapp.com/cust/admin1/sys/lock",
+                url: iisurl+"cust/login?email=guest&pass=guest",
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -17,13 +17,7 @@ var app = {
             // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
 
             function handleResult(result) {
-                $("#spaceimage").attr("src", result.url);
-
-                //http://responsiveimg.com/
-                $("#spaceimage").responsiveImg();
-
-                $("#copyright").text("Copyright: " + result.copyright);
-                $("#desc").text(result.explanation);
+                $("#desc").text(result.webMsg.result);
             }
         });
 
@@ -50,13 +44,35 @@ var app = {
 
 app.initialize();
 
-// based on https://gist.github.com/miguelmota/5b67e03845d840c949c4
-function randomDate(start, end) {
-    var date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 
-    var dat = date.getDate();
-    var month = date.getMonth() + 1;
-    var yr = date.getFullYear();
 
-    return yr + "-" + month + "-" + dat;
+function checkForm() {
+    var result = true;
+
+    $(".errorMsg").remove();
+
+    $("input[type='text'], input[type='password']").each(function (idx) {
+        if (this.value.length == 0) {
+
+            $("#messageList").append(
+                    "<li class='errorMsg'>Input can not be empty: " + this.name
+                    + "</li>");
+
+            result = false;
+            $(this).addClass("inputErr");
+        } else {
+            $(this).removeClass("inputErr");
+        }
+    });
+
+
+    if (result == false) {
+        $("#messages").show();
+    } else {
+        $("#messages").hide();
+    }
+
+    return result;
+
 }
+
