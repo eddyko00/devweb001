@@ -2,13 +2,11 @@
 var app = {
     // Application Constructor
     initialize: function () {
-
-
         var iisurl = "https://iiswebsrv.herokuapp.com/";
 
         $("#loadImage").click(function () {
             $.ajax({
-                url: iisurl+"cust/login?email=guest&pass=guest",
+                url: iisurl + "cust/login?email=guest&pass=guest",
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -39,19 +37,29 @@ var app = {
                 $("#desc").text(result.explanation);
             }
         });
+
+
     },
 };
 
 app.initialize();
 
 
-
 function checkForm() {
+    var iisurl = "https://iiswebsrv.herokuapp.com/";
     var result = true;
 
     $(".errorMsg").remove();
 
-    $("input[type='text'], input[type='password']").each(function (idx) {
+    var userId = document.getElementById("userId").value;
+    var password = document.getElementById("password").value;
+    if (userId.length == 0) {
+        userId = "guest";
+        password = "guest";
+    }
+
+
+    $("input[type='password']").each(function (idx) {
         if (this.value.length == 0) {
 
             $("#messageList").append(
@@ -68,11 +76,26 @@ function checkForm() {
 
     if (result == false) {
         $("#messages").show();
+        return result;
     } else {
         $("#messages").hide();
     }
 
-    return result;
+    $.ajax({
+        url: iisurl + "cust/login?email=" + userId + "&pass=" + password,
+        crossDomain: true,
+        cache: false,
+        success: handleResult
+    }); // use promises
 
+    // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+
+    function handleResult(result) {
+        $("#desc").text(result.webMsg.result);
+    }
+
+    return result;
 }
+
+
 
