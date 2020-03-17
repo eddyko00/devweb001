@@ -5,8 +5,17 @@ var app = {
     initialize: function () {
 
         $(document).ready(function () {
-
+            if (accObjList == null) {
+                window.location.href = "index.html";
+            } else {
+                for (i = 0; i < accObjList.length; i++) {
+                    var accObj = accObjList[i];
+                    console.log(accObj);
+                }
+            }
         });
+
+
 
         var iisWebSession = "iisWebSession";
 //        var custObj = 'custObj';
@@ -15,11 +24,20 @@ var app = {
         var iisWebObjStr = window.localStorage.getItem(iisWebSession);
         var iisWebObj = JSON.parse(iisWebObjStr);
         console.log(iisWebObj);
-        var custObj = iisWebObj.custObj;
-        var accListStr = iisWebObj.accList;
+        var custObjStr = iisWebObj.custObjStr;
+        var custObj = JSON.parse(custObjStr);
+        var accObjListStr = iisWebObj.accListStr;
+        var accObjList = JSON.parse(accObjListStr);
+        console.log(accObjList);
         
-        console.log(accListStr);
-
+        for (i = 0; i < accObjList.length; i++) {
+            var accObj = accObjList[i];
+            console.log(accObj);
+            var accName = accObj.accountname;
+            var accId = accObj.id;
+            $("#myid").append('<li id="'+accId+'"><a href="#">'+accName+'</a></li>');
+        }
+        
         var iisurl = "https://iiswebsrv.herokuapp.com/";
         $("#btn-login").click(function () {
             var txemail = document.getElementById("txt-email").value;
@@ -55,6 +73,15 @@ var app = {
 
 
             }
+        });
+
+
+        $("ul[id*=myid] li").click(function () {
+//            alert($(this).html()); // gets innerHTML of clicked li
+//            alert($(this).text());
+            alert($(this).attr('id')); // gets text contents of clicked li
+
+            console.log($(this));
         });
 
 // example        

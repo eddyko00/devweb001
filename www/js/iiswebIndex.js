@@ -37,7 +37,7 @@ var app = {
 
 
                 var CustobjStr = JSON.stringify(custObj, null, '\t');
-                var iisWebObj = {'custObj': CustobjStr};
+                var iisWebObj = {'custObjStr': CustobjStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
 //                var iisWebObjStr = window.localStorage.getItem('iisWebSession');
@@ -52,7 +52,7 @@ var app = {
                         success: function (resultAccList) {
                             console.log(resultAccList);
                             var accListStr = JSON.stringify(resultAccList, null, '\t');
-                            var iisWebObj = {'custObj': CustobjStr, 'accList': accListStr};
+                            var iisWebObj = {'custObjStr': CustobjStr, 'accListStr': accListStr};
                             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
                             window.location.href = "account.html";
