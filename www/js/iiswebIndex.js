@@ -14,6 +14,8 @@ var app = {
         });
 
         var iisWebSession = "iisWebSession";
+//        var custObj = 'custObj';
+//        var accList = 'accList';
 
         var iisurl = "https://iiswebsrv.herokuapp.com/";
         $("#btn-login").click(function () {
@@ -31,20 +33,33 @@ var app = {
             function handleResult(result) {
 
                 var custObj = result.custObj;
-                console.log(custObj)
-                
+                console.log(custObj);
+
 
                 var CustobjStr = JSON.stringify(custObj, null, '\t');
-                var iisWebObj={'custObj':CustobjStr};                
+                var iisWebObj = {'custObj': CustobjStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
 //                var iisWebObjStr = window.localStorage.getItem('iisWebSession');
 //                var iisWebObj = JSON.parse(iisWebObjStr);
 //                console.log(iisWebObj);
 
-                if (custObj != null) {
-//                    window.location.href = "#page-signup-succeeded";
-                    window.location.href = "account.html";
+                if (custObj !== null) {
+                    $.ajax({
+                        url: iisurl + "/cust/" + custObj.username + "/acc/",
+                        crossDomain: true,
+                        cache: false,
+                        success: function (resultAccList) {
+                            console.log(resultAccList);
+                            var accListStr = JSON.stringify(resultAccList, null, '\t');
+                            var iisWebObj = {'custObj': CustobjStr, 'accList': accListStr};
+                            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                            window.location.href = "account.html";
+                        }
+                    });
+////                    window.location.href = "#page-signup-succeeded";
+//                    window.location.href = "account.html";
                 } else {
 //                    $('#error_message').fadeIn().html(jsonStr);
                     $('#error_message').fadeIn().html("Incorrect email/password. Please try again.");

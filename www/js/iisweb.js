@@ -9,10 +9,16 @@ var app = {
         });
 
         var iisWebSession = "iisWebSession";
+//        var custObj = 'custObj';
+//        var accList = 'accList';
 
         var iisWebObjStr = window.localStorage.getItem(iisWebSession);
         var iisWebObj = JSON.parse(iisWebObjStr);
         console.log(iisWebObj);
+        var custObj = iisWebObj.custObj;
+        var accListStr = iisWebObj.accList;
+        
+        console.log(accListStr);
 
         var iisurl = "https://iiswebsrv.herokuapp.com/";
         $("#btn-login").click(function () {
