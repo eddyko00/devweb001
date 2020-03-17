@@ -5,14 +5,15 @@ var app = {
     initialize: function () {
 
         $(document).ready(function () {
+            // after the page elements are all loaded, then run the script
+            // Set the input field with unique ID #email to a value
+            $("#txt-email").val('GUEST');
+            // Set the input field with unique ID #name
+            $("#txt-password").val('guest');
 
         });
 
         var iisWebSession = "iisWebSession";
-
-        var iisWebObjStr = window.localStorage.getItem(iisWebSession);
-        var iisWebObj = JSON.parse(iisWebObjStr);
-        console.log(iisWebObj);
 
         var iisurl = "https://iiswebsrv.herokuapp.com/";
         $("#btn-login").click(function () {
@@ -30,14 +31,16 @@ var app = {
             function handleResult(result) {
 
                 var custObj = result.custObj;
-                console.log(custObj);
-                var jsonCustobjStr = JSON.stringify(custObj, null, '\t');
-                window.localStorage.setItem('iisWebSession', {custObj: jsonCustobjStr});
+                console.log(custObj)
+                
 
+                var CustobjStr = JSON.stringify(custObj, null, '\t');
+                var iisWebObj={'custObj':CustobjStr};                
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
-                jsonResutlStr = window.localStorage.getItem()('iisWebSession');
-                var custObj = JSON.parse(jsonResutlStr);
-                console.log(custObj);
+//                var iisWebObjStr = window.localStorage.getItem('iisWebSession');
+//                var iisWebObj = JSON.parse(iisWebObjStr);
+//                console.log(iisWebObj);
 
                 if (custObj != null) {
 //                    window.location.href = "#page-signup-succeeded";
