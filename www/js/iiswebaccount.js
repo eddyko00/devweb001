@@ -30,6 +30,9 @@ var app = {
         var accObjList = JSON.parse(accObjListStr);
         console.log(accObjList);
         
+        
+        $("#accheader").html("Customer "+ custObj.username);
+        
         for (i = 0; i < accObjList.length; i++) {
             var accObj = accObjList[i];
             console.log(accObj);
