@@ -56,7 +56,7 @@ var app = {
             htmlName += '<div class="ui-block-c">Trend:' + stockObj.longterm + '</div>';
             htmlName += '</div>';
 
-            var nameId = accObj.id;
+            var nameId = stockObj.id;
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
         }
 
@@ -69,11 +69,13 @@ var app = {
             console.log(nameId);
             if (nameId == 0) {
                 alert(nameId);
+                return;
             }
-
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'accId': accId};
+            var sockId= nameId;
+               var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                   'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId,};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountst_1.html";
+            window.location.href = "accountsttr_1.html";
         });
 
 // example        

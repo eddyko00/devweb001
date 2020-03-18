@@ -47,6 +47,7 @@ var app = {
             console.log(accId);
             if (accId == 0) {
                 alert(accId);
+                return;
             }
 
             var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'accId': accId};

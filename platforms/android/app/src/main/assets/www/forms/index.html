@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="../css/jquery.mobile-1.3.1.css" />
+<script src="../jquery/jquery-1.9.1.js"></script>
+<script src="../jquery/jquery.mobile-1.3.1.js"></script>
+
+</head>
+
+<body>
+
+  <div data-role=page data-theme=c>    
+
+    <!-- INSERT HTML HERE -->
+  <form action=summary.html method=get data-transition=pop 
+        data-ajax="false">
+    <input name=first type=text 
+           required placeholder="First Name" required>
+    <input name=last type=text 
+           required placeholder="Last Name" required>
+
+    <label for="airline">Airline</label>
+    <select name=airline id="airline">
+      <option value="American">American</option>
+      <option value="Delta">Delta</option>
+      <option value="United">United</option>
+      <option value="Southwest">Southwest</option>
+    </select>
+
+  <div data-role=controlgroup data-type="horizontal" 
+       style="text-align: center;">
+    <label for="origin">Origin</label>
+    <select id="origin">
+ <option value="Denver">DEN – Denver</option>
+	    <option value="Chicago">ORD – Chicago</option>
+	    <option value="LaGuardia">LGA – LaGuardia</option>
+	    <option value="Francisco">San Francisco</option>
+    </select> 
+
+    <label for="dest">Destination</label>
+    <select id="dest">
+ <option value="Denver">DEN – Denver</option>
+	    <option value="Chicago">ORD – Chicago</option>
+	    <option value="LaGuardia">LGA – LaGuardia</option>
+	    <option value="Francisco">San Francisco</option>
+    </select> 
+
+  </div>
+
+<input id="date" type="date" required/>
+
+   <div data-role=controlgroup data-type="horizontal" 
+         style="text-align: center;">
+     <label for=first>First</label>
+     <input type=radio id=first name=class value=first>
+     <label for=business>Business</label>
+     <input type=radio id=business name=class value=business>
+     <label for=coach>Coach</label>
+     <input type=radio id=coach name=class value=coach checked>      
+   </div>  
+
+    <input type=submit value=submit>
+  </form>
+
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
