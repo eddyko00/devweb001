@@ -28,6 +28,10 @@ var app = {
             url: iisurl + "/cust/" + custObj.username + "/acc/",
             crossDomain: true,
             cache: false,
+            beforeSend: function () {
+                 $("#loader").show();
+            },
+            
             success: function (resultAccObjList) {
                 console.log(resultAccObjList);
                 if (resultAccObjList == null) {

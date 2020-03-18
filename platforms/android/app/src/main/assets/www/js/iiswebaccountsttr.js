@@ -26,6 +26,7 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
+
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
@@ -40,23 +41,50 @@ var app = {
 
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
+        var sockId = iisWebObj.sockId;
+        console.log(sockId);
 
-        $("#accheader").html(" " + custObj.username + " " + accObj.accountname);
-
+        var stockObj = null;
         for (i = 0; i < stockObjList.length; i++) {
-            var stockObj = stockObjList[i];
-            console.log(stockObj);
-//            var name = stockObj.symbol;
-//            name += " TR:"+ stockObj.trsignal+" L:"+stockObj.longterm; 
+            var stockObjTmp = stockObjList[i];
+            if (stockObjTmp.id == sockId) {
+                stockObj = stockObjTmp;
+                break;
+            }
+        }
+        if (stockObj == null) {
+            window.location.href = "index.html";
+        }
+        var trObjListStr = iisWebObj.trObjListStr;
+        var trObjList = JSON.parse(trObjListStr);
+
+        var close = stockObj.afstockInfo.fclose;
+        var preClose = stockObj.prevClose;
+        var percent = 100 * (close - preClose) / preClose;
+        var percentSt = percent.toFixed(2) + '%';
+        var stStr = stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
+                'Close:' + close + ' Pre Close:' + preClose + ' Percent:' + percentSt
+        $("#0").html('<h1>' + stStr + '</h1>');
+
+        $("#accheader").html(" " + accObj.accountname + " " + stockObj.symbol);
+
+        for (i = 0; i < trObjList.length; i++) {
+            var trObj = trObjList[i];
+            console.log(trObj);
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-b">';
-            htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol + '</strong></div>';
-            htmlName += '<div class="ui-block-b">tr:' + stockObj.trsignal + '</div>';
-            htmlName += '<div class="ui-block-c">Trend:' + stockObj.longterm + '</div>';
+            htmlName += '<div class="ui-block-a"><strong>' + trObj.trname + '</strong></div>';
+            htmlName += '<div class="ui-block-b">tr:' + trObj.trsignal + '</div>';
+            var total = trObj.investment + trObj.balance;
+            var totalSt = total.toFixed(2);
+            htmlName += '<div class="ui-block-c">Total:' + totalSt + '</div>';
             htmlName += '</div>';
 
-            var nameId = stockObj.id;
+
+            var trStr = 'L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
+            htmlName += '<p>' + trStr + '</p>';
+            var nameId = trObj.id;
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
         }
 
@@ -71,11 +99,11 @@ var app = {
                 alert(nameId);
                 return;
             }
-            var sockId= nameId;
-               var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
-                   'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId,};
+            var sockId = nameId;
+            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, };
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountsttr_1.html";
+//            window.location.href = "accountsttr_1.html";
         });
 
 // example        
