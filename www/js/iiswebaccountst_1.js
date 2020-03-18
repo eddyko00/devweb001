@@ -22,23 +22,25 @@ var app = {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
+        var accObjListStr = iisWebObj.accObjListStr;
+        var accObjList = JSON.parse(accObjListStr);
+        var accId = iisWebObj.accId;
+        console.log(accId);
+
 
 
         $.ajax({
-            url: iisurl + "/cust/" + custObj.username + "/acc/",
+            url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st",
             crossDomain: true,
             cache: false,
-            success: function (resultAccObjList) {
-                console.log(resultAccObjList);
-                if (resultAccObjList == null) {
-                    window.location.href = "index.html";
-                }
+            success: function (resultStockList) {
+                console.log(resultStockList);
 
-                var accObjListStr = JSON.stringify(resultAccObjList, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+                var stockObjListStr = JSON.stringify(resultStockList, null, '\t');
+                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'accId': accId, 'stockObjListStr': stockObjListStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
-                window.location.href = "account.html";
+                window.location.href = "accountst.html";
             }
         });
 

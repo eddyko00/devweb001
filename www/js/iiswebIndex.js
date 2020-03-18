@@ -13,11 +13,12 @@ var app = {
 
         });
 
+
+        var iisurl = "https://iiswebsrv.herokuapp.com/";
         var iisWebSession = "iisWebSession";
 //        var custObj = 'custObj';
 //        var accList = 'accList';
 
-        var iisurl = "https://iiswebsrv.herokuapp.com/";
         $("#btn-login").click(function () {
             var txemail = document.getElementById("txt-email").value;
             var txtpassword = document.getElementById("txt-password").value;
