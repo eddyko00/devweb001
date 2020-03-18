@@ -36,8 +36,8 @@ var app = {
                 console.log(custObj);
 
 
-                var CustobjStr = JSON.stringify(custObj, null, '\t');
-                var iisWebObj = {'custObjStr': CustobjStr};
+                var custObjStr = JSON.stringify(custObj, null, '\t');
+                var iisWebObj = {'custObjStr': custObjStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
 //                var iisWebObjStr = window.localStorage.getItem('iisWebSession');
@@ -45,21 +45,7 @@ var app = {
 //                console.log(iisWebObj);
 
                 if (custObj !== null) {
-                    $.ajax({
-                        url: iisurl + "/cust/" + custObj.username + "/acc/",
-                        crossDomain: true,
-                        cache: false,
-                        success: function (resultAccList) {
-                            console.log(resultAccList);
-                            var accListStr = JSON.stringify(resultAccList, null, '\t');
-                            var iisWebObj = {'custObjStr': CustobjStr, 'accListStr': accListStr};
-                            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-
-                            window.location.href = "account.html";
-                        }
-                    });
-////                    window.location.href = "#page-signup-succeeded";
-//                    window.location.href = "account.html";
+                    window.location.href = "account_1.html";
                 } else {
 //                    $('#error_message').fadeIn().html(jsonStr);
                     $('#error_message').fadeIn().html("Incorrect email/password. Please try again.");
