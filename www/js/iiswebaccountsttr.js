@@ -65,7 +65,7 @@ var app = {
         var stStr = stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
                 'Close:' + close + ' Pre Close:' + preClose + ' Percent:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
-        
+
         $("#accheader").html(" " + accObj.accountname + " " + stockObj.symbol);
 
         for (i = 0; i < trObjList.length; i++) {
@@ -77,7 +77,8 @@ var app = {
             htmlName += '<div class="ui-block-a"><strong>' + trObj.trname + '</strong></div>';
             htmlName += '<div class="ui-block-b">tr:' + trObj.trsignal + '</div>';
             var total = trObj.investment + trObj.balance;
-            htmlName += '<div class="ui-block-c">Total:' + total + '</div>';
+            var totalSt = total.toFixed(2);
+            htmlName += '<div class="ui-block-c">Total:' + totalSt + '</div>';
             htmlName += '</div>';
 
 
