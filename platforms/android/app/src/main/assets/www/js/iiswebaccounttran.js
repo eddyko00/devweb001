@@ -71,7 +71,7 @@ var app = {
         
         var stStr = 'Transaction Listing<br>';
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
-                'Pre Cl:' + preClose + '  Close:' + Close + '  Per:' + percentSt
+                'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
 
         $("#accheader").html(stockObj.symbol + " " + trName);
