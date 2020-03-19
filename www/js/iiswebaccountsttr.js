@@ -63,7 +63,7 @@ var app = {
         var percent = 100 * (close - preClose) / preClose;
         var percentSt = percent.toFixed(2) + '%';
         var stStr = stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
-                'Close:' + close + ' Pre Close:' + preClose + ' Percent:' + percentSt
+                'Close:' + close + '   Pre Close:' + preClose + '   Percent:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
 
         $("#accheader").html(" " + accObj.accountname + " " + stockObj.symbol);
@@ -71,7 +71,7 @@ var app = {
         for (i = 0; i < trObjList.length; i++) {
             var trObj = trObjList[i];
             console.log(trObj);
-
+            var nameId = trObj.id;
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-b">';
             htmlName += '<div class="ui-block-a"><strong>' + trObj.trname + '</strong></div>';
@@ -80,14 +80,48 @@ var app = {
             var totalSt = total.toFixed(2);
             htmlName += '<div class="ui-block-c">Total:' + totalSt + '</div>';
             htmlName += '</div>';
+            
+//            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
+//            htmlName += '<h3>' + trStr + '</h3>';
+            htmlName += '<button id="' + nameId + '" data-icon="grid" style="height: 40px; width: 30px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
 
-
-            var trStr = 'L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
-            htmlName += '<p>' + trStr + '</p>';
-            var nameId = trObj.id;
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
+
         }
 
+        var buttonGraph = false;
+
+        $("ul[id*=myid] button").click(function () {
+            buttonGraph = true;
+            var trname = $(this).attr('value');
+            if (trname !== null) {
+                var symbol = stockObj.symbol;
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage").attr("src", resultURL);
+
+                window.location.href = "#page_graph";
+            }
+//            $.ajax({
+//                url: "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart",
+//                datatype: "binary",
+//                beforeSend: function (xhr) {
+//                    xhr.overrideMimeType("text/plain; charset=x-user-defined");
+//                },
+//                success: function (image) {
+//
+//                    var imgBase64 = $.base64.encode(image);
+//                    console.log(imgBase64);
+//                    window.location.href = "#page_graph";
+//                },
+//                error: function (xhr, text_status) {
+//                    console.log("An error again " + text_status);
+//                }
+//            });
+
+
+        });
 
 
         $("ul[id*=myid] li").click(function () {
@@ -96,7 +130,11 @@ var app = {
             var nameId = $(this).attr('id');
             console.log(nameId);
             if (nameId == 0) {
-                alert(nameId);
+//                alert(nameId);
+                return;
+            }
+            if (buttonGraph == true) {
+                buttonGraph = false;
                 return;
             }
             var sockId = nameId;
@@ -114,8 +152,4 @@ var app = {
     },
 };
 app.initialize();
-
-
-
-
 

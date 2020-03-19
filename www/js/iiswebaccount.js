@@ -46,7 +46,7 @@ var app = {
             var accId = $(this).attr('id');
             console.log(accId);
             if (accId == 0) {
-                alert(accId);
+//                alert(accId);
                 return;
             }
 

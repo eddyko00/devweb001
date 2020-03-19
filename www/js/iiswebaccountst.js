@@ -53,7 +53,7 @@ var app = {
             var htmlName = '<div class="ui-grid-b">';
             htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol + '</strong></div>';
             htmlName += '<div class="ui-block-b">tr:' + stockObj.trsignal + '</div>';
-            htmlName += '<div class="ui-block-c">Trend:' + stockObj.longterm + '</div>';
+            htmlName += '<div class="ui-block-c">Trend: ' + stockObj.longterm + '</div>';
             htmlName += '</div>';
 
             var nameId = stockObj.id;
@@ -68,7 +68,7 @@ var app = {
             var nameId = $(this).attr('id');
             console.log(nameId);
             if (nameId == 0) {
-                alert(nameId);
+//                alert(nameId);
                 return;
             }
             var sockId= nameId;
