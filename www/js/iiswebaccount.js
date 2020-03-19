@@ -35,7 +35,7 @@ var app = {
         }
 
 
-        $("#accheader").html("Customer " + custObj.username);
+        $("#accheader").html("Customer Account");
 
         $("#myid").html(" "); //clear the field
         for (i = 0; i < accObjList.length; i++) {
@@ -75,13 +75,13 @@ var app = {
                     if (resultLockObjList == null) {
                         window.location.href = "#page-lock";
                     }
-
+                    $("#lockid").html(' ');
                     for (i = 0; i < resultLockObjList.length; i++) {
                         var lockObj = resultLockObjList[i];
                         var trStr = lockObj.lockdatedisplay + '  ' + lockObj.lockname +
                                 '  type:' + lockObj.type + '<br>' + lockObj.comment;
                         var htmlName = '<h3>' + trStr + '</h3>';
-                        $("#lockid").html('<li >' + htmlName + '</li>');
+                        $("#lockid").append('<li >' + htmlName + '</li>');
                     }
 
                     window.location.href = "#page-lock";
@@ -102,6 +102,7 @@ var app = {
                     if (resultServerList == null) {
                         window.location.href = "#page-lock";
                     }
+                     $("#serverid").html(" ");
                     for (i = 0; i < resultServerList.length; i++) {
                         var srvObj = resultServerList[i];
                         var trStr = srvObj.lastServUpdateESTdate + '  ' + srvObj.serverName;
@@ -109,7 +110,7 @@ var app = {
                         trStr += '<br>' + srvObj.timerMsg;
                         trStr += '<br>' + srvObj.timerThreadMsg;
                         var htmlName = ' ' + trStr + ' ';
-                        $("#serverid").html('<li ></li>' + htmlName);
+                        $("#serverid").append('<li ></li>' + htmlName);
                     }
                     window.location.href = "#page-server";
                 }

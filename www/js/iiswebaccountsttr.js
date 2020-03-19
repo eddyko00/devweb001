@@ -94,6 +94,15 @@ var app = {
 //            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
 //            htmlName += '<h3>' + trStr + '</h3>';
             htmlName += '<button id="' + nameId + '" data-icon="grid" style="height: 40px; width: 30px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
+            if (trObj.trname == "TR_NN2") {
+                htmlName += 'NeuralNet AI Predication...';
+            } else if (trObj.trname == "TR_ACC") {
+                var link = trObj.linktradingruleid;
+                var trObjlink = trObjList[link];
+                if (trObjlink !== null) {
+                    htmlName += 'TR_ACC linking to ' + trObjlink.trname;
+                }
+            }
 
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
 
