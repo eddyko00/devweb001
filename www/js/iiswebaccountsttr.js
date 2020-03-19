@@ -66,7 +66,7 @@ var app = {
 
         var stStr = 'Trading Rule Listing<br>';
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
-                'Close:' + close + '   Pre Close:' + preClose + '   Percent:' + percentSt
+                'Pre Cl:' + preClose + '  Close:' + Close + '  Per:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
 
         $("#accheader").html(" " + accObj.accountname + " " + stockObj.symbol);

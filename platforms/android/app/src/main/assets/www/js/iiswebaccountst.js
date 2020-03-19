@@ -41,7 +41,7 @@ var app = {
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
 
-        $("#accheader").html(" " + custObj.username + " " + accObj.accountname);
+        $("#accheader").html("Account "+accObj.accountname);
 
         for (i = 0; i < stockObjList.length; i++) {
             var stockObj = stockObjList[i];

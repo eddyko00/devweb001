@@ -35,7 +35,7 @@ var app = {
         }
 
 
-        $("#accheader").html("Customer " + custObj.username);
+        $("#accheader").html("Customer Account");
 
         $("#myid").html(" "); //clear the field
         for (i = 0; i < accObjList.length; i++) {
