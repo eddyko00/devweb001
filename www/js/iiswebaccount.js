@@ -37,6 +37,7 @@ var app = {
 
         $("#accheader").html("Customer " + custObj.username);
 
+        $("#myid").html(" "); //clear the field
         for (i = 0; i < accObjList.length; i++) {
             var accObj = accObjList[i];
             console.log(accObj);
@@ -74,12 +75,13 @@ var app = {
                     if (resultLockObjList == null) {
                         window.location.href = "#page-lock";
                     }
+
                     for (i = 0; i < resultLockObjList.length; i++) {
                         var lockObj = resultLockObjList[i];
                         var trStr = lockObj.lockdatedisplay + '  ' + lockObj.lockname +
                                 '  type:' + lockObj.type + '<br>' + lockObj.comment;
                         var htmlName = '<h3>' + trStr + '</h3>';
-                        $("#lockid").append('<li >' + htmlName + '</li>');
+                        $("#lockid").html('<li >' + htmlName + '</li>');
                     }
 
                     window.location.href = "#page-lock";
@@ -107,7 +109,7 @@ var app = {
                         trStr += '<br>' + srvObj.timerMsg;
                         trStr += '<br>' + srvObj.timerThreadMsg;
                         var htmlName = ' ' + trStr + ' ';
-                        $("#serverid").append('<li ></li>' + htmlName);
+                        $("#serverid").html('<li ></li>' + htmlName);
                     }
                     window.location.href = "#page-server";
                 }

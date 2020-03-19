@@ -62,16 +62,26 @@ var app = {
         var preClose = stockObj.prevClose;
         var percent = 100 * (close - preClose) / preClose;
         var percentSt = percent.toFixed(2) + '%';
-        var stStr = stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
+
+
+        var stStr = 'Trading Rule Listing<br>';
+        stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
                 'Close:' + close + '   Pre Close:' + preClose + '   Percent:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
 
         $("#accheader").html(" " + accObj.accountname + " " + stockObj.symbol);
 
+
         for (i = 0; i < trObjList.length; i++) {
             var trObj = trObjList[i];
             console.log(trObj);
             var nameId = trObj.id;
+            if (trObj.trname == "TR_RSI") {
+                continue;
+            } else if (trObj.trname == "TR_NN1") {
+                continue;
+            }
+
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-b">';
             htmlName += '<div class="ui-block-a"><strong>' + trObj.trname + '</strong></div>';

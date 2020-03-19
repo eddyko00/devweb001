@@ -68,8 +68,10 @@ var app = {
         var preClose = stockObj.prevClose;
         var percent = 100 * (close - preClose) / preClose;
         var percentSt = percent.toFixed(2) + '%';
-        var stStr = stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
-                'Close:' + close + '   Pre Close:' + preClose + '   Percent:' + percentSt
+        
+        var stStr = 'Transaction Listing<br>';
+        stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
+                'Close:' + close + '   PClose:' + preClose + '   Per:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
 
         $("#accheader").html(stockObj.symbol + " " + trName);
