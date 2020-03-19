@@ -80,7 +80,7 @@ var app = {
             var totalSt = total.toFixed(2);
             htmlName += '<div class="ui-block-c">Total:' + totalSt + '</div>';
             htmlName += '</div>';
-            
+
 //            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
 //            htmlName += '<h3>' + trStr + '</h3>';
             htmlName += '<button id="' + nameId + '" data-icon="grid" style="height: 40px; width: 30px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
@@ -137,11 +137,25 @@ var app = {
                 buttonGraph = false;
                 return;
             }
-            var sockId = nameId;
+
+            var trObj = null;
+            for (i = 0; i < trObjList.length; i++) {
+                var trObjTmp = trObjList[i];
+                if (trObjTmp.id == nameId) {
+                    trObj = trObjTmp;
+                    break;
+                }
+            }
+            if (trObj == null) {
+                return;
+            }
+            var trName = trObj.trname;
             var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
-                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, };
+                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId,
+                'trObjListStr': trObjListStr, 'trName': trName};
+
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-//            window.location.href = "accountsttr_1.html";
+            window.location.href = "accounttran_1.html";
         });
 
 // example        

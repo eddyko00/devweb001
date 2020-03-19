@@ -26,6 +26,7 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
+
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
@@ -40,59 +41,62 @@ var app = {
 
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
+        var sockId = iisWebObj.sockId;
+        console.log(sockId);
 
-        $("#accheader").html(" " + custObj.username + " " + accObj.accountname);
-
+        var stockObj = null;
         for (i = 0; i < stockObjList.length; i++) {
-            var stockObj = stockObjList[i];
-            console.log(stockObj);
-//            var name = stockObj.symbol;
-//            name += " TR:"+ stockObj.trsignal+" L:"+stockObj.longterm; 
+            var stockObjTmp = stockObjList[i];
+            if (stockObjTmp.id == sockId) {
+                stockObj = stockObjTmp;
+                break;
+            }
+        }
+        if (stockObj == null) {
+            window.location.href = "index.html";
+        }
+        var trObjListStr = iisWebObj.trObjListStr;
+        var trObjList = JSON.parse(trObjListStr);
 
+        var trName = iisWebObj.trName;
+
+        var tranObjListStr = iisWebObj.tranObjListStr;
+        var tranObjList = JSON.parse(tranObjListStr);
+
+
+        var close = stockObj.afstockInfo.fclose;
+        var preClose = stockObj.prevClose;
+        var percent = 100 * (close - preClose) / preClose;
+        var percentSt = percent.toFixed(2) + '%';
+        var stStr = stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
+                'Close:' + close + '   Pre Close:' + preClose + '   Percent:' + percentSt
+        $("#0").html('<h1>' + stStr + '</h1>');
+
+        $("#accheader").html(stockObj.symbol + " " + trName);
+
+        for (i = 0; i < tranObjList.length; i++) {
+            var tranObj = tranObjList[i];
+            console.log(tranObj);
+            var nameId = tranObj.id;
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-c">';
-            htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol + '</strong></div>';
+            htmlName += '<div class="ui-block-a"><strong>' + tranObj.entrydatedisplay + '</strong></div>';
             var signal = "B";
-            if (stockObj.trsignal == 1) {
+            if (tranObj.trsignal == 1) {
                 signal = "B";
-            } else if (stockObj.trsignal == 2) {
+            } else if (tranObj.trsignal == 2) {
                 signal = "S";
             } else {
                 signal = "N";
             }
-
             htmlName += '<div class="ui-block-b">tr:' + signal + '</div>';
-            htmlName += '<div class="ui-block-c">Trend: ' + stockObj.longterm + '</div>';
-
-            var close = stockObj.afstockInfo.fclose;
-            var preClose = stockObj.prevClose;
-            var percent = 100 * (close - preClose) / preClose;
-            var percentSt = percent.toFixed(2) + '%';
-            htmlName += '<div class="ui-block-d">Per: ' + percentSt + '</div>';
-            
+            htmlName += '<div class="ui-block-c">P:' + tranObj.avgprice + '</div>';
+            htmlName += '<div class="ui-block-d">S:' + tranObj.share + '</div>';
             htmlName += '</div>';
 
-            var nameId = stockObj.id;
-            $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
+            $("#myid").append('<li id="' + nameId + '">' + htmlName + '</li>');
+
         }
-
-
-
-        $("ul[id*=myid] li").click(function () {
-//            alert($(this).html()); // gets innerHTML of clicked li
-//            alert($(this).text()); // gets text contents of clicked li
-            var nameId = $(this).attr('id');
-            console.log(nameId);
-            if (nameId == 0) {
-//                alert(nameId);
-                return;
-            }
-            var sockId = nameId;
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
-                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, };
-            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountsttr_1.html";
-        });
 
 // example        
 //alert("AJAX request successfully completed");
@@ -102,8 +106,4 @@ var app = {
     },
 };
 app.initialize();
-
-
-
-
 
