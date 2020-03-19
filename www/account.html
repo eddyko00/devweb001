@@ -38,8 +38,8 @@
     <body>
         <div data-role="page" id="page-index">
             <div data-role="header" data-theme="c" data-position="fixed">
-               <a href="index.html" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
-                 
+                <!--<a href="index.html" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>-->
+
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
 
@@ -50,43 +50,73 @@
                 <!--<ul id="myid" data-role="listview" data-theme="d" data-divider-theme="d">-->                    
                 <ul id="myid" data-role="listview" data-theme="d" data-divider-theme="d">
                     <li id="0">Account Listing</li>
-                </ul>                
+                </ul> 
+                <p></p>                
+                <!--                
+                <a href="#page-server" class="ui-btn ui-btn-b ui-corner-all">server</a>
+                <a href="#page-lock" class="ui-btn ui-btn-b ui-corner-all">lock</a>
+                -->
+                <p id="adminid"></p>
             </div>
-            <!--  
-            <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
-                <div data-role="collapsible">
-                    <h2>Filtered list</h2>
-                    <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
-                        <li><a href="index.html">Adam Kinkaid</a></li>
-                        <li><a href="index.html">Alex Wickerham</a></li>
-                        <li><a href="index.html">Avery Johnson</a></li>
-                        <li><a href="index.html">Bob Cabot</a></li>
-                        <li><a href="index.html">Caleb Booth</a></li>
-                    </ul>
-                </div>
-           
-            <div data-role="collapsible">
+        </div>
 
-                <h2>Formatted text</h2>
-                <ul data-role="listview" data-theme="d" data-divider-theme="d">
-                    <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
-                    <li><a href="index.html">
-                            <h3>Stephen Weber</h3>
-                            <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-                            <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-                            <p class="ui-li-aside"><strong>6:24</strong>PM</p>
-                        </a></li>
-                    <li><a href="index.html">
-                            <h3>jQuery Team</h3>
-                            <p><strong>Boston Conference Planning</strong></p>
-                            <p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
-                            <p class="ui-li-aside"><strong>9:18</strong>AM</p>
-                        </a></li>
+        <div data-role="page" id="page-lock">
+            <div data-role="header" data-theme="c" data-position="fixed">
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+
+                <h1>IISWEB System</h1>
+            </div><!-- /header -->                    
+            <div data-role="content" id="textcontent">
+                <ul id="lockid" data-role="listview" data-theme="d" data-divider-theme="d">
+                </ul> 
+            </div>          
+        </div>   
+        
+        <div data-role="page" id="page-server">
+            <div data-role="header" data-theme="c" data-position="fixed">
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <h1>IISWEB System</h1>
+            </div><!-- /header -->                    
+            <div data-role="content" id="textcontent">
+                <ul id="serverid" data-role="listview" data-theme="d" data-divider-theme="d">
+                </ul> 
+            </div>          
+        </div>  
+        <!--  
+        <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+            <div data-role="collapsible">
+                <h2>Filtered list</h2>
+                <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
+                    <li><a href="index.html">Adam Kinkaid</a></li>
+                    <li><a href="index.html">Alex Wickerham</a></li>
+                    <li><a href="index.html">Avery Johnson</a></li>
+                    <li><a href="index.html">Bob Cabot</a></li>
+                    <li><a href="index.html">Caleb Booth</a></li>
                 </ul>
             </div>
-                     
-
-        </div><!-- /page -->
+       
+        <div data-role="collapsible">
+    
+            <h2>Formatted text</h2>
+            <ul data-role="listview" data-theme="d" data-divider-theme="d">
+                <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
+                <li><a href="index.html">
+                        <h3>Stephen Weber</h3>
+                        <p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+                        <p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+                        <p class="ui-li-aside"><strong>6:24</strong>PM</p>
+                    </a></li>
+                <li><a href="index.html">
+                        <h3>jQuery Team</h3>
+                        <p><strong>Boston Conference Planning</strong></p>
+                        <p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
+                        <p class="ui-li-aside"><strong>9:18</strong>AM</p>
+                    </a></li>
+            </ul>
+        </div>
+                 
+    
+    </div><!-- /page -->
         <!-- 
         
                 <script src="js/api-messages.js"></script>

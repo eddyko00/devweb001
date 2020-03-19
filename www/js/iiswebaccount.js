@@ -27,6 +27,13 @@ var app = {
         var accObjList = JSON.parse(accObjListStr);
 
 
+        if (custObj.type == 99) {
+            var htmlAdmin = '<button id="serverbtn"  >Server</button>';
+            htmlAdmin += '<button id="lockbtn" >Lock</button>';
+
+            $("#adminid").html(htmlAdmin);
+        }
+
 
         $("#accheader").html("Customer " + custObj.username);
 
@@ -54,6 +61,59 @@ var app = {
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountst_1.html";
         });
+
+        $("#lockbtn").click(function () {
+
+            $.ajax({
+                url: iisurl + "cust/" + custObj.username + "/sys/lock",
+
+                crossDomain: true,
+                cache: false,
+                success: function (resultLockObjList) {
+                    console.log(resultLockObjList);
+                    if (resultLockObjList == null) {
+                        window.location.href = "#page-lock";
+                    }
+                    for (i = 0; i < resultLockObjList.length; i++) {
+                        var lockObj = resultLockObjList[i];
+                        var trStr = lockObj.lockdatedisplay + '  ' + lockObj.lockname +
+                                '  type:' + lockObj.type + '<br>' + lockObj.comment;
+                        var htmlName = '<h3>' + trStr + '</h3>';
+                        $("#lockid").append('<li >' + htmlName + '</li>');
+                    }
+
+                    window.location.href = "#page-lock";
+                }
+            });
+        });
+
+
+        $("#serverbtn").click(function () {
+
+            $.ajax({
+                url: iisurl + "server",
+
+                crossDomain: true,
+                cache: false,
+                success: function (resultServerList) {
+                    console.log(resultServerList);
+                    if (resultServerList == null) {
+                        window.location.href = "#page-lock";
+                    }
+                    for (i = 0; i < resultServerList.length; i++) {
+                        var srvObj = resultServerList[i];
+                        var trStr = srvObj.lastServUpdateESTdate + '  ' + srvObj.serverName;
+                        trStr += '  maintance=' + srvObj.sysMaintenance;
+                        trStr += '<br>' + srvObj.timerMsg;
+                        trStr += '<br>' + srvObj.timerThreadMsg;
+                        var htmlName = ' ' + trStr + ' ';
+                        $("#serverid").append('<li ></li>' + htmlName);
+                    }
+                    window.location.href = "#page-server";
+                }
+            });
+        });
+
 
 // example        
 //alert("AJAX request successfully completed");
