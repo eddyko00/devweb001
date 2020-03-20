@@ -102,13 +102,14 @@ var app = {
                     if (resultServerList == null) {
                         window.location.href = "#page-lock";
                     }
-                     $("#serverid").html(" ");
+                    $("#serverid").html(" ");
                     for (i = 0; i < resultServerList.length; i++) {
                         var srvObj = resultServerList[i];
-                        var trStr = srvObj.lastServUpdateESTdate + '  ' + srvObj.serverName;
-                        trStr += '  maintance=' + srvObj.sysMaintenance;
+                        var trStr = srvObj.lastServUpdateESTdate + '   ' + srvObj.serverName;
+                        trStr += '<br>Maintance=' + srvObj.sysMaintenance;
                         trStr += '<br>' + srvObj.timerMsg;
-                        trStr += '<br>' + srvObj.timerThreadMsg;
+                        trStr += '<br>RESTreq:' + srvObj.cntRESTrequest + '   Ex:' + srvObj.cntRESTexception;
+                        trStr += '<br>InterReq:' + srvObj.cntInterRequest + '   Ex:' + srvObj.cntInterException;
                         var htmlName = ' ' + trStr + ' ';
                         $("#serverid").append('<li ></li>' + htmlName);
                     }
