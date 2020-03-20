@@ -51,7 +51,7 @@ var app = {
                         window.location.href = "account_1.html";
                     } else {
 //                    $('#error_message').fadeIn().html(jsonStr);
-                        $('#error_message').fadeIn().html("Incorrect email/password. Please try again.");
+                        $('#error_message').fadeIn().html('Incorrect email/password. Please try again.');
                     }
                 }
             }
