@@ -84,8 +84,16 @@ var app = {
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-b">';
-            htmlName += '<div class="ui-block-a"><strong>' + trObj.trname + '</strong></div>';
-            htmlName += '<div class="ui-block-b">tr:' + trObj.trsignal + '</div>';
+            htmlName += '<div class="ui-block-a" ><strong>' + trObj.trname + '</strong></div>';
+            var signal = "B";
+            if (trObj.trsignal == 1) {
+                signal = "B";
+            } else if (trObj.trsignal == 2) {
+                signal = "S";
+            } else {
+                signal = "E";
+            }
+            htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             var total = trObj.investment + trObj.balance;
             var totalSt = total.toFixed(2);
             htmlName += '<div class="ui-block-c">Total:' + totalSt + '</div>';

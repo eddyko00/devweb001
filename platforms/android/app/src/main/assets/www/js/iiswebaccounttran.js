@@ -68,7 +68,7 @@ var app = {
         var preClose = stockObj.prevClose;
         var percent = 100 * (close - preClose) / preClose;
         var percentSt = percent.toFixed(2) + '%';
-        
+
         var stStr = 'Transaction Listing<br>';
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
                 'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
@@ -76,22 +76,29 @@ var app = {
 
         $("#accheader").html(stockObj.symbol + " " + trName);
 
+        var htmlhead  = '<div class="ui-grid-c">';
+            htmlhead += '<div class="ui-block-a"  style="width:30%" ><strong>Date</strong></div>';
+            htmlhead += '<div class="ui-block-b" style="width:10%" >Sig</div>';
+            htmlhead += '<div class="ui-block-c">Price</div>';
+            htmlhead += '<div class="ui-block-d">Share</div>';
+            htmlhead += '</div>';        
+        $("#myid").html('<li id="0" >' + htmlhead + '</li>');
         for (i = 0; i < tranObjList.length; i++) {
             var tranObj = tranObjList[i];
             console.log(tranObj);
             var nameId = tranObj.id;
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-c">';
-            htmlName += '<div class="ui-block-a"><strong>' + tranObj.entrydatedisplay + '</strong></div>';
+            htmlName += '<div class="ui-block-a"  style="width:30%" ><strong>' + tranObj.entrydatedisplay + '</strong></div>';
             var signal = "B";
             if (tranObj.trsignal == 1) {
                 signal = "B";
             } else if (tranObj.trsignal == 2) {
                 signal = "S";
             } else {
-                signal = "N";
+                signal = "E";
             }
-            htmlName += '<div class="ui-block-b">Sig:' + signal + '</div>';
+            htmlName += '<div class="ui-block-b" style="width:10%" >:' + signal + '</div>';
             htmlName += '<div class="ui-block-c">P:' + tranObj.avgprice + '</div>';
             htmlName += '<div class="ui-block-d">S:' + tranObj.share + '</div>';
             htmlName += '</div>';

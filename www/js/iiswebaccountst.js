@@ -43,6 +43,14 @@ var app = {
 
         $("#accheader").html("Account "+accObj.accountname);
 
+        var htmlhead  = '<div class="ui-grid-c">';
+            htmlhead += '<div class="ui-block-a"><strong>Sym</strong></div>';
+            htmlhead += '<div class="ui-block-b" style="width:20%">Sig</div>';
+            htmlhead += '<div class="ui-block-c">Trend</div>';
+            htmlhead += '<div class="ui-block-d">Percent</div>';
+            htmlhead += '</div>';
+            htmlhead += '</div>';        
+        $("#myid").html('<li id="0" >' + htmlhead + '</li>');
         for (i = 0; i < stockObjList.length; i++) {
             var stockObj = stockObjList[i];
             console.log(stockObj);
@@ -58,17 +66,17 @@ var app = {
             } else if (stockObj.trsignal == 2) {
                 signal = "S";
             } else {
-                signal = "N";
+                signal = "E";
             }
 
-            htmlName += '<div class="ui-block-b">Sig:' + signal + '</div>';
+            htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             htmlName += '<div class="ui-block-c">T: ' + stockObj.longterm + '</div>';
 
             var close = stockObj.afstockInfo.fclose;
             var preClose = stockObj.prevClose;
             var percent = 100 * (close - preClose) / preClose;
             var percentSt = percent.toFixed(2) + '%';
-            htmlName += '<div class="ui-block-d">Per: ' + percentSt + '</div>';
+            htmlName += '<div class="ui-block-d">P: ' + percentSt + '</div>';
             
             htmlName += '</div>';
 
