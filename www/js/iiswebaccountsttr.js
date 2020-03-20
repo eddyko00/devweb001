@@ -98,9 +98,17 @@ var app = {
                 htmlName += 'NeuralNet AI Predication...';
             } else if (trObj.trname == "TR_ACC") {
                 var link = trObj.linktradingruleid;
-                var trObjlink = trObjList[link];
+                var trObjlink = null;
+                for (j = 0; j < trObjList.length; j++) {
+                    var trObjtmp = trObjList[j];
+                    if (link == trObjtmp.type) {
+                        trObjlink = trObjtmp;
+                        break;
+                    }
+                }
+
                 if (trObjlink !== null) {
-                    htmlName += 'TR_ACC linking to ' + trObjlink.trname;
+                    htmlName += 'Trading links to ' + trObjlink.trname;
                 }
             }
 
