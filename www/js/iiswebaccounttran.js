@@ -91,7 +91,7 @@ var app = {
             } else {
                 signal = "N";
             }
-            htmlName += '<div class="ui-block-b">tr:' + signal + '</div>';
+            htmlName += '<div class="ui-block-b">Sig:' + signal + '</div>';
             htmlName += '<div class="ui-block-c">P:' + tranObj.avgprice + '</div>';
             htmlName += '<div class="ui-block-d">S:' + tranObj.share + '</div>';
             htmlName += '</div>';

@@ -61,8 +61,8 @@ var app = {
                 signal = "N";
             }
 
-            htmlName += '<div class="ui-block-b">tr:' + signal + '</div>';
-            htmlName += '<div class="ui-block-c">Trend: ' + stockObj.longterm + '</div>';
+            htmlName += '<div class="ui-block-b">Sig:' + signal + '</div>';
+            htmlName += '<div class="ui-block-c">T: ' + stockObj.longterm + '</div>';
 
             var close = stockObj.afstockInfo.fclose;
             var preClose = stockObj.prevClose;
