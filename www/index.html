@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+!DOCTYPE html>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -43,6 +43,8 @@
                 <a href="#page-signin" class="ui-btn ui-btn-b ui-corner-all">Sign In</a>
                 <p class="mc-top-margin-1-5"><b>Don't have an account?</b></p>
                 <a href="#page-signup" class="ui-btn ui-btn-b ui-corner-all">Sign Up</a>
+                <br><br>
+                <a href="#page-intro" class="ui-btn ui-btn-b ui-corner-all">Introduction</a>
                 <p></p>
             </div><!-- /content -->
         </div><!-- /page -->
@@ -50,7 +52,7 @@
             <div data-role="header" data-theme="c" data-position="fixed">
 
                 <!--https://demos.jquerymobile.com/1.4.5/icons/-->
-                <a href="#page-index" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <div role="main" class="ui-content">
@@ -87,7 +89,7 @@
 
         <div data-role="page" id="page-signup">
             <div class="bi-header" data-role="header" data-theme="c" data-position="fixed">
-                <a href="#page-index" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <div role="main" class="ui-content">
@@ -129,6 +131,25 @@
                 <p></p>
             </div><!-- /content -->
         </div><!-- /page -->
+        <div data-role="page" id="page-intro">
+            <div class="bi-header" data-role="header" data-theme="c" data-position="fixed">
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <h1>IISWEB System</h1>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h2 class="mc-text-center">Introduction</h2>
+                <p class="mc-top-margin-1-5">This application provides stock signal predication based on the historical data 
+                    and it apples the neuralnet AI filter to calculate the signal result.</p>
+                <br>
+                <p class="mc-top-margin-1-5">Features:</p>
+                <ul id="myid" data-role="listview" data-theme="d" data-divider-theme="d">
+                    <li>NeuralNet AI Predication</li>
+                    <li>Provide RESTFUL API for business use</li>                      
+                    <li>Custom build AI filter upon request</li>                    
+                </ul> 
+                <p></p>
+            </div><!-- /content -->
+        </div><!-- /page -->        
         <!-- 
         
                 <script src="js/api-messages.js"></script>
@@ -141,7 +162,7 @@
 
         <script src="lib/jquery/2.1.1/jquery-2.1.1.min.js"></script>
         <script src="lib/jqm/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-        <script type="text/javascript" src="js/iisweb.js"></script>            
+        <script type="text/javascript" src="js/iisweb.js"></script>          
         <script type="text/javascript" src="js/iiswebIndex.js"></script>          
     </body>
 </html>
