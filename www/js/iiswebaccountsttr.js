@@ -101,7 +101,15 @@ var app = {
 
 //            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
 //            htmlName += '<h3>' + trStr + '</h3>';
-            htmlName += '<button id="' + nameId + '" data-icon="grid" style="height: 40px; width: 30px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
+
+            var htmlBtn = '<div id="myidbtn"  data-role="controlgroup" data-type="horizontal" data-theme="a" style="font-size:0.7em; margin-left:auto; margin-right:auto;width:100%; ">';
+            htmlBtn += '<a href="#" id="' + nameId + '" type="graph"  value="' + trObj.trname + '" data-icon="myicongraph" data-role="button" data-theme="a"></a>';
+            htmlBtn += '<a href="#" id="' + nameId + '" type="table"  value="' + trObj.trname + '" data-icon="myicontable" data-role="button" data-theme="a"></a>';
+            htmlBtn += '</div>';
+
+            htmlName += htmlBtn;
+//            htmlName += '<button id="' + nameId + '" data-icon="myicongraph" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
+//            htmlName += '<button id="' + nameId + '" data-icon="myicontable" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
             if (trObj.trname == "TR_NN2") {
                 htmlName += 'NeuralNet AI Predication...';
             } else if (trObj.trname == "TR_ACC") {
@@ -124,7 +132,36 @@ var app = {
 
         }
 
+        var htmlName = '<div class="ui-grid-b">';
+        htmlName += '<div class="ui-block-a" ></strong></div>';
+        htmlName += '<div class="ui-block-b" style="width:20%"></div>';
+
+        htmlName += '<div class="ui-block-c"></div>';
+        htmlName += '</div>';
+        $("#myid").append('<li id="0">' + htmlName + '</li>');
+
+
         var buttonGraph = false;
+
+        $("[id*=myidbtn] a").click(function () {
+            buttonGraph = true;
+            var type = $(this).attr('type')
+            var trname = $(this).attr('value')
+            if (type == "graph") {
+                if (trname !== null) {
+                    var symbol = stockObj.symbol;
+                    symbol = symbol.replace(".", "_");
+                    var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                    $("#spaceimage").attr("src", resultURL);
+
+                    window.location.href = "#page_graph";
+                }
+            }
+            if (type == "table") {
+                window.location.href = "#page_table";
+            }
+        });
 
         $("ul[id*=myid] button").click(function () {
             buttonGraph = true;
