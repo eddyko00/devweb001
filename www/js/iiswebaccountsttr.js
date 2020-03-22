@@ -159,7 +159,42 @@ var app = {
                 }
             }
             if (type == "table") {
-                window.location.href = "#page_table";
+                if (trname !== null) {
+                    var symbol = stockObj.symbol;
+                    symbol = symbol.replace(".", "_");
+                    var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/perf";
+                    console.log(urlSt);
+                    $.ajax({
+                        url: urlSt,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function () {
+                            $("#loader").show();
+                        },
+                        success: function (resultPerfList) {
+                            console.log(resultPerfList);
+                            if (resultPerfList !== null) {
+                                var PerfObj = resultPerfList[0];
+                                var htmlName = 'Date:' + PerfObj.updatedatedisplay;
+                                htmlName += '<br>investment: ' + PerfObj.investment
+                                htmlName += '<br>balance :' + PerfObj.balance;
+                                htmlName += '<br>netprofit :' + PerfObj.netprofit;
+                                
+                                htmlName += '<br>rating :' + PerfObj.rating.toFixed(2);
+                                htmlName += '<br>numtrade :' + PerfObj.numtrade;
+                                htmlName += '<br><br>numwin :' + PerfObj.performData.numwin;
+                                htmlName += '<br>numloss: ' + PerfObj.performData.numloss;
+                                htmlName += '<br>maxwin :' + PerfObj.performData.maxwin;
+                                htmlName += '<br>maxloss: ' + PerfObj.performData.maxloss;
+                                htmlName += '<br>holdtime :' + PerfObj.performData.holdtime;
+                                htmlName += '<br>maxholdtime: ' + PerfObj.performData.maxholdtime;
+                                $("#myidperf").html('<li">' + htmlName + '</li>');
+
+                                window.location.href = "#page_table";
+                            }
+                        }
+                    });
+                }
             }
         });
 

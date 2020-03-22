@@ -76,15 +76,22 @@ var app = {
 
         $("#accheader").html(stockObj.symbol + " " + trName);
 
-        var htmlhead  = '<div class="ui-grid-c">';
-            htmlhead += '<div class="ui-block-a"  style="width:30%" ><strong>Date</strong></div>';
-            htmlhead += '<div class="ui-block-b" style="width:10%" >Sig</div>';
-            htmlhead += '<div class="ui-block-c">Price</div>';
-            htmlhead += '<div class="ui-block-d">Share</div>';
-            htmlhead += '</div>';        
+        var htmlhead = '<div class="ui-grid-c">';
+        htmlhead += '<div class="ui-block-a"  style="width:30%" ><strong>Date</strong></div>';
+        htmlhead += '<div class="ui-block-b" style="width:10%" >Sig</div>';
+        htmlhead += '<div class="ui-block-c">Price</div>';
+        htmlhead += '<div class="ui-block-d">Share</div>';
+        htmlhead += '</div>';
         $("#myid").html('<li id="0" >' + htmlhead + '</li>');
+
+        var j = tranObjList.length - 1;
+        var prevTranObj = null;
+        var total = 0;
+
+        var list = [];
+
         for (i = 0; i < tranObjList.length; i++) {
-            var tranObj = tranObjList[i];
+            var tranObj = tranObjList[j - i];
             console.log(tranObj);
             var nameId = tranObj.id;
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
@@ -103,9 +110,28 @@ var app = {
             htmlName += '<div class="ui-block-d">S:' + tranObj.share + '</div>';
             htmlName += '</div>';
 
-            $("#myid").append('<li id="' + nameId + '">' + htmlName + '</li>');
+            if (signal == "E") {
+                if (prevTranObj != null) {
+                    var diff = (tranObj.avgprice - prevTranObj.avgprice) * tranObj.share;
+                    if (prevTranObj.trsignal == 1) {
+                        total += diff;
+                    }
+                    if (prevTranObj.trsignal == 2) {
+                        total -= diff;
+                    }
+                    var totalSt = total.toFixed(2);
+                    htmlName += 'Total delta transaction: ' + totalSt;
+                }
+            }
+            prevTranObj = tranObj;
+            list.push(htmlName);
 
         }
+        for (i = 0; i < list.length; i++) {
+            var htmlSt = list[list.length-i-1];
+            $("#myid").append('<li id="' + nameId + '">' + htmlSt + '</li>');
+        }
+
 
 // example        
 //alert("AJAX request successfully completed");
