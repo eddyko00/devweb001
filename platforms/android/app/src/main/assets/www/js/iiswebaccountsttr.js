@@ -9,7 +9,7 @@ var app = {
         });
 
 
-        var iisurl = "https://iiswebsrv.herokuapp.com/";
+//        var iisurl = "https://iiswebsrv.herokuapp.com/";
         var iisWebSession = "iisWebSession";
 //        var custObj = 'custObj';
 //        var accList = 'accList';
@@ -101,7 +101,15 @@ var app = {
 
 //            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
 //            htmlName += '<h3>' + trStr + '</h3>';
-            htmlName += '<button id="' + nameId + '" data-icon="grid" style="height: 40px; width: 30px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
+
+            var htmlBtn = '<div id="myidbtn"  data-role="controlgroup" data-type="horizontal" data-theme="a" style="font-size:0.7em; margin-left:auto; margin-right:auto;width:100%; ">';
+            htmlBtn += '<a href="#" id="' + nameId + '" type="graph"  value="' + trObj.trname + '" data-icon="myicongraph" data-role="button" data-theme="a"></a>';
+            htmlBtn += '<a href="#" id="' + nameId + '" type="table"  value="' + trObj.trname + '" data-icon="myicontable" data-role="button" data-theme="a"></a>';
+            htmlBtn += '</div>';
+
+            htmlName += htmlBtn;
+//            htmlName += '<button id="' + nameId + '" data-icon="myicongraph" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
+//            htmlName += '<button id="' + nameId + '" data-icon="myicontable" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
             if (trObj.trname == "TR_NN2") {
                 htmlName += 'NeuralNet AI Predication...';
             } else if (trObj.trname == "TR_ACC") {
@@ -124,7 +132,94 @@ var app = {
 
         }
 
+        var htmlName = '<div class="ui-grid-b">';
+        htmlName += '<div class="ui-block-a" ></strong></div>';
+        htmlName += '<div class="ui-block-b" style="width:20%"></div>';
+
+        htmlName += '<div class="ui-block-c"></div>';
+        htmlName += '</div>';
+        $("#myid").append('<li id="0">' + htmlName + '</li>');
+
+
         var buttonGraph = false;
+
+        $("[id*=myidbtn] a").click(function () {
+            buttonGraph = true;
+            var type = $(this).attr('type')
+            var trname = $(this).attr('value')
+            if (type == "graph") {
+                if (trname !== null) {
+                    var symbol = stockObj.symbol;
+                    symbol = symbol.replace(".", "_");
+                    var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                    $("#spaceimage").attr("src", resultURL);
+
+                    window.location.href = "#page_graph";
+                }
+            }
+            if (type == "table") {
+                if (trname !== null) {
+                    var symbol = stockObj.symbol;
+                    symbol = symbol.replace(".", "_");
+                    var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/perf";
+                    console.log(urlSt);
+                    $.ajax({
+                        url: urlSt,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function () {
+                            $("#loader").show();
+                        },
+                        success: function (resultPerfList) {
+                            console.log(resultPerfList);
+                            if (resultPerfList !== null) {
+                                var PerfObj = resultPerfList[0];
+                                var htmlName = '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" ><strong>' + PerfObj.updatedatedisplay + '</strong></div>';
+                                htmlName += '<div class="ui-block-b" >' + " " + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" ><strong>' + 'investment: ' + PerfObj.investment.toFixed(2) + '</strong></div>';
+                                htmlName += '<div class="ui-block-b" >' + " " + '</div>';
+                                htmlName += '</div>';
+                                htmlName += '<br><br>';
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'balance: ' + PerfObj.balance.toFixed(2) + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'netprofit: ' + PerfObj.netprofit.toFixed(2) + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'rating: ' + PerfObj.rating.toFixed(2) + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'numtrade: ' + PerfObj.numtrade + '</div>';
+                                htmlName += '</div>';
+                                htmlName += '<br><br>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'numwin: ' + PerfObj.performData.numwin + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'numloss: ' + PerfObj.performData.numloss + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'maxwin: ' + PerfObj.performData.maxwin.toFixed(2) + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'maxloss: ' + PerfObj.performData.maxloss.toFixed(2) + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'holdtime: ' + PerfObj.performData.holdtime + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'maxholdtime: ' + PerfObj.performData.maxholdtime + '</div>';
+                                htmlName += '</div>';
+
+                                $("#myidperf").html('<li">' + htmlName + '</li>');
+
+                                window.location.href = "#page_table";
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         $("ul[id*=myid] button").click(function () {
             buttonGraph = true;

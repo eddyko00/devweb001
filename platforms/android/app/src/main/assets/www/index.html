@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+!DOCTYPE html>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -43,6 +43,8 @@
                 <a href="#page-signin" class="ui-btn ui-btn-b ui-corner-all">Sign In</a>
                 <p class="mc-top-margin-1-5"><b>Don't have an account?</b></p>
                 <a href="#page-signup" class="ui-btn ui-btn-b ui-corner-all">Sign Up</a>
+                <br><br>
+                <a href="#page-intro" class="ui-btn ui-btn-b ui-corner-all">Introduction</a>
                 <p></p>
             </div><!-- /content -->
         </div><!-- /page -->
@@ -50,7 +52,7 @@
             <div data-role="header" data-theme="c" data-position="fixed">
 
                 <!--https://demos.jquerymobile.com/1.4.5/icons/-->
-                <a href="#page-index" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <div role="main" class="ui-content">
@@ -65,7 +67,7 @@
                 <br>
                 <fieldset data-role="controlgroup">
                     <input type="checkbox" name="chck-rememberme" id="chck-rememberme" checked>
-                    <label for="chck-rememberme">This site is provided to you for informational purposes only and should not be construed as an offer to buy or 
+                    <label for="chck-rememberme">This application is provided to you for informational purposes only and should not be construed as an offer to buy or 
                         sell a particular security or a solicitation of offers to buy or sell a particular security.  
                     </label>
                 </fieldset>                
@@ -87,7 +89,7 @@
 
         <div data-role="page" id="page-signup">
             <div class="bi-header" data-role="header" data-theme="c" data-position="fixed">
-                <a href="#page-index" data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <div role="main" class="ui-content">
@@ -124,11 +126,31 @@
             </div><!-- /header -->
             <div role="main" class="ui-content">
                 <h2 class="mc-text-center">Registration Succeeded</h2>
-                <p class="mc-top-margin-1-5">Congratulations!  You are now registered with BookIt.</p>
+                <p class="mc-top-margin-1-5">Congratulations! </p>
                 <a href="#page-signin" class="ui-btn ui-btn-b ui-corner-all">Sign In</a>
                 <p></p>
             </div><!-- /content -->
         </div><!-- /page -->
+        <div data-role="page" id="page-intro">
+            <div class="bi-header" data-role="header" data-theme="c" data-position="fixed">
+                <a href="#page-index" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <h1>IISWEB System</h1>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h2 class="mc-text-center">Introduction</h2>
+                <p class="mc-top-margin-1-5">This application provides stock signal predication based on the historical data.  
+                    It will apply the Neural Network AI filter for the signal to calculate the result. The Neural Network AI
+                    will continue to lean the new training data to adapt the market condition.</p>
+                <br>
+                <p class="mc-top-margin-1-5">Features:</p>
+                <ul>
+                    <li>Using Neural Network AI Predication for best result</li>
+                    <li>Provide RESTFUL API service for business use</li>                      
+                    <li>Develop custom model AI filtering upon request</li>                    
+                </ul> 
+                <p></p>
+            </div><!-- /content -->
+        </div><!-- /page -->        
         <!-- 
         
                 <script src="js/api-messages.js"></script>
@@ -141,6 +163,7 @@
 
         <script src="lib/jquery/2.1.1/jquery-2.1.1.min.js"></script>
         <script src="lib/jqm/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="js/iisweb.js"></script>          
         <script type="text/javascript" src="js/iiswebIndex.js"></script>          
     </body>
 </html>

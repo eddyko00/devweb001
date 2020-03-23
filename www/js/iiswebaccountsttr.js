@@ -181,13 +181,13 @@ var app = {
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" ><strong>' + 'investment: ' + PerfObj.investment + '</strong></div>';
+                                htmlName += '<div class="ui-block-a" ><strong>' + 'investment: ' + PerfObj.investment.toFixed(2) + '</strong></div>';
                                 htmlName += '<div class="ui-block-b" >' + " " + '</div>';
                                 htmlName += '</div>';
                                 htmlName += '<br><br>';
                                 htmlName += '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" >' + 'balance: ' + PerfObj.balance + '</div>';
-                                htmlName += '<div class="ui-block-b" >' + 'netprofit: ' + PerfObj.netprofit + '</div>';
+                                htmlName += '<div class="ui-block-a" >' + 'balance: ' + PerfObj.balance.toFixed(2) + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'netprofit: ' + PerfObj.netprofit.toFixed(2) + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
@@ -202,8 +202,8 @@ var app = {
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" >' + 'maxwin: ' + PerfObj.performData.maxwin + '</div>';
-                                htmlName += '<div class="ui-block-b" >' + 'maxloss: ' + PerfObj.performData.maxloss + '</div>';
+                                htmlName += '<div class="ui-block-a" >' + 'maxwin: ' + PerfObj.performData.maxwin.toFixed(2) + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'maxloss: ' + PerfObj.performData.maxloss.toFixed(2) + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';

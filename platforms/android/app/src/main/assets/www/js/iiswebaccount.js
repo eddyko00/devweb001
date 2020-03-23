@@ -9,7 +9,7 @@ var app = {
         });
 
 
-        var iisurl = "https://iiswebsrv.herokuapp.com/";
+//        var iisurl = "https://iiswebsrv.herokuapp.com/";
         var iisWebSession = "iisWebSession";
 //        var custObj = 'custObj';
 //        var accList = 'accList';
@@ -27,11 +27,14 @@ var app = {
         var accObjList = JSON.parse(accObjListStr);
 
 
+        var htmlAdmin = '<button id="configbtn"  >Configuration</button>';
+
+        $("#adminid").html(htmlAdmin);
         if (custObj.type == 99) {
             var htmlAdmin = '<button id="serverbtn"  >Server</button>';
             htmlAdmin += '<button id="lockbtn" >Lock</button>';
 
-            $("#adminid").html(htmlAdmin);
+            $("#adminid").append(htmlAdmin);
         }
 
 
