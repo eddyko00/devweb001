@@ -175,19 +175,42 @@ var app = {
                             console.log(resultPerfList);
                             if (resultPerfList !== null) {
                                 var PerfObj = resultPerfList[0];
-                                var htmlName = 'Date:' + PerfObj.updatedatedisplay;
-                                htmlName += '<br>investment: ' + PerfObj.investment
-                                htmlName += '<br>balance :' + PerfObj.balance;
-                                htmlName += '<br>netprofit :' + PerfObj.netprofit;
-                                
-                                htmlName += '<br>rating :' + PerfObj.rating.toFixed(2);
-                                htmlName += '<br>numtrade :' + PerfObj.numtrade;
-                                htmlName += '<br><br>numwin :' + PerfObj.performData.numwin;
-                                htmlName += '<br>numloss: ' + PerfObj.performData.numloss;
-                                htmlName += '<br>maxwin :' + PerfObj.performData.maxwin;
-                                htmlName += '<br>maxloss: ' + PerfObj.performData.maxloss;
-                                htmlName += '<br>holdtime :' + PerfObj.performData.holdtime;
-                                htmlName += '<br>maxholdtime: ' + PerfObj.performData.maxholdtime;
+                                var htmlName = '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" ><strong>' + PerfObj.updatedatedisplay + '</strong></div>';
+                                htmlName += '<div class="ui-block-b" >' + " " + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" ><strong>' + 'investment: ' + PerfObj.investment + '</strong></div>';
+                                htmlName += '<div class="ui-block-b" >' + " " + '</div>';
+                                htmlName += '</div>';
+                                htmlName += '<br><br>';
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'balance: ' + PerfObj.balance + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'netprofit: ' + PerfObj.netprofit + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'rating: ' + PerfObj.rating.toFixed(2) + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'numtrade: ' + PerfObj.numtrade + '</div>';
+                                htmlName += '</div>';
+                                htmlName += '<br><br>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'numwin: ' + PerfObj.performData.numwin + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'numloss: ' + PerfObj.performData.numloss + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'maxwin: ' + PerfObj.performData.maxwin + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'maxloss: ' + PerfObj.performData.maxloss + '</div>';
+                                htmlName += '</div>';
+
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >' + 'holdtime: ' + PerfObj.performData.holdtime + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'maxholdtime: ' + PerfObj.performData.maxholdtime + '</div>';
+                                htmlName += '</div>';
+
                                 $("#myidperf").html('<li">' + htmlName + '</li>');
 
                                 window.location.href = "#page_table";
