@@ -82,7 +82,7 @@ var app = {
         htmlhead += '<div class="ui-block-c">Price</div>';
         htmlhead += '<div class="ui-block-d">Share</div>';
         htmlhead += '</div>';
-        $("#myid").html('<li id="0" >' + htmlhead + '</li>');
+        $("#myid").append('<li id="0" >' + htmlhead + '</li>');
 
         var j = tranObjList.length - 1;
         var prevTranObj = null;
