@@ -176,8 +176,8 @@ var app = {
                             if (resultPerfList !== null) {
                                 var PerfObj = resultPerfList[0];
                                 var htmlName = '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" ><strong>' + PerfObj.updatedatedisplay + '</strong> - 1 Yr performance result</div>';
-                                htmlName += '<div class="ui-block-b" >' + " " + '</div>';
+                                htmlName += '<div class="ui-block-a" ><strong>' + PerfObj.updatedatedisplay + '</strong></div>';
+                                htmlName += '<div class="ui-block-b" >' + "1 Yr perf result" + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
