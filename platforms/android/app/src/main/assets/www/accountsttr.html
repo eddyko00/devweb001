@@ -61,8 +61,13 @@
         </style>        
         <div data-role="page" id="page-index">
             <div data-role="header" data-theme="c" data-position="fixed">
-                <a href="accountst_1.html" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <a href="accountst_1.html" data-icon="back" data-iconpos="notext" ui-btn-icon-Left data-transition="slide" data-direction="reverse"></a>
                 <a href="accountsttr_1.html" data-icon="recycle" ui-btn-icon-Right data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+<!--                <div class="ui-icon-alt"> Class added to the wrapper 
+                    <a href="accountst_1.html"  data-role="button" data-icon="back"  data-icon="back" data-iconpos="notext" data-theme="c" data-inline="true"></a>
+                    <a href="index.html" rel="external" data-role="button" data-icon="home" data-iconpos="notext" data-theme="c" data-inline="true"></a>
+                    <a href="accountsttr_1.html" data-role="button" data-icon="recycle" data-iconpos="notext" data-theme="c" data-inline="true"></a>
+                </div>-->
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <h2 id="accheader" class="mc-text-center">Account</h2>
@@ -71,7 +76,7 @@
 
                 <!--<ul id="myid" data-role="listview" data-theme="d" data-divider-theme="d">-->                    
                 <ul id="myid" data-role="listview" data-theme="d" data-divider-theme="d">
-                    <li id="0">Trading Rule Listing</li>
+                    <li id="0">Trading Model Listing</li>
                 </ul>                
 
             </div>
@@ -84,8 +89,8 @@
             <div role="main" class="ui-content">
                 <h2 class="mc-text-center">Display graph</h2>
             </div><!-- /content -->
-            <div data-role="content" id="imgcontent ">
-                <img id="spaceimage" src="images/loader.gif" style="max-width:100%;"/>
+            <div data-role="content" id="imgcontent ">                
+                <img id="spaceimage" src="images/loader.gif" style="max-width:100%;">Retrieving Graph. Please wait....</img>
             </div>
 
         </div><!-- /page -->   
@@ -96,12 +101,12 @@
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <div role="main" class="ui-content">
-                <h2 class="mc-text-center">Display Performance</h2>
+                <h2 class="mc-text-center">Trading Model Performance</h2>
             </div><!-- /content -->
             <div data-role="content" id="textcontent">
 
                 <ul id="myidperf" data-role="listview" data-theme="d" data-divider-theme="d">
-                    <li id="0">Performance Listing</li>
+                    <li id="0">Retrieving Performance Listing. Please wait....</li>
                 </ul>   
             </div>
 

@@ -38,13 +38,27 @@
     <body>
         <div data-role="page" id="page-index">
             <div data-role="header" data-theme="c" data-position="fixed">
-                <a href="account_1.html" data-icon="back" data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+                <a href="account_1.html" data-icon="back" ui-btn-icon-Left data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
                 <a href="accountst_1.html" data-icon="recycle" ui-btn-icon-Right data-iconpos="notext" data-transition="slide" data-direction="reverse"></a>
+
+<!--                <div class="ui-icon-alt"> Class added to the wrapper 
+                    <a href="account_1.html"  data-role="button" data-icon="back"  data-icon="back" data-iconpos="notext" data-theme="c" data-inline="true"></a>
+                    <a href="index.html" rel="external" data-role="button" data-icon="home" data-iconpos="notext" data-theme="c" data-inline="true"></a>
+                    <a href="accountst_1.html" data-role="button" data-icon="recycle" data-iconpos="notext" data-theme="c" data-inline="true"></a>
+                </div>-->
+
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
 
             <h2 id="accheader" class="mc-text-center">Account</h2>
-            <p></p>
+            <p>
+            </p>
+            <div id="myidbtn"  data-role="controlgroup" data-type="horizontal" data-theme="a" style="font-size:0.7em; margin-left:auto; margin-right:auto;width:100%; ">
+                <button id="addbtn"  >Add</button> <button id="removebtn"  >Remove</button>                
+                <!--                <a href="#" id="addBtn" data-role="button" data-theme="a">Add</a>
+                                <a href="#" id="removeBtn" data-role="button" data-theme="a">Remove</a>';-->
+            </div>
+
             <div data-role="content" id="textcontent">
 
                 <!--<ul id="myid" data-role="listview" data-theme="d" data-divider-theme="d">-->                    
