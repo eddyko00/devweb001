@@ -84,7 +84,12 @@ var app = {
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-b">';
-            htmlName += '<div class="ui-block-a" ><strong>' + trObj.trname + '</strong></div>';
+            var dispName = trObj.trname;
+            if (trObj.trname == "TR_ACC") {
+                dispName = "ACCOUNT";
+            }
+
+            htmlName += '<div class="ui-block-a" ><strong>' + dispName + '</strong></div>';
             var signal = "B";
             if (trObj.trsignal == 1) {
                 signal = "B";
@@ -111,7 +116,7 @@ var app = {
 //            htmlName += '<button id="' + nameId + '" data-icon="myicongraph" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
 //            htmlName += '<button id="' + nameId + '" data-icon="myicontable" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
             if (trObj.trname == "TR_NN2") {
-                htmlName += 'NeuralNet AI Predication...';
+                htmlName += 'Signal by Neural Network AI Model';
             } else if (trObj.trname == "TR_ACC") {
                 var link = trObj.linktradingruleid;
                 var trObjlink = null;
@@ -124,7 +129,7 @@ var app = {
                 }
 
                 if (trObjlink !== null) {
-                    htmlName += 'Trading links to ' + trObjlink.trname;
+                    htmlName += 'Trading Signal is linking to ' + trObjlink.trname;
                 }
             }
 
