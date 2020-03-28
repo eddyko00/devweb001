@@ -1,6 +1,7 @@
 @ECHO OFF
 echo "cordova platform add android"
 call cordova1.bat
+REM "cordova plugin add cordova-plugin-advanced-http"
 
 :choice1
 set /P c=Want to continue[Y/N]?
