@@ -103,10 +103,10 @@ var app = {
             }
             htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             var total = trObj.balance + sharebalance;
-
+            total = total - trObj.investment;
             var totalSt = Number(total).toLocaleString('en');
 //            var totalSt = total.toFixed(2);
-            htmlName += '<div class="ui-block-c">Total: $' + totalSt + '</div>';
+            htmlName += '<div class="ui-block-c">Profit: $' + totalSt + '</div>';
             htmlName += '</div>';
 
 //            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
@@ -203,16 +203,17 @@ var app = {
                                     balance += shareAmount;
                                 }
                                 var balanceSt = Number(balance).toLocaleString('en');
-
-                                htmlName += '<div class="ui-block-a" ><strong>' + 'Balance: $' + balanceSt + '</strong></div>';
+                                var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en');
+                                
+                                htmlName += '<div class="ui-block-a" ><strong>' + 'Netprofit: $' + netprofitSt + '</strong></div>';
                                 htmlName += '<div class="ui-block-b" >' + " " + '</div>';
                                 htmlName += '</div>';
                                 htmlName += '<br><br>';
                                 htmlName += '<div class="ui-grid-a">';
                                 var investmentSt = Number(PerfObj.investment).toLocaleString('en');
-                                htmlName += '<div class="ui-block-a" >' + 'Investment: $' + investmentSt + '</div>';
+                                htmlName += '<div class="ui-block-a" >' + 'Balance: $' + balanceSt + '</div>';
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en');
-                                htmlName += '<div class="ui-block-b" >' + 'Netprofit: $' + netprofitSt + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'Investment: $' + investmentSt + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
