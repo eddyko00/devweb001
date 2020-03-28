@@ -114,13 +114,16 @@ var app = {
                 if (prevTranObj != null) {
                     var diff = (tranObj.avgprice - prevTranObj.avgprice) * tranObj.share;
                     if (prevTranObj.trsignal == 1) {
-                        total += diff;
+                        ;
                     }
                     if (prevTranObj.trsignal == 2) {
-                        total -= diff;
+                        diff = -diff;
                     }
-                    var totalSt = total.toFixed(2);
-                    htmlName += 'Total delta transaction: ' + totalSt;
+                    total += diff;
+//                    var totalSt = total.toFixed(2);
+                    var totalSt = Number(total).toLocaleString('en');
+                    var diffSt = Number(diff).toLocaleString('en');
+                    htmlName += 'Transaction: $' + diffSt + ' Total: $' + totalSt;
                 }
             }
             prevTranObj = tranObj;
@@ -128,7 +131,7 @@ var app = {
 
         }
         for (i = 0; i < list.length; i++) {
-            var htmlSt = list[list.length-i-1];
+            var htmlSt = list[list.length - i - 1];
             $("#myid").append('<li id="' + nameId + '">' + htmlSt + '</li>');
         }
 

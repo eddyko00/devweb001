@@ -90,18 +90,23 @@ var app = {
             }
 
             htmlName += '<div class="ui-block-a" ><strong>' + dispName + '</strong></div>';
+            var sharebalance = 0;
             var signal = "B";
             if (trObj.trsignal == 1) {
+                sharebalance = trObj.longamount;
                 signal = "B";
             } else if (trObj.trsignal == 2) {
                 signal = "S";
+                sharebalance = trObj.shortamount;
             } else {
                 signal = "E";
             }
             htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
-            var total = trObj.investment + trObj.balance;
-            var totalSt = total.toFixed(2);
-            htmlName += '<div class="ui-block-c">Total:' + totalSt + '</div>';
+            var total = trObj.balance + sharebalance;
+
+            var totalSt = Number(total).toLocaleString('en');
+//            var totalSt = total.toFixed(2);
+            htmlName += '<div class="ui-block-c">Total: $' + totalSt + '</div>';
             htmlName += '</div>';
 
 //            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
@@ -180,19 +185,34 @@ var app = {
                             console.log(resultPerfList);
                             if (resultPerfList !== null) {
                                 var PerfObj = resultPerfList[0];
+                                var trsignal = PerfObj.performData.trsignal;
+
                                 var htmlName = '<div class="ui-grid-a">';
                                 htmlName += '<div class="ui-block-a" ><strong>' + PerfObj.updatedatedisplay + '</strong></div>';
                                 htmlName += '<div class="ui-block-b" >' + "1 Yr perf result" + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" ><strong>' + 'investment: ' + PerfObj.investment.toFixed(2) + '</strong></div>';
+                                var balance = PerfObj.balance;
+                                if (trsignal == "1") {
+                                    var shareAmount = PerfObj.performData.share * PerfObj.performData.close;
+                                    balance += shareAmount;
+                                }
+                                if (trsignal == "2") {
+                                    var shareAmount = PerfObj.performData.share * PerfObj.performData.close;
+                                    balance += shareAmount;
+                                }
+                                var balanceSt = Number(balance).toLocaleString('en');
+
+                                htmlName += '<div class="ui-block-a" ><strong>' + 'Balance: $' + balanceSt + '</strong></div>';
                                 htmlName += '<div class="ui-block-b" >' + " " + '</div>';
                                 htmlName += '</div>';
                                 htmlName += '<br><br>';
                                 htmlName += '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" >' + 'balance: ' + PerfObj.balance.toFixed(2) + '</div>';
-                                htmlName += '<div class="ui-block-b" >' + 'netprofit: ' + PerfObj.netprofit.toFixed(2) + '</div>';
+                                var investmentSt = Number(PerfObj.investment).toLocaleString('en');
+                                htmlName += '<div class="ui-block-a" >' + 'Investment: $' + investmentSt + '</div>';
+                                var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en');
+                                htmlName += '<div class="ui-block-b" >' + 'Netprofit: $' + netprofitSt + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
