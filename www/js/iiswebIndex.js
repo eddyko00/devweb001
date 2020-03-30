@@ -7,9 +7,8 @@ var app = {
         $(document).ready(function () {
             // after the page elements are all loaded, then run the script
             // Set the input field with unique ID #email to a value
-            $("#txt-email").val('GUEST');
-            // Set the input field with unique ID #name
-            $("#txt-password").val('guest');
+//            $("#txt-email").val('GUEST');
+//            $("#txt-password").val('guest');
 
         });
 
@@ -101,6 +100,14 @@ var app = {
         $("#btn-login").click(function () {
             var txemail = document.getElementById("txt-email").value;
             var txtpassword = document.getElementById("txt-password").value;
+
+            if (txemail == "") {
+                if (txtpassword == "") {
+                    txemail = "GUEST";
+                    txtpassword = "guest";
+                }
+            }
+
             $.ajax({
                 url: iisurl + "cust/login?email=" + txemail + "&pass=" + txtpassword,
                 crossDomain: true,

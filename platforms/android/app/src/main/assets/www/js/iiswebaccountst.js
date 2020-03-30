@@ -41,15 +41,15 @@ var app = {
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
 
-        $("#accheader").html("Account "+accObj.accountname);
+        $("#accheader").html("Account " + accObj.accountname);
 
-        var htmlhead  = '<div class="ui-grid-c">';
-            htmlhead += '<div class="ui-block-a"><strong>Sym</strong></div>';
-            htmlhead += '<div class="ui-block-b" style="width:20%">Sig</div>';
-            htmlhead += '<div class="ui-block-c">Trend</div>';
-            htmlhead += '<div class="ui-block-d">Percent</div>';
-            htmlhead += '</div>';
-            htmlhead += '</div>';        
+        var htmlhead = '<div class="ui-grid-c">';
+        htmlhead += '<div class="ui-block-a"><strong>Sym</strong></div>';
+        htmlhead += '<div class="ui-block-b" style="width:20%">Sig</div>';
+        htmlhead += '<div class="ui-block-c">Trend</div>';
+        htmlhead += '<div class="ui-block-d">Percent</div>';
+        htmlhead += '</div>';
+        htmlhead += '</div>';
         $("#myid").html('<li id="0" >' + htmlhead + '</li>');
         for (i = 0; i < stockObjList.length; i++) {
             var stockObj = stockObjList[i];
@@ -77,7 +77,7 @@ var app = {
             var percent = 100 * (close - preClose) / preClose;
             var percentSt = percent.toFixed(2) + '%';
             htmlName += '<div class="ui-block-d">P: ' + percentSt + '</div>';
-            
+
             htmlName += '</div>';
 
             var nameId = stockObj.id;
@@ -100,6 +100,58 @@ var app = {
                 'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, };
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountsttr_1.html";
+        });
+
+        $("#addsubmit").click(function () {
+            var addsymbol = document.getElementById("addsymbol").value;
+
+//          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/add/" + addsymbol,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+
+            function handleResult(result) {
+                //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
+                console.log(result);
+                if (result == 1) {
+                    window.location.href = "accountst_1.html";
+                }
+//                if (result == 2) {
+//                    alert("Stock existed");
+//                }
+//                if (result == 100) {
+//                    alert("Max stock exceeded");
+//                }
+            }
+        });
+
+
+
+        $("#removesubmit").click(function () {
+            var rsymbol = document.getElementById("removesymbol").value;
+
+//          ("/cust/{username}/acc/{accountid}/st/remove/{symbol}")
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/remove/" + rsymbol,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+
+            function handleResult(result) {
+                //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
+                console.log(result);
+                if (result == 1) {
+                    window.location.href = "accountst_1.html";
+                }
+            }
         });
 
 // example        
