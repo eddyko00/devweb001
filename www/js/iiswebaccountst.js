@@ -104,10 +104,12 @@ var app = {
 
         $("#addsubmit").click(function () {
             var addsymbol = document.getElementById("addsymbol").value;
-
+            if (addsymbol == "") {
+                window.location.href = "accountst.html";
+            }
 //          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/add/" + addsymbol,
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/addsymbol?symbol=" + addsymbol,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -121,12 +123,14 @@ var app = {
                 if (result == 1) {
                     window.location.href = "accountst_1.html";
                 }
+
 //                if (result == 2) {
 //                    alert("Stock existed");
 //                }
 //                if (result == 100) {
 //                    alert("Max stock exceeded");
 //                }
+                window.location.href = "accountst_1.html";
             }
         });
 
@@ -134,10 +138,12 @@ var app = {
 
         $("#removesubmit").click(function () {
             var rsymbol = document.getElementById("removesymbol").value;
-
+            if (rsymbol == "") {
+                window.location.href = "accountst.html";
+            }
 //          ("/cust/{username}/acc/{accountid}/st/remove/{symbol}")
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/remove/" + rsymbol,
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/removesymbol?symbol=" + rsymbol,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -151,7 +157,9 @@ var app = {
                 if (result == 1) {
                     window.location.href = "accountst_1.html";
                 }
+                window.location.href = "accountst_1.html";
             }
+
         });
 
 // example        
