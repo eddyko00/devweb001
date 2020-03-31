@@ -28,11 +28,12 @@ var app = {
 
 
         var htmlAdmin = '<button id="configbtn"  >Configuration</button>';
+        htmlAdmin += '<button id="invoice"  >Billing Invoice</button>';
 
         $("#adminid").html(htmlAdmin);
         if (custObj.type == 99) {
-            var htmlAdmin = '<button id="serverbtn"  >Server</button>';
-            htmlAdmin += '<button id="lockbtn" >Lock</button>';
+            var htmlAdmin = '<button id="lockbtn" >Lock</button>';
+            htmlAdmin += '<button id="serverbtn"  >Server</button>';
 
             $("#adminid").append(htmlAdmin);
         }
@@ -46,7 +47,12 @@ var app = {
             console.log(accObj);
             var accName = accObj.accountname;
             var accId = accObj.id;
-            $("#myid").append('<li id="' + accId + '"><a href="#">' + accName + '</a></li>');
+
+            var htmlName = '<li id="' + accId + '"><a href="#">Start date:' + accObj.startdate;
+            htmlName += '<br>Account:' + accName;
+            htmlName += '<br>Current account balance=$' + accObj.balance.toFixed(2) + '</a></li>';
+
+            $("#myid").append(htmlName);
         }
 
 
