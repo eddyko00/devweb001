@@ -202,6 +202,7 @@ var app = {
                         ;
                     } else {
                         window.location.href = "#page_index";
+                        return;
                     }
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
                     console.log(urlSt);
@@ -240,6 +241,7 @@ var app = {
                         ;
                     } else {
                         window.location.href = "#page_index";
+                        return;
                     }
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
                     console.log(urlSt);
@@ -279,6 +281,7 @@ var app = {
                         ;
                     } else {
                         window.location.href = "#page_index";
+                        return;
                     }
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
                     console.log(urlSt);
@@ -469,10 +472,12 @@ var app = {
             var tr = $('#myidtrmodel').val();
             console.log(tr);
 //"/cust/{username}/acc/{accountid}/st/{stockid or symbol}/tr/{trname}/linktr/{linkopt or trname}"
-            if (confirm('Do you want to save changes?')) {
+            var answer = confirm('Do you want to save changes?');
+            if (answer) {
                 ;
             } else {
                 window.location.href = "#page_index";
+                return;
             }
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/" + sockId + "/tr/TR_ACC/linktr/" + tr,
