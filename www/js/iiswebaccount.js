@@ -26,9 +26,37 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
 
+        var commObjListStr = iisWebObj.commObjListStr;
+
+        if (commObjListStr !== "") {
+            var commObjList = JSON.parse(commObjListStr);
+
+            var htmlhead = '<div class="ui-grid-b">';
+            htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
+            htmlhead += '<div class="ui-block-b" style="width:5%"></div>';
+            htmlhead += '<div class="ui-block-c">Msg</div>';
+            htmlhead += '</div>';
+
+            $("#msgid").html('<li id="0" >' + htmlhead + '</li>');
+
+            for (i = 0; i < commObjList.length; i++) {
+                var commObj = commObjList[i];
+                var commId = commObj.id;
+
+                var htmlName = '<div class="ui-grid-b">';
+                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + commObj.updatedatedisplay + '</strong></div>';
+                htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
+                htmlName += '<div class="ui-block-c">' + commObj.data + '</div>';
+                htmlName += '</div>';
+
+                $("#msgid").append('<li id="' + commId + '" >' + htmlName + '</li>');
+
+            }
+        }
+
 
         var htmlAdmin = '<button id="configbtn"  >Configuration</button>';
-        htmlAdmin += '<button id="invoice"  >Billing Invoice</button>';
+        htmlAdmin += '<button id="invoicebtn"  >Billing Invoice</button>';
 
         $("#adminid").html(htmlAdmin);
         if (custObj.type == 99) {
@@ -37,7 +65,6 @@ var app = {
 
             $("#adminid").append(htmlAdmin);
         }
-
 
         $("#accheader").html("Customer Account");
 
@@ -71,6 +98,34 @@ var app = {
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountst_1.html";
         });
+
+
+        $("#clrbtn").click(function () {
+            var accObjList = JSON.parse(accObjListStr);
+
+            var accObj = null;
+            for (i = 0; i < accObjList.length; i++) {
+                var accObjTmp = accObjList[0];
+                accObj = accObjTmp;
+                break;
+            }
+
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
+                crossDomain: true,
+                cache: false,
+                beforeSend: function () {
+                    $("#loader").show();
+                },
+
+                success: function (result) {
+                    console.log(result);
+                    window.location.href = "account_1.html";
+                }
+            });
+
+        });
+
 
         $("#lockbtn").click(function () {
 

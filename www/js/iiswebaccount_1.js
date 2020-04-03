@@ -29,12 +29,12 @@ var app = {
             crossDomain: true,
             cache: false,
             beforeSend: function () {
-                 $("#loader").show();
+                $("#loader").show();
             },
-            
+
             success: function (resultAccObjList) {
                 console.log(resultAccObjList);
-                if (resultAccObjList == null) {
+                if (resultAccObjList == "") {
                     window.location.href = "index.html";
                 }
 
@@ -42,7 +42,39 @@ var app = {
                 var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
-                window.location.href = "account.html";
+//                window.location.href = "account.html";
+                var accObjList = JSON.parse(accObjListStr);
+
+                var accObj = null;
+                for (i = 0; i < accObjList.length; i++) {
+                    var accObjTmp = accObjList[0];
+                    accObj = accObjTmp;
+                    break;
+                }
+
+                $.ajax({
+                    url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm",
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function () {
+                        $("#loader").show();
+                    },
+
+                    success: function (resultCommObjList) {
+                        console.log(resultCommObjList);
+                        if (resultCommObjList !== "") {
+                            var commObjListStr = JSON.stringify(resultCommObjList, null, '\t');
+                            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr};
+                            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+                            window.location.href = "accountmsg.html";
+                        } else {
+                            var commObjListStr = "";
+                            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr};
+                            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+                            window.location.href = "account.html";
+                        }
+                    }
+                });
             }
         });
 
