@@ -120,7 +120,6 @@ var app = {
             htmlBtn += '<a href="#" id="' + nameId + '" type="table"  value="' + trObj.trname + '" data-icon="myicontable" data-role="button" data-theme="a"></a>';
             if (trObj.trname == "TR_ACC") {
                 if (trObj.linktradingruleid == 0) {
-                    htmlBtn += '<a href="#" id="' + nameId + '" type=""  value="' + trObj.trname + '" data-icon="" data-role="button" data-theme="a"></a>';
                     if (trObj.trsignal == S_BUY) {
                         htmlBtn += '<a href="#" id="' + nameId + '" type=""  value="' + trObj.trname + '" data-icon="" data-role="button" data-theme="a"></a>';
                     } else {
