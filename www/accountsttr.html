@@ -95,8 +95,26 @@
                 <ul id="myidconf" data-role="listview" data-theme="d" data-divider-theme="d">
                     <li id="0">Configuration</li>
                 </ul>   
+
             </div>
-            <button id="savebtn"  >Save</button>
+            <select id="myidtrmodel">
+                <option value="TR_ACC">Manual Trading</option>
+                <option value="TR_NN2">Auto Trading TR_NN2</option>
+            </select>
+            <p></p><br>
+
+            <div id="myidbtn"  data-role="controlgroup" data-type="horizontal" data-theme="a" style="font-size:0.7em; margin-left:auto; margin-right:auto;width:100%; ">
+                <a href="#popupSave" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline " data-transition="pop">Save Changes</a>
+                <div data-role="popup" id="popupSave" data-theme="a" class="ui-corner-all">
+                        <form>
+                                <div style="padding:0px 0px;">
+                                        <h3>Confirm the Changes</h3>
+                                        <button type="submit" id="savesubmit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left">Confirm</button>
+                                    </div>
+                            </form>
+                </div>                
+
+            </div>
 
         </div><!-- /page -->    
 

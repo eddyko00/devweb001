@@ -318,6 +318,31 @@ var app = {
         $("#configbtn").click(function () {
             window.location.href = "#page_conf";
         });
+
+        $("#savesubmit").click(function () {
+
+            var tr = $('#myidtrmodel').val();
+            console.log(tr);
+
+//          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+
+            function handleResult(result) {
+                //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
+                console.log(result);
+                if (result == 1) {
+                    window.location.href = "accountsttr_1.html";
+                }
+                window.location.href = "accountsttr_1.html";
+            }
+        });
 // example        
 //alert("AJAX request successfully completed");
 //var jsonObj = JSON.parse(jsonStr);
