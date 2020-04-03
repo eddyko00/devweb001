@@ -61,7 +61,12 @@ var app = {
             cache: false,
             beforeSend: function () {
                  $("#loader").show();
-            },            
+            },         
+            
+            error: function () {
+                window.location.href = "index.html";
+            },
+
             success: function (resultTRList) {
                 console.log(resultTRList);
 

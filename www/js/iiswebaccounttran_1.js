@@ -68,6 +68,11 @@ var app = {
             beforeSend: function () {
                 $("#loader").show();
             },
+
+            error: function () {
+                window.location.href = "index.html";
+            },
+            
             success: function (resultTranList) {
                 console.log(resultTranList);
 

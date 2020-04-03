@@ -33,6 +33,10 @@ var app = {
                  $("#loader").show();
             },
 
+            error: function () {
+                window.location.href = "index.html";
+            },
+
             success: function (resultStockList) {
                 console.log(resultStockList);
                 var stockObjListStr = JSON.stringify(resultStockList, null, '\t');

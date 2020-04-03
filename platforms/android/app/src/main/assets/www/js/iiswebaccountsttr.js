@@ -64,7 +64,7 @@ var app = {
         var percentSt = percent.toFixed(2) + '%';
 
 
-        var stStr = 'Trading Model Transaction Listing<br>';
+        var stStr = 'Trading Model Listing<br>';
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
                 'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
@@ -137,7 +137,6 @@ var app = {
                     htmlName += 'Trading Signal is linking to ' + trObjlink.trname;
                 }
             }
-
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
 
         }
@@ -148,6 +147,8 @@ var app = {
 
         htmlName += '<div class="ui-block-c"></div>';
         htmlName += '</div>';
+        htmlName = '<button id="configbtn"  >Configuration</button>';
+
         $("#myid").append('<li id="0">' + htmlName + '</li>');
 
 
@@ -204,7 +205,7 @@ var app = {
                                 }
                                 var balanceSt = Number(balance).toLocaleString('en');
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en');
-                                
+
                                 htmlName += '<div class="ui-block-a" ><strong>' + 'Netprofit: $' + netprofitSt + '</strong></div>';
                                 htmlName += '<div class="ui-block-b" >' + " " + '</div>';
                                 htmlName += '</div>';
@@ -314,6 +315,34 @@ var app = {
             window.location.href = "accounttran_1.html";
         });
 
+        $("#configbtn").click(function () {
+            window.location.href = "#page_conf";
+        });
+
+        $("#savesubmit").click(function () {
+
+            var tr = $('#myidtrmodel').val();
+            console.log(tr);
+
+//          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+
+            function handleResult(result) {
+                //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
+                console.log(result);
+                if (result == 1) {
+                    window.location.href = "accountsttr_1.html";
+                }
+                window.location.href = "accountsttr_1.html";
+            }
+        });
 // example        
 //alert("AJAX request successfully completed");
 //var jsonObj = JSON.parse(jsonStr);

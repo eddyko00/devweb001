@@ -23,13 +23,17 @@ var app = {
         }
         var custObj = JSON.parse(custObjStr);
 
-
         $.ajax({
             url: iisurl + "/cust/" + custObj.username + "/acc/",
             crossDomain: true,
             cache: false,
             beforeSend: function () {
                 $("#loader").show();
+            },
+
+            error: function () {
+                alert('network failure');
+                window.location.href = "index.html";
             },
 
             success: function (resultAccObjList) {
@@ -47,11 +51,15 @@ var app = {
 
                 var accObj = null;
                 for (i = 0; i < accObjList.length; i++) {
-                    var accObjTmp = accObjList[0];
-                    accObj = accObjTmp;
-                    break;
+                    var accObjTmp = accObjList[i];
+                    if (accObjTmp.type == 110) { //INT_TRADING_ACCOUNT
+                        accObj = accObjTmp;
+                        break;
+                    }
                 }
-
+                if (accObj == null) {
+                    window.location.href = "index.html";
+                }
                 $.ajax({
                     url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm",
                     crossDomain: true,
