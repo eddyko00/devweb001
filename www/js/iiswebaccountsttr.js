@@ -173,9 +173,9 @@ var app = {
 
         $("#myid").append('<li id="0">' + htmlName + '</li>');
 
-
+//
         var buttonGraph = false;
-
+//        
         $("[id*=myidbtn] a").click(function () {
             buttonGraph = true;
             var type = $(this).attr('type')
@@ -197,6 +197,11 @@ var app = {
                         }
                     }
                     if (trObj.trsignal == sig) {
+                        window.location.href = "#page_index";
+                    }
+                    if (confirm('Do you want to Buy?')) {
+                        ;
+                    } else {
                         window.location.href = "#page_index";
                     }
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
@@ -230,6 +235,11 @@ var app = {
                         }
                     }
                     if (trObj.trsignal == sig) {
+                        window.location.href = "#page_index";
+                    }
+                    if (confirm('Do you want to Sell?')) {
+                        ;
+                    } else {
                         window.location.href = "#page_index";
                     }
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
@@ -266,7 +276,11 @@ var app = {
                     if (trObj.trsignal == sig) {
                         window.location.href = "#page_index";
                     }
-                    
+                    if (confirm('Do you want to Exit?')) {
+                        ;
+                    } else {
+                        window.location.href = "#page_index";
+                    }
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
                     console.log(urlSt);
                     $.ajax({
@@ -456,7 +470,11 @@ var app = {
             var tr = $('#myidtrmodel').val();
             console.log(tr);
 //"/cust/{username}/acc/{accountid}/st/{stockid or symbol}/tr/{trname}/linktr/{linkopt or trname}"
-
+            if (confirm('Do you want to save changes?')) {
+                ;
+            } else {
+                window.location.href = "#page_index";
+            }
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/" + sockId + "/tr/TR_ACC/linktr/" + tr,
                 crossDomain: true,
