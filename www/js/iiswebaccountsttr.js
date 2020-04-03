@@ -57,6 +57,7 @@ var app = {
         }
         var trObjListStr = iisWebObj.trObjListStr;
         var trObjList = JSON.parse(trObjListStr);
+        var trObjacc = null;
 
         var close = stockObj.afstockInfo.fclose;
         var preClose = stockObj.prevClose;
@@ -80,6 +81,8 @@ var app = {
                 continue;
             } else if (trObj.trname == "TR_NN1") {
                 continue;
+            } else if (trObj.trname == "TR_ACC") {
+                trObjacc = trObj;
             }
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
@@ -92,10 +95,10 @@ var app = {
             htmlName += '<div class="ui-block-a" ><strong>' + dispName + '</strong></div>';
             var sharebalance = 0;
             var signal = "B";
-            if (trObj.trsignal == 1) {
+            if (trObj.trsignal == S_BUY) {
                 sharebalance = trObj.longamount;
                 signal = "B";
-            } else if (trObj.trsignal == 2) {
+            } else if (trObj.trsignal == S_SELL) {
                 signal = "S";
                 sharebalance = trObj.shortamount;
             } else {
@@ -115,13 +118,28 @@ var app = {
             var htmlBtn = '<div id="myidbtn"  data-role="controlgroup" data-type="horizontal" data-theme="a" style="font-size:0.7em; margin-left:auto; margin-right:auto;width:100%; ">';
             htmlBtn += '<a href="#" id="' + nameId + '" type="graph"  value="' + trObj.trname + '" data-icon="myicongraph" data-role="button" data-theme="a"></a>';
             htmlBtn += '<a href="#" id="' + nameId + '" type="table"  value="' + trObj.trname + '" data-icon="myicontable" data-role="button" data-theme="a"></a>';
+            if (trObj.trname == "TR_ACC") {
+                if (trObj.linktradingruleid == 0) {
+                    htmlBtn += '<a href="#" id="' + nameId + '" type=""  value="' + trObj.trname + '" data-icon="" data-role="button" data-theme="a"></a>';
+                    if (trObj.trsignal == S_BUY) {
+                        htmlBtn += '<a href="#" id="' + nameId + '" type=""  value="' + trObj.trname + '" data-icon="" data-role="button" data-theme="a"></a>';
+                    } else {
+                        htmlBtn += '<a href="#" id="' + nameId + '" type="buy"  value="' + trObj.trname + '" data-icon="myiconbuy" data-role="button" data-theme="a"></a>';
+                    }
+                    if (trObj.trsignal == S_SELL) {
+                        htmlBtn += '<a href="#" id="' + nameId + '" type=""  value="' + trObj.trname + '" data-icon="" data-role="button" data-theme="a"></a>';
+                    } else {
+                        htmlBtn += '<a href="#" id="' + nameId + '" type="sell"  value="' + trObj.trname + '" data-icon="myiconsell" data-role="button" data-theme="a"></a>';
+                    }
+                    htmlBtn += '<a href="#" id="' + nameId + '" type="exit"  value="' + trObj.trname + '" data-icon="myiconexit" data-role="button" data-theme="a"></a>';
+
+                }
+            }
             htmlBtn += '</div>';
 
             htmlName += htmlBtn;
-//            htmlName += '<button id="' + nameId + '" data-icon="myicongraph" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
-//            htmlName += '<button id="' + nameId + '" data-icon="myicontable" style="height: 35px; width: 35px; border: none; padding: 1px 1px " value="' + trObj.trname + '"></button>';
             if (trObj.trname == "TR_NN2") {
-                htmlName += 'Signal by Neural Network AI Model';
+                htmlName += 'Auto TradingSignal by Neural Network Model';
             } else if (trObj.trname == "TR_ACC") {
                 var link = trObj.linktradingruleid;
                 var trObjlink = null;
@@ -132,11 +150,15 @@ var app = {
                         break;
                     }
                 }
-
                 if (trObjlink !== null) {
-                    htmlName += 'Trading Signal is linking to ' + trObjlink.trname;
+                    if (trObjlink.type == 0) {
+                        htmlName += 'Manual Trading Signal';
+                    } else {
+                        htmlName += 'Auto Trading Signal from ' + trObjlink.trname;
+                    }
                 }
             }
+
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
 
         }
@@ -158,6 +180,109 @@ var app = {
             buttonGraph = true;
             var type = $(this).attr('type')
             var trname = $(this).attr('value')
+
+            ////////////////////////////////
+            if (type == "buy") {
+                if (trname !== null) {
+                    var symbol = stockObj.symbol;
+                    symbol = symbol.replace(".", "_");
+//"/cust/{username}/acc/{accountid}/st/{stockidsymbol}/tr/{trname}/tran/{signal}/order
+                    var sig = S_BUY;
+                    var trObj;
+                    for (j = 0; j < trObjList.length; j++) {
+                        var trObjtmp = trObjList[j];
+                        if (trObjtmp.trname == trname) {
+                            trObj = trObjtmp;
+                            break;
+                        }
+                    }
+                    if (trObj.trsignal == sig) {
+                        window.location.href = "#page_index";
+                    }
+                    var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
+                    console.log(urlSt);
+                    $.ajax({
+                        url: urlSt,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function () {
+                            $("#loader").show();
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            window.location.href = "accountsttr_1.html";
+                        }
+                    });
+                }
+            }
+            if (type == "sell") {
+                if (trname !== null) {
+                    var symbol = stockObj.symbol;
+                    symbol = symbol.replace(".", "_");
+//"/cust/{username}/acc/{accountid}/st/{stockidsymbol}/tr/{trname}/tran/{signal}/order                    
+                    var sig = S_SELL;
+                    var trObj;
+                    for (j = 0; j < trObjList.length; j++) {
+                        var trObjtmp = trObjList[j];
+                        if (trObjtmp.trname == trname) {
+                            trObj = trObjtmp;
+                            break;
+                        }
+                    }
+                    if (trObj.trsignal == sig) {
+                        window.location.href = "#page_index";
+                    }
+                    var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
+                    console.log(urlSt);
+                    $.ajax({
+                        url: urlSt,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function () {
+                            $("#loader").show();
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            window.location.href = "accountsttr_1.html";
+                        }
+                    });
+                }
+            }
+
+            if (type == "exit") {
+                if (trname !== null) {
+                    var symbol = stockObj.symbol;
+                    symbol = symbol.replace(".", "_");
+//"/cust/{username}/acc/{accountid}/st/{stockidsymbol}/tr/{trname}/tran/{signal}/order
+                    var sig = S_NEUTRAL;
+                    var trObj;
+                    for (j = 0; j < trObjList.length; j++) {
+                        var trObjtmp = trObjList[j];
+                        if (trObjtmp.trname == trname) {
+                            trObj = trObjtmp;
+                            break;
+                        }
+                    }
+                    if (trObj.trsignal == sig) {
+                        window.location.href = "#page_index";
+                    }
+                    
+                    var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/" + sig + "/order";
+                    console.log(urlSt);
+                    $.ajax({
+                        url: urlSt,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function () {
+                            $("#loader").show();
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            window.location.href = "accountsttr_1.html";
+                        }
+                    });
+                }
+            }
             if (type == "graph") {
                 if (trname !== null) {
                     var symbol = stockObj.symbol;
@@ -316,6 +441,13 @@ var app = {
         });
 
         $("#configbtn").click(function () {
+            var trNum = trObjacc.linktradingruleid;
+            var trName = "TR_NN2";
+            if (trNum == 0) {
+                trName = "TR_ACC";
+            }
+            $('#myidtrmodel').val(trName).attr("selected", "selected");
+
             window.location.href = "#page_conf";
         });
 
@@ -323,10 +455,10 @@ var app = {
 
             var tr = $('#myidtrmodel').val();
             console.log(tr);
+//"/cust/{username}/acc/{accountid}/st/{stockid or symbol}/tr/{trname}/linktr/{linkopt or trname}"
 
-//          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId,
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/" + sockId + "/tr/TR_ACC/linktr/" + tr,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
