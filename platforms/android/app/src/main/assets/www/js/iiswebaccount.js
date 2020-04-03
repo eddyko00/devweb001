@@ -105,11 +105,12 @@ var app = {
 
             var accObj = null;
             for (i = 0; i < accObjList.length; i++) {
-                var accObjTmp = accObjList[0];
-                accObj = accObjTmp;
-                break;
+                var accObjTmp = accObjList[i];
+                if (accObjTmp.type == 110) { //INT_TRADING_ACCOUNT
+                    accObj = accObjTmp;
+                    break;
+                }
             }
-
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
                 crossDomain: true,
@@ -147,7 +148,31 @@ var app = {
                         var htmlName = '<h3>' + trStr + '</h3>';
                         $("#lockid").append('<li >' + htmlName + '</li>');
                     }
+                    window.location.href = "#page-lock";
+                }
+            });
+        });
 
+        $("#lock1btn").click(function () {
+
+            $.ajax({
+                url: iisurl + "cust/" + custObj.username + "/sys/lock",
+
+                crossDomain: true,
+                cache: false,
+                success: function (resultLockObjList) {
+                    console.log(resultLockObjList);
+                    if (resultLockObjList == null) {
+                        window.location.href = "#page-lock";
+                    }
+                    $("#lockid").html(' ');
+                    for (i = 0; i < resultLockObjList.length; i++) {
+                        var lockObj = resultLockObjList[i];
+                        var trStr = lockObj.lockdatedisplay + '  ' + lockObj.lockname +
+                                '  type:' + lockObj.type + '<br>' + lockObj.comment;
+                        var htmlName = '<h3>' + trStr + '</h3>';
+                        $("#lockid").append('<li >' + htmlName + '</li>');
+                    }
                     window.location.href = "#page-lock";
                 }
             });
