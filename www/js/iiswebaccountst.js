@@ -102,10 +102,17 @@ var app = {
             window.location.href = "accountsttr_1.html";
         });
 
+
         $("#addsubmit").click(function () {
             var addsymbol = document.getElementById("addsymbol").value;
             if (addsymbol == "") {
                 window.location.href = "accountst.html";
+                return;
+            }
+            if (custObj.username.toUpperCase() == "GUEST") {
+                alert("Not supproted feature for GUEST accont");
+                window.location.href = "accountst.html";
+                return;
             }
 //          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
             $.ajax({
@@ -116,12 +123,12 @@ var app = {
             }); // use promises
 
             // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-
             function handleResult(result) {
                 //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
                 console.log(result);
                 if (result == 1) {
                     window.location.href = "accountst_1.html";
+                    return;
                 }
 
 //                if (result == 2) {
@@ -140,6 +147,12 @@ var app = {
             var rsymbol = document.getElementById("removesymbol").value;
             if (rsymbol == "") {
                 window.location.href = "accountst.html";
+                return;
+            }
+            if (custObj.username.toUpperCase() == "GUEST") {
+                alert("Not supproted feature for GUEST accont");
+                window.location.href = "accountst.html";
+                return;
             }
 //          ("/cust/{username}/acc/{accountid}/st/remove/{symbol}")
             $.ajax({
@@ -156,6 +169,7 @@ var app = {
                 console.log(result);
                 if (result == 1) {
                     window.location.href = "accountst_1.html";
+                    return;
                 }
                 window.location.href = "accountst_1.html";
             }

@@ -62,7 +62,7 @@ var app = {
         if (custObj.type == 99) {
             var htmlAdmin = '<button id="lockbtn" >Lock</button>';
             htmlAdmin += '<button id="serverbtn"  >Server</button>';
-
+            htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
             $("#adminid").append(htmlAdmin);
         }
 
@@ -202,9 +202,54 @@ var app = {
                         var htmlName = ' ' + trStr + ' ';
                         $("#serverid").append('<li ></li>' + htmlName);
                     }
-                    window.location.href = "#page-server";
+                    window.location.href = "#page-lock";
                 }
             });
+        });
+
+        $("#admsgbtn").click(function () {
+            var accObjList = JSON.parse(accObjListStr);
+            var accObj = null;
+            for (i = 0; i < accObjList.length; i++) {
+                var accObjTmp = accObjList[i];
+                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+                    accObj = accObjTmp;
+                    break;
+                }
+            }
+            if (accObj == null) {
+                window.location.href = "#page-index";
+            }
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm",
+
+                crossDomain: true,
+                cache: false,
+                success: function (resultCommObjList) {
+                    console.log(resultCommObjList);
+                    if (resultCommObjList !== "") {
+                        var commObjListStr = JSON.stringify(resultCommObjList, null, '\t');
+                        console.log(commObjListStr);
+                    } else {
+                        window.location.href = "#page-index";
+                        return;
+                    }
+                }
+            });
+        });
+
+
+        $("#configbtn").click(function () {
+            if (custObj.username.toUpperCase() == "GUEST") {
+                alert("Not supproted feature for GUEST accont");
+                return;
+            }
+        });
+        $("#invoicebtn").click(function () {
+            if (custObj.username.toUpperCase() == "GUEST") {
+                alert("Not supproted feature for GUEST accont");
+                return;
+            }
         });
 
 
