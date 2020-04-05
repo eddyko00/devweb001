@@ -56,6 +56,7 @@ var app = {
             }
         });
 
+
         $("#btn-submit").click(function () {
             var txtfirstname = document.getElementById("txt-first-name").value;
             var txtlastname = document.getElementById("txt-last-name").value;
@@ -95,6 +96,10 @@ var app = {
                     $('#error_message-signup').fadeIn().html(errorM);
                 }
             }
+        });
+
+        $("#chck-rememberme").click(function () {
+            $("#btn-login").attr("disabled", !this.checked);
         });
 
         $("#btn-login").click(function () {

@@ -62,7 +62,7 @@ var app = {
         if (custObj.type == 99) {
             var htmlAdmin = '<button id="lockbtn" >Lock</button>';
             htmlAdmin += '<button id="serverbtn"  >Server</button>';
-
+            htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
             $("#adminid").append(htmlAdmin);
         }
 
@@ -203,8 +203,86 @@ var app = {
                         $("#serverid").append('<li ></li>' + htmlName);
                     }
                     window.location.href = "#page-server";
+                    return;
                 }
             });
+        });
+
+        $("#admsgbtn").click(function () {
+            var accObjList = JSON.parse(accObjListStr);
+            var accObj = null;
+            for (i = 0; i < accObjList.length; i++) {
+                var accObjTmp = accObjList[i];
+                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+                    accObj = accObjTmp;
+                    break;
+                }
+            }
+            if (accObj == null) {
+                window.location.href = "#page-index";
+            }
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm",
+
+                crossDomain: true,
+                cache: false,
+                success: function (resultCommAdmObjList) {
+                    console.log(resultCommAdmObjList);
+                    if (resultCommAdmObjList !== "") {
+                        ;
+                    } else {
+                        window.location.href = "#page-index";
+                        return;
+                    }
+                    var commAdmObjListStr = JSON.stringify(resultCommAdmObjList, null, '\t');
+                    console.log(commAdmObjListStr);
+                    if (commAdmObjListStr !== "") {
+                        var commAdmObjList = JSON.parse(commAdmObjListStr);
+
+                        var htmlhead = '<div class="ui-grid-b">';
+                        htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
+                        htmlhead += '<div class="ui-block-b" style="width:5%"></div>';
+                        htmlhead += '<div class="ui-block-c">Msg</div>';
+                        htmlhead += '</div>';
+
+                        $("#admmsgid").html('<li id="0" >' + htmlhead + '</li>');
+
+                        for (i = 0; i < commAdmObjList.length; i++) {
+                            var commObj = commAdmObjList[i];
+                            var commId = commObj.id;
+
+                            var htmlName = '<div class="ui-grid-b">';
+                            htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + commObj.updatedatedisplay + '</strong></div>';
+                            htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
+                            htmlName += '<div class="ui-block-c">id:' + commId + " " + commObj.data + '</div>';
+                            htmlName += '</div>';
+
+                            $("#admmsgid").append('<li id="' + commId + '" >' + htmlName + '</li>');
+                            window.location.href = "#page-admmsg";
+                            return;
+                        }
+                    }
+
+                }
+            });
+        });
+
+        $("#admclrbtn").click(function () {
+            window.location.href = "#page-index";
+            return;
+        });
+        
+        $("#configbtn").click(function () {
+            if (custObj.username.toUpperCase() == "GUEST") {
+                alert("Not supproted feature for GUEST accont");
+                return;
+            }
+        });
+        $("#invoicebtn").click(function () {
+            if (custObj.username.toUpperCase() == "GUEST") {
+                alert("Not supproted feature for GUEST accont");
+                return;
+            }
         });
 
 
