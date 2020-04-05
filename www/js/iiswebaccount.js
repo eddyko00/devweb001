@@ -149,6 +149,7 @@ var app = {
                         $("#lockid").append('<li >' + htmlName + '</li>');
                     }
                     window.location.href = "#page-lock";
+                    return;
                 }
             });
         });
@@ -174,6 +175,7 @@ var app = {
                         $("#lockid").append('<li >' + htmlName + '</li>');
                     }
                     window.location.href = "#page-lock";
+                    return;
                 }
             });
         });
@@ -268,8 +270,30 @@ var app = {
         });
 
         $("#admclrbtn").click(function () {
-            window.location.href = "#page-index";
-            return;
+            
+            var accObjList = JSON.parse(accObjListStr);
+
+            var accObj = null;
+            for (i = 0; i < accObjList.length; i++) {
+                var accObjTmp = accObjList[i];
+                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+                    accObj = accObjTmp;
+                    break;
+                }
+            }
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
+                crossDomain: true,
+                cache: false,
+                beforeSend: function () {
+                    $("#loader").show();
+                },
+
+                success: function (result) {
+                    console.log(result);
+                    window.location.href = "account_1.html";
+                }
+            });            
         });
         
         $("#configbtn").click(function () {

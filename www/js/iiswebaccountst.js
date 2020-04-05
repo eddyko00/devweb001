@@ -130,13 +130,12 @@ var app = {
                     window.location.href = "accountst_1.html";
                     return;
                 }
-
-//                if (result == 2) {
-//                    alert("Stock existed");
-//                }
-//                if (result == 100) {
-//                    alert("Max stock exceeded");
-//                }
+                if (result == 2) {
+                    alert("Stock existed");
+                }
+                if (result == 100) {
+                    alert("Max stock exceeded");
+                }
                 window.location.href = "accountst_1.html";
             }
         });
@@ -171,7 +170,8 @@ var app = {
                     window.location.href = "accountst_1.html";
                     return;
                 }
-                window.location.href = "accountst_1.html";
+                alert("Cannot remove " + rsymbol);
+                window.location.href = "accountst.html";
             }
 
         });

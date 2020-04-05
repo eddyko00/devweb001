@@ -77,7 +77,7 @@
 
             </div>
             <button  name="btn-login"  id="btn-login" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</button> 
-<!--            <p class="mc-top-margin-1-5"><a href="begin-password-reset.html">Can't access your account?</a></p>-->
+            <!--            <p class="mc-top-margin-1-5"><a href="begin-password-reset.html">Can't access your account?</a></p>-->
             <div data-role="popup" id="dlg-invalid-credentials" data-dismissible="false" style="max-width:400px;">
                 <div role="main" class="ui-content">
                     <h3 class="mc-text-danger">Login Failed</h3>
@@ -106,10 +106,21 @@
                 <label for="txt-password-confirm">Confirm Password</label>
                 <input type="password" name="txt-password-confirm-signup" id="txt-password-confirm-signup" value="">
                 <!--<a href="#dlg-sign-up-sent" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>-->
+
+
+                <label for="pricemodel">
+                    Please login and select the account invoice to pay in paypal before the account expired.
+                </label>
+                <select id="pricemodel">
+                    <option value="P_BASIC">Basic Price plan - $10 for 5 stocks.</option>
+                </select>
+                <P></P> 
                 <font color="red">
                 <div id="error_message-signup" class="ajax_response" style="float:left"></div>   
                 </font>
                 <button id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</button>
+
+
                 <!--                <div data-role="popup" id="dlg-sign-up-sent" data-dismissible="false" style="max-width:400px;">
                                     <div data-role="header">
                                         <h1>Almost done...</h1>
