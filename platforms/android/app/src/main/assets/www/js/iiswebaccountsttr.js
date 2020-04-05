@@ -457,6 +457,11 @@ var app = {
         });
 
         $("#configbtn").click(function () {
+            if (custObj.username.toUpperCase() == "GUEST") {
+                alert("Not supproted feature for GUEST accont");
+                window.location.href = "accountsttr.html";
+                return;
+            }
             var trNum = trObjacc.linktradingruleid;
             var trName = "TR_NN2";
             if (trNum == 0) {
