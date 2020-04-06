@@ -208,7 +208,7 @@ var app = {
                     if (trObj.trsignal == sig) {
                         window.location.href = "#page_index";
                     }
-                    if (confirm('Do you want to Buy?')) {
+                    if (confirm('Do you want to Buy Transaction?')) {
                         ;
                     } else {
                         window.location.href = "#page_index";
@@ -247,7 +247,7 @@ var app = {
                     if (trObj.trsignal == sig) {
                         window.location.href = "#page_index";
                     }
-                    if (confirm('Do you want to Sell?')) {
+                    if (confirm('Do you want to Sell Transaction?')) {
                         ;
                     } else {
                         window.location.href = "#page_index";
@@ -287,7 +287,7 @@ var app = {
                     if (trObj.trsignal == sig) {
                         window.location.href = "#page_index";
                     }
-                    if (confirm('Do you want to Exit?')) {
+                    if (confirm('Do you want to Exit Buy or Sell Transaction?')) {
                         ;
                     } else {
                         window.location.href = "#page_index";

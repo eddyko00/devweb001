@@ -131,10 +131,10 @@ var app = {
                     return;
                 }
                 if (result == 2) {
-                    alert("Stock existed");
+                    alert("Stock alreday existed");
                 }
                 if (result == 100) {
-                    alert("Max stock exceeded");
+                    alert("Max stock exceeded plan configuration");
                 }
                 window.location.href = "accountst_1.html";
             }
