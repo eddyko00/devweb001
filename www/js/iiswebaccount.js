@@ -197,7 +197,10 @@ var app = {
                     for (i = 0; i < resultServerList.length; i++) {
                         var srvObj = resultServerList[i];
                         var trStr = srvObj.lastServUpdateESTdate + '   ' + srvObj.serverName;
-                        trStr += '<br>Maintance=' + srvObj.sysMaintenance;
+                        trStr += '<br>Maintance:' + srvObj.sysMaintenance
+                        trStr += '<br>processTimerCnt:' + srvObj.processTimerCnt + '   autoNNCnt:' + srvObj.autoNNCnt;
+                        trStr += '<br>Total Stock=' + srvObj.totalStock + '   Total StockAcc:' + srvObj.totalStockAcc;
+
                         trStr += '<br>' + srvObj.timerMsg;
                         trStr += '<br>RESTreq:' + srvObj.cntRESTrequest + '   Ex:' + srvObj.cntRESTexception;
                         trStr += '<br>InterReq:' + srvObj.cntInterRequest + '   Ex:' + srvObj.cntInterException;
@@ -260,9 +263,10 @@ var app = {
                             htmlName += '</div>';
 
                             $("#admmsgid").append('<li id="' + commId + '" >' + htmlName + '</li>');
-                            window.location.href = "#page-admmsg";
-                            return;
+
                         }
+                        window.location.href = "#page-admmsg";
+                        return;
                     }
 
                 }
@@ -270,7 +274,7 @@ var app = {
         });
 
         $("#admclrbtn").click(function () {
-            
+
             var accObjList = JSON.parse(accObjListStr);
 
             var accObj = null;
@@ -293,9 +297,9 @@ var app = {
                     console.log(result);
                     window.location.href = "account_1.html";
                 }
-            });            
+            });
         });
-        
+
         $("#configbtn").click(function () {
             if (custObj.username.toUpperCase() == "GUEST") {
                 alert("Not supproted feature for GUEST accont");

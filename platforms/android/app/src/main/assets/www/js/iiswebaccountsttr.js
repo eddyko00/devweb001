@@ -66,7 +66,17 @@ var app = {
 
 
         var stStr = 'Trading Model Listing<br>';
-        stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
+        var stStatus = "";
+        if (stockObj.substatus == 10) { //ConstantKey.STOCK_SPLIT STOCK_SPLIT = 10
+            stStatus = "Status: Split";
+        }
+        if (stockObj.substatus == 2) { //INITIAL = 2;
+            stStatus = "Status: Init";
+        }
+        if (stockObj.substatus == 0) { //INITIAL = 2;
+            stStatus = "Status: Ready";
+        }        
+        stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + " " + stStatus + '<br>' +
                 'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
 
