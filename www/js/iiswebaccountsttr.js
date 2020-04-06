@@ -75,7 +75,7 @@ var app = {
         }
         if (stockObj.substatus == 0) { //INITIAL = 2;
             stStatus = "Status: Ready";
-        }        
+        }
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + " " + stStatus + '<br>' +
                 'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
@@ -87,12 +87,23 @@ var app = {
             var trObj = trObjList[i];
             console.log(trObj);
             var nameId = trObj.id;
-            if (trObj.trname == "TR_RSI") {
-                continue;
-            } else if (trObj.trname == "TR_NN1") {
-                continue;
+            if (trObj.trname == "TR_MV") {
+                ;
+            } else if (trObj.trname == "TR_MACD") {
+                ;
+            } else if (trObj.trname == "TR_NN2") {
+                ;
             } else if (trObj.trname == "TR_ACC") {
                 trObjacc = trObj;
+            } else {
+                if (custObj.username.toUpperCase() == "GUEST") {
+                    continue;
+                }
+                if (trObj.trname == "TR_NN3") {
+                    ;
+                }else {
+                    continue;
+                }
             }
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html

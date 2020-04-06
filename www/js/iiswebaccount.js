@@ -77,7 +77,30 @@ var app = {
 
             var htmlName = '<li id="' + accId + '"><a href="#">Start date:' + accObj.startdate;
             htmlName += '<br>Account:' + accName;
-            htmlName += '<br>Current account balance=$' + accObj.balance.toFixed(2) + '</a></li>';
+            htmlName += '<br>Current account balance=$' + accObj.balance.toFixed(2);
+
+//    public static final String PP_BASIC = "BASIC";
+//    public static final int INT_PP_BASIC = 0;
+//    public static final int INT_PP_BASIC_NUM = 5;
+//    public static final float INT_PP_BASIC_PRICE = 10;
+//    public static final String PP_PREMIUM = "PREMIUM";
+//    public static final int INT_PP_PREMIUM = 10;
+//    public static final int INT_PP_REMIUM_NUM = 10;
+//    public static final float INT_PP_REMIUM_PRICE = 15;
+//    public static final String PP_DELUXE = "DELUXE";
+//    public static final int INT_PP_DELUXE = 20;
+//    public static final int INT_PP_DELUXE_NUM = 20;
+//    public static final float INT_PP_DELUXE_PRICE = 30;            
+            var pp = "Basic Plan - 5"
+            if (accObj.substatus == 0) {
+                pp = "Basic Plan - 5"
+            } else if (accObj.substatus == 10) {
+                pp = "Premium Plan - 10"
+            } else if (accObj.substatus == 20) {
+                pp = "Deluxe Plan - 20"
+            }
+
+            htmlName += '<br>Plan=' + pp + '</a></li>';
 
             $("#myid").append(htmlName);
         }
