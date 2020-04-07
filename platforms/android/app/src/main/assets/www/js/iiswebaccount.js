@@ -75,9 +75,8 @@ var app = {
             var accName = accObj.accountname;
             var accId = accObj.id;
 
-            var htmlName = '<li id="' + accId + '"><a href="#">Start date:' + accObj.startdate;
-            htmlName += '<br>Account:' + accName;
-            htmlName += '<br>Current account balance=$' + accObj.balance.toFixed(2);
+            var htmlName = '<li id="' + accId + '"><a href="#">Start date: ' + accObj.startdate;
+            htmlName += '<br>Account: ' + accName;
 
 //    public static final String PP_BASIC = "BASIC";
 //    public static final int INT_PP_BASIC = 0;
@@ -91,17 +90,18 @@ var app = {
 //    public static final int INT_PP_DELUXE = 20;
 //    public static final int INT_PP_DELUXE_NUM = 20;
 //    public static final float INT_PP_DELUXE_PRICE = 30;            
-            var pp = "Basic Plan - 5"
-            if (accObj.substatus == 0) {
-                pp = "Basic Plan - 5"
-            } else if (accObj.substatus == 10) {
-                pp = "Premium Plan - 10"
-            } else if (accObj.substatus == 20) {
-                pp = "Deluxe Plan - 20"
+            var pp = "Basic Plan - Max 5 stocks"
+            if (custObj.substatus == 0) {
+                pp = "Basic Plan - Max 5 stocks"
+            } else if (custObj.substatus == 10) {
+                pp = "Premium Plan - Max 10 stocks"
+            } else if (custObj.substatus == 20) {
+                pp = "Deluxe Plan - Max 20 stocks"
             }
 
-            htmlName += '<br>Plan=' + pp + '</a></li>';
-
+            htmlName += '<br>Plan: ' + pp;
+            htmlName += '<br>Balance: $' + custObj.balance.toFixed(2);
+            htmlName += '</a></li>';
             $("#myid").append(htmlName);
         }
 
