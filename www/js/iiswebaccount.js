@@ -91,16 +91,16 @@ var app = {
 //    public static final int INT_PP_DELUXE = 20;
 //    public static final int INT_PP_DELUXE_NUM = 20;
 //    public static final float INT_PP_DELUXE_PRICE = 30;            
-            var pp = "Basic Plan - 5"
+            var pp = "Basic Plan - Max 5 stocks"
             if (accObj.substatus == 0) {
-                pp = "Basic Plan - 5"
+                pp = "Basic Plan - Max 5 stocks"
             } else if (accObj.substatus == 10) {
-                pp = "Premium Plan - 10"
+                pp = "Premium Plan - Max 10 stocks"
             } else if (accObj.substatus == 20) {
-                pp = "Deluxe Plan - 20"
+                pp = "Deluxe Plan - Max 20 stocks"
             }
 
-            htmlName += '<br>Plan=' + pp + '</a></li>';
+            htmlName += '<br>Plan: ' + pp + '</a></li>';
 
             $("#myid").append(htmlName);
         }
