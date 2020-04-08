@@ -68,13 +68,13 @@ var app = {
         var stStr = 'Trading Model Listing<br>';
         var stStatus = "";
         if (stockObj.substatus == 10) { //ConstantKey.STOCK_SPLIT STOCK_SPLIT = 10
-            stStatus = "Status: Split";
+            stStatus = "St: Split";
         }
         if (stockObj.substatus == 2) { //INITIAL = 2;
-            stStatus = "Status: Init";
+            stStatus = "St: Init";
         }
         if (stockObj.substatus == 0) { //INITIAL = 2;
-            stStatus = "Status: Ready";
+            stStatus = "St: Ready";
         }
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + " " + stStatus + '<br>' +
                 'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
@@ -101,7 +101,7 @@ var app = {
                 }
                 if (trObj.trname == "TR_NN3") {
                     ;
-                }else {
+                } else {
                     continue;
                 }
             }
@@ -159,7 +159,7 @@ var app = {
 
             htmlName += htmlBtn;
             if (trObj.trname == "TR_NN2") {
-                htmlName += 'Auto TradingSignal by Neural Network Model';
+                htmlName += 'Auto Trading Signal using AI Model';
             } else if (trObj.trname == "TR_ACC") {
                 var link = trObj.linktradingruleid;
                 var trObjlink = null;
@@ -172,7 +172,7 @@ var app = {
                 }
                 if (trObjlink !== null) {
                     if (trObjlink.type == 0) {
-                        htmlName += 'Manual Trading Signal';
+                        htmlName += 'Manual buy sell Transaction';
                     } else {
                         htmlName += 'Auto Trading Signal from ' + trObjlink.trname;
                     }
@@ -487,11 +487,30 @@ var app = {
             var trName = "TR_NN2";
             if (trNum == 0) {
                 trName = "TR_ACC";
+            } else if (trNum == 2) {
+                trName = "TR_MACD";
+            } else if (trNum == 5) {
+                trName = "TR_NN2";
             }
             $('#myidtrmodel').val(trName).attr("selected", "selected");
 
             window.location.href = "#page_conf";
         });
+
+//    public static final String TR_ACC = "TR_ACC";  // transaction account
+//    public static final int INT_TR_ACC = 0;
+//    public static final String TR_MV = "TR_MV";  // simulation 
+//    public static final int INT_TR_MV = 1;
+//    public static final String TR_MACD = "TR_MACD";
+//    public static final int INT_TR_MACD = 2;
+//    public static final String TR_RSI = "TR_RSI";
+//    public static final int INT_TR_RSI = 3;
+//    public static final String TR_NN1 = "TR_NN1"; //NN for MACD fast
+//    public static final int INT_TR_NN1 = 4;
+//    public static final String TR_NN2 = "TR_NN2"; //NN for MACD 12 26
+//    public static final int INT_TR_NN2 = 5;
+//    public static final String TR_NN3 = "TR_NN3"; //NN for MV
+//    public static final int INT_TR_NN3 = 6;    
 
         $("#savesubmit").click(function () {
 

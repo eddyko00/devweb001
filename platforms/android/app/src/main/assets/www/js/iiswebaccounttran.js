@@ -110,6 +110,7 @@ var app = {
             htmlName += '<div class="ui-block-d">S:' + tranObj.share + '</div>';
             htmlName += '</div>';
 
+
             if (signal == "E") {
                 if (prevTranObj != null) {
                     var diff = (tranObj.avgprice - prevTranObj.avgprice) * tranObj.share;
@@ -124,6 +125,22 @@ var app = {
                     var totalSt = Number(total).toLocaleString('en');
                     var diffSt = Number(diff).toLocaleString('en');
                     htmlName += 'Transaction: $' + diffSt + ' Total: $' + totalSt;
+                }
+            } else {
+                if (i == tranObjList.length - 1) {
+                    //calculate the result on the last one
+                    var diff = (close - tranObj.avgprice) * tranObj.share;
+                    if (tranObj.trsignal == 1) {
+                        ;
+                    }
+                    if (tranObj.trsignal == 2) {
+                        diff = -diff;
+                    }
+                    total += diff;
+//                    var totalSt = total.toFixed(2);
+                    var totalSt = Number(total).toLocaleString('en');
+                    var diffSt = Number(diff).toLocaleString('en');
+                    htmlName += 'Tran on close: $' + diffSt + ' Total: $' + totalSt;
                 }
             }
             prevTranObj = tranObj;
