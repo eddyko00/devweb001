@@ -101,8 +101,8 @@ var app = {
 
             htmlName += '<br>Plan: ' + pp;
             if (accObj.type == 110) { //INT_TRADING_ACCOUNT
-                htmlName += '<br>Bal: $' + custObj.investment.toFixed(2)
-                        + ' Payment: $' + custObj.balance.toFixed(2);
+                htmlName += '<br>Bal: $' + custObj.balance.toFixed(2)
+                        + ' Payment: $' + custObj.investment.toFixed(2);
 
             }
             htmlName += '</a></li>';
