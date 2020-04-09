@@ -100,7 +100,11 @@ var app = {
             }
 
             htmlName += '<br>Plan: ' + pp;
-            htmlName += '<br>Balance: $' + custObj.balance.toFixed(2);
+            if (accObj.type == 110) { //INT_TRADING_ACCOUNT
+                htmlName += '<br>Bal: $' + custObj.investment.toFixed(2)
+                        + ' Payment: $' + custObj.balance.toFixed(2);
+
+            }
             htmlName += '</a></li>';
             $("#myid").append(htmlName);
         }

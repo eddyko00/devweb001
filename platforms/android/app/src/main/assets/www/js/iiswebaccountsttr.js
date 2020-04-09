@@ -349,13 +349,9 @@ var app = {
                             if (resultPerfList !== null) {
                                 var PerfObj = resultPerfList[0];
                                 var trsignal = PerfObj.performData.trsignal;
+                                var perfStart = PerfObj.performData.fromdate;
+                                var perfEnd = PerfObj.updatedatedisplay;
 
-                                var htmlName = '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" ><strong>' + PerfObj.updatedatedisplay + '</strong></div>';
-                                htmlName += '<div class="ui-block-b" >' + "1 Yr perf result" + '</div>';
-                                htmlName += '</div>';
-
-                                htmlName += '<div class="ui-grid-a">';
                                 var balance = PerfObj.balance;
                                 if (trsignal == "1") {
                                     var shareAmount = PerfObj.performData.share * PerfObj.performData.close;
@@ -368,10 +364,17 @@ var app = {
                                 var balanceSt = Number(balance).toLocaleString('en');
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en');
 
+                                var htmlName = "";
                                 htmlName += '<div class="ui-block-a" ><strong>' + 'Netprofit: $' + netprofitSt + '</strong></div>';
                                 htmlName += '<div class="ui-block-b" >' + " " + '</div>';
                                 htmlName += '</div>';
-                                htmlName += '<br><br>';
+                                htmlName += '<br>';
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<div class="ui-block-a" >From: ' + perfStart + '</div>';
+                                htmlName += '<div class="ui-block-b" >To: ' + perfEnd + '</div>';
+                                htmlName += '</div>';
+                                htmlName += '<div class="ui-grid-a">';
+                                htmlName += '<br>';
                                 htmlName += '<div class="ui-grid-a">';
                                 var investmentSt = Number(PerfObj.investment).toLocaleString('en');
                                 htmlName += '<div class="ui-block-a" >' + 'Balance: $' + balanceSt + '</div>';
@@ -383,7 +386,7 @@ var app = {
                                 htmlName += '<div class="ui-block-a" >' + 'rating: ' + PerfObj.rating.toFixed(2) + '</div>';
                                 htmlName += '<div class="ui-block-b" >' + 'numtrade: ' + PerfObj.numtrade + '</div>';
                                 htmlName += '</div>';
-                                htmlName += '<br><br>';
+                                htmlName += '<br>';
 
                                 htmlName += '<div class="ui-grid-a">';
                                 htmlName += '<div class="ui-block-a" >' + 'numwin: ' + PerfObj.performData.numwin + '</div>';
