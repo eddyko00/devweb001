@@ -67,6 +67,9 @@ var app = {
 
         var stStr = 'Trading Model Listing<br>';
         var stStatus = "";
+        if (stockObj.substatus == 12) { //ConstantKey.STOCK_SPLIT STOCK_DETLA = 12
+            stStatus = "St: L Detla";
+        }        
         if (stockObj.substatus == 10) { //ConstantKey.STOCK_SPLIT STOCK_SPLIT = 10
             stStatus = "St: Split";
         }
