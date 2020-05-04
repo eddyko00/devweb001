@@ -24,6 +24,13 @@ var app = {
             if (keycode == '13') {
                 var txemail = document.getElementById("txt-email").value;
                 var txtpassword = document.getElementById("txt-password").value;
+                
+            if (txemail === "") {
+                if (txtpassword === "") {
+                    txemail = "GUEST";
+                    txtpassword = "guest";
+                }
+            }                
                 $.ajax({
                     url: iisurl + "cust/login?email=" + txemail + "&pass=" + txtpassword,
                     crossDomain: true,
