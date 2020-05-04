@@ -19,7 +19,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr == null) {
+        if (custObjStr === null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
@@ -30,12 +30,12 @@ var app = {
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
-            if (accObjTmp.id == accId) {
+            if (accObjTmp.id === accId) {
                 accObj = accObjTmp;
                 break;
             }
         }
-        if (accObj == null) {
+        if (accObj === null) {
             window.location.href = "index.html";
         }
 
@@ -47,12 +47,12 @@ var app = {
         var stockObj = null;
         for (i = 0; i < stockObjList.length; i++) {
             var stockObjTmp = stockObjList[i];
-            if (stockObjTmp.id == sockId) {
+            if (stockObjTmp.id === sockId) {
                 stockObj = stockObjTmp;
                 break;
             }
         }
-        if (stockObj == null) {
+        if (stockObj === null) {
             window.location.href = "index.html";
         }
         var trObjListStr = iisWebObj.trObjListStr;
@@ -71,7 +71,7 @@ var app = {
 
         var stStr = 'Trading Model Transaction Listing<br>';
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
-                'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
+                'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt;
         $("#0").html('<h1>' + stStr + '</h1>');
 
         $("#accheader").html(stockObj.symbol + " " + trName);
@@ -98,9 +98,9 @@ var app = {
             var htmlName = '<div class="ui-grid-c">';
             htmlName += '<div class="ui-block-a"  style="width:30%" ><strong>' + tranObj.entrydatedisplay + '</strong></div>';
             var signal = "B";
-            if (tranObj.trsignal == 1) {
+            if (tranObj.trsignal === 1) {
                 signal = "B";
-            } else if (tranObj.trsignal == 2) {
+            } else if (tranObj.trsignal === 2) {
                 signal = "S";
             } else {
                 signal = "E";
@@ -111,13 +111,13 @@ var app = {
             htmlName += '</div>';
 
 
-            if (signal == "E") {
-                if (prevTranObj != null) {
+            if (signal === "E") {
+                if (prevTranObj !== null) {
                     var diff = (tranObj.avgprice - prevTranObj.avgprice) * tranObj.share;
-                    if (prevTranObj.trsignal == 1) {
+                    if (prevTranObj.trsignal === 1) {
                         ;
                     }
-                    if (prevTranObj.trsignal == 2) {
+                    if (prevTranObj.trsignal === 2) {
                         diff = -diff;
                     }
                     total += diff;
@@ -127,13 +127,13 @@ var app = {
                     htmlName += 'Transaction: $' + diffSt + ' Total: $' + totalSt;
                 }
             } else {
-                if (i == tranObjList.length - 1) {
+                if (i === tranObjList.length - 1) {
                     //calculate the result on the last one
                     var diff = (close - tranObj.avgprice) * tranObj.share;
-                    if (tranObj.trsignal == 1) {
+                    if (tranObj.trsignal === 1) {
                         ;
                     }
-                    if (tranObj.trsignal == 2) {
+                    if (tranObj.trsignal === 2) {
                         diff = -diff;
                     }
                     total += diff;
@@ -158,7 +158,7 @@ var app = {
 //var jsonObj = JSON.parse(jsonStr);
 //var jsonPretty = JSON.stringify(jsonObj, null, '\t');
 
-    },
+    }
 };
 app.initialize();
 
