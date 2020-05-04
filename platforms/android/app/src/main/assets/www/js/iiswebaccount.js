@@ -60,8 +60,7 @@ var app = {
 
         $("#adminid").html(htmlAdmin);
         if (custObj.type == 99) {
-            var htmlAdmin = '<button id="lockbtn" >Lock</button>';
-            htmlAdmin += '<button id="serverbtn"  >Server</button>';
+            var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
             htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
             $("#adminid").append(htmlAdmin);
         }
@@ -102,7 +101,7 @@ var app = {
             htmlName += '<br>Plan: ' + pp;
             if (accObj.type == 110) { //INT_TRADING_ACCOUNT
                 htmlName += '<br>Bal: $' + custObj.balance.toFixed(2)
-                        + ' Amount due: $' + custObj.investment.toFixed(2);
+                        + ' Amount due: $' + custObj.payment.toFixed(2);
 
             }
             htmlName += '</a></li>';
@@ -155,90 +154,13 @@ var app = {
         });
 
 
-        $("#lockbtn").click(function () {
-
-            $.ajax({
-                url: iisurl + "cust/" + custObj.username + "/sys/lock",
-
-                crossDomain: true,
-                cache: false,
-                success: function (resultLockObjList) {
-                    console.log(resultLockObjList);
-                    if (resultLockObjList == null) {
-                        window.location.href = "#page-lock";
-                    }
-                    $("#lockid").html(' ');
-                    for (i = 0; i < resultLockObjList.length; i++) {
-                        var lockObj = resultLockObjList[i];
-                        var trStr = lockObj.lockdatedisplay + '  ' + lockObj.lockname +
-                                '  type:' + lockObj.type + '<br>' + lockObj.comment;
-                        var htmlName = '<h3>' + trStr + '</h3>';
-                        $("#lockid").append('<li >' + htmlName + '</li>');
-                    }
-                    window.location.href = "#page-lock";
-                    return;
-                }
-            });
+        $("#sysbtn").click(function () {
+            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+            window.location.href = "accountstatus_1.html";
+            return;
         });
 
-        $("#lock1btn").click(function () {
-
-            $.ajax({
-                url: iisurl + "cust/" + custObj.username + "/sys/lock",
-
-                crossDomain: true,
-                cache: false,
-                success: function (resultLockObjList) {
-                    console.log(resultLockObjList);
-                    if (resultLockObjList == null) {
-                        window.location.href = "#page-lock";
-                    }
-                    $("#lockid").html(' ');
-                    for (i = 0; i < resultLockObjList.length; i++) {
-                        var lockObj = resultLockObjList[i];
-                        var trStr = lockObj.lockdatedisplay + '  ' + lockObj.lockname +
-                                '  type:' + lockObj.type + '<br>' + lockObj.comment;
-                        var htmlName = '<h3>' + trStr + '</h3>';
-                        $("#lockid").append('<li >' + htmlName + '</li>');
-                    }
-                    window.location.href = "#page-lock";
-                    return;
-                }
-            });
-        });
-
-
-        $("#serverbtn").click(function () {
-
-            $.ajax({
-                url: iisurl + "server",
-
-                crossDomain: true,
-                cache: false,
-                success: function (resultServerList) {
-                    console.log(resultServerList);
-                    if (resultServerList == null) {
-                        window.location.href = "#page-lock";
-                    }
-                    $("#serverid").html(" ");
-                    for (i = 0; i < resultServerList.length; i++) {
-                        var srvObj = resultServerList[i];
-                        var trStr = srvObj.lastServUpdateESTdate + '   ' + srvObj.serverName;
-                        trStr += '<br>Maintance:' + srvObj.sysMaintenance
-                        trStr += '<br>processTimerCnt:' + srvObj.processTimerCnt + '   autoNNCnt:' + srvObj.autoNNCnt;
-                        trStr += '<br>Total Stock=' + srvObj.totalStock + '   Total StockAcc:' + srvObj.totalStockAcc;
-
-                        trStr += '<br>' + srvObj.timerMsg;
-                        trStr += '<br>RESTreq:' + srvObj.cntRESTrequest + '   Ex:' + srvObj.cntRESTexception;
-                        trStr += '<br>InterReq:' + srvObj.cntInterRequest + '   Ex:' + srvObj.cntInterException;
-                        var htmlName = ' ' + trStr + ' ';
-                        $("#serverid").append('<li ></li>' + htmlName);
-                    }
-                    window.location.href = "#page-server";
-                    return;
-                }
-            });
-        });
 
         $("#admsgbtn").click(function () {
             var accObjList = JSON.parse(accObjListStr);
