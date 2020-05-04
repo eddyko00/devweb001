@@ -19,7 +19,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr === null) {
+        if (custObjStr == null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
@@ -59,7 +59,7 @@ var app = {
         htmlAdmin += '<button id="invoicebtn"  >Billing Invoice</button>';
 
         $("#adminid").html(htmlAdmin);
-        if (custObj.type === 99) {
+        if (custObj.type == 99) {
             var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
             htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
             $("#adminid").append(htmlAdmin);
@@ -90,16 +90,16 @@ var app = {
 //    public static final int INT_PP_DELUXE_NUM = 20;
 //    public static final float INT_PP_DELUXE_PRICE = 30;            
             var pp = "Basic Plan - Max 5 stocks";
-            if (custObj.substatus === 0) {
+            if (custObj.substatus == 0) {
                 pp = "Basic Plan - Max 5 stocks";
-            } else if (custObj.substatus === 10) {
+            } else if (custObj.substatus == 10) {
                 pp = "Premium Plan - Max 10 stocks";
-            } else if (custObj.substatus === 20) {
+            } else if (custObj.substatus == 20) {
                 pp = "Deluxe Plan - Max 20 stocks";
             }
 
             htmlName += '<br>Plan: ' + pp;
-            if (accObj.type === 110) { //INT_TRADING_ACCOUNT
+            if (accObj.type == 110) { //INT_TRADING_ACCOUNT
                 htmlName += '<br>Bal: $' + custObj.balance.toFixed(2)
                         + ' Amount due: $' + custObj.payment.toFixed(2);
 
@@ -115,7 +115,7 @@ var app = {
 //            alert($(this).text()); // gets text contents of clicked li
             var accId = $(this).attr('id');
             console.log(accId);
-            if (accId === 0) {
+            if (accId == 0) {
 //                alert(accId);
                 return;
             }
@@ -132,7 +132,7 @@ var app = {
             var accObj = null;
             for (i = 0; i < accObjList.length; i++) {
                 var accObjTmp = accObjList[i];
-                if (accObjTmp.type === 110) { //INT_TRADING_ACCOUNT
+                if (accObjTmp.type == 110) { //INT_TRADING_ACCOUNT
                     accObj = accObjTmp;
                     break;
                 }
@@ -167,12 +167,12 @@ var app = {
             var accObj = null;
             for (i = 0; i < accObjList.length; i++) {
                 var accObjTmp = accObjList[i];
-                if (accObjTmp.type === 140) { //INT_ADMIN_ACCOUNT = 140;
+                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
                     accObj = accObjTmp;
                     break;
                 }
             }
-            if (accObj === null) {
+            if (accObj == null) {
                 window.location.href = "#page-index";
             }
             $.ajax({
@@ -229,7 +229,7 @@ var app = {
             var accObj = null;
             for (i = 0; i < accObjList.length; i++) {
                 var accObjTmp = accObjList[i];
-                if (accObjTmp.type === 140) { //INT_ADMIN_ACCOUNT = 140;
+                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
                     accObj = accObjTmp;
                     break;
                 }

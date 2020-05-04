@@ -19,7 +19,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr === null) {
+        if (custObjStr == null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);

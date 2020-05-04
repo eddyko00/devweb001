@@ -19,7 +19,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr === null) {
+        if (custObjStr == null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
@@ -30,12 +30,12 @@ var app = {
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
-            if (accObjTmp.id === accId) {
+            if (accObjTmp.id == accId) {
                 accObj = accObjTmp;
                 break;
             }
         }
-        if (accObj === null) {
+        if (accObj == null) {
             window.location.href = "index.html";
         }
 
@@ -47,12 +47,12 @@ var app = {
         var stockObj = null;
         for (i = 0; i < stockObjList.length; i++) {
             var stockObjTmp = stockObjList[i];
-            if (stockObjTmp.id === sockId) {
+            if (stockObjTmp.id == sockId) {
                 stockObj = stockObjTmp;
                 break;
             }
         }
-        if (stockObj === null) {
+        if (stockObj == null) {
             window.location.href = "index.html";
         }
         var trObjListStr = iisWebObj.trObjListStr;
@@ -67,16 +67,16 @@ var app = {
 
         var stStr = 'Trading Model Listing<br>';
         var stStatus = "";
-        if (stockObj.substatus === 12) { //ConstantKey.STOCK_SPLIT STOCK_DETLA = 12
+        if (stockObj.substatus == 12) { //ConstantKey.STOCK_SPLIT STOCK_DETLA = 12
             stStatus = "St: L Detla";
         }        
-        if (stockObj.substatus === 10) { //ConstantKey.STOCK_SPLIT STOCK_SPLIT = 10
+        if (stockObj.substatus == 10) { //ConstantKey.STOCK_SPLIT STOCK_SPLIT = 10
             stStatus = "St: Split";
         }
-        if (stockObj.substatus === 2) { //INITIAL = 2;
+        if (stockObj.substatus == 2) { //INITIAL = 2;
             stStatus = "St: Init";
         }
-        if (stockObj.substatus === 0) { //INITIAL = 2;
+        if (stockObj.substatus == 0) { //INITIAL = 2;
             stStatus = "St: Ready";
         }
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + " " + stStatus + '<br>' +
@@ -119,10 +119,10 @@ var app = {
             htmlName += '<div class="ui-block-a" ><strong>' + dispName + '</strong></div>';
             var sharebalance = 0;
             var signal = "B";
-            if (trObj.trsignal === S_BUY) {
+            if (trObj.trsignal == S_BUY) {
                 sharebalance = trObj.longamount;
                 signal = "B";
-            } else if (trObj.trsignal === S_SELL) {
+            } else if (trObj.trsignal == S_SELL) {
                 signal = "S";
                 sharebalance = trObj.shortamount;
             } else {
@@ -143,13 +143,13 @@ var app = {
             htmlBtn += '<a href="#" id="' + nameId + '" type="graph"  value="' + trObj.trname + '" data-icon="myicongraph" data-role="button" data-theme="a"></a>';
             htmlBtn += '<a href="#" id="' + nameId + '" type="table"  value="' + trObj.trname + '" data-icon="myicontable" data-role="button" data-theme="a"></a>';
             if (trObj.trname === "TR_ACC") {
-                if (trObj.linktradingruleid === 0) {
-                    if (trObj.trsignal === S_BUY) {
+                if (trObj.linktradingruleid == 0) {
+                    if (trObj.trsignal == S_BUY) {
                         htmlBtn += '<a href="#" id="' + nameId + '" type=""  value="' + trObj.trname + '" data-icon="" data-role="button" data-theme="a"></a>';
                     } else {
                         htmlBtn += '<a href="#" id="' + nameId + '" type="buy"  value="' + trObj.trname + '" data-icon="myiconbuy" data-role="button" data-theme="a"></a>';
                     }
-                    if (trObj.trsignal === S_SELL) {
+                    if (trObj.trsignal == S_SELL) {
                         htmlBtn += '<a href="#" id="' + nameId + '" type=""  value="' + trObj.trname + '" data-icon="" data-role="button" data-theme="a"></a>';
                     } else {
                         htmlBtn += '<a href="#" id="' + nameId + '" type="sell"  value="' + trObj.trname + '" data-icon="myiconsell" data-role="button" data-theme="a"></a>';
@@ -168,13 +168,13 @@ var app = {
                 var trObjlink = null;
                 for (j = 0; j < trObjList.length; j++) {
                     var trObjtmp = trObjList[j];
-                    if (link === trObjtmp.type) {
+                    if (link == trObjtmp.type) {
                         trObjlink = trObjtmp;
                         break;
                     }
                 }
-                if (trObjlink !== null) {
-                    if (trObjlink.type === 0) {
+                if (trObjlink != null) {
+                    if (trObjlink.type == 0) {
                         htmlName += 'Manual buy sell Transaction';
                     } else {
                         htmlName += 'Auto Trading Signal from ' + trObjlink.trname;
@@ -206,7 +206,7 @@ var app = {
 
             ////////////////////////////////
             if (type === "buy") {
-                if (trname !== null) {
+                if (trname != null) {
                     var symbol = stockObj.symbol;
                     symbol = symbol.replace(".", "_");
 //"/cust/{username}/acc/{accountid}/st/{stockidsymbol}/tr/{trname}/tran/{signal}/order
@@ -219,7 +219,7 @@ var app = {
                             break;
                         }
                     }
-                    if (trObj.trsignal === sig) {
+                    if (trObj.trsignal == sig) {
                         window.location.href = "#page_index";
                     }
                     if (confirm('Do you want to Buy Transaction?')) {
@@ -258,7 +258,7 @@ var app = {
                             break;
                         }
                     }
-                    if (trObj.trsignal === sig) {
+                    if (trObj.trsignal == sig) {
                         window.location.href = "#page_index";
                     }
                     if (confirm('Do you want to Sell Transaction?')) {
@@ -285,7 +285,7 @@ var app = {
             }
 
             if (type === "exit") {
-                if (trname !== null) {
+                if (trname != null) {
                     var symbol = stockObj.symbol;
                     symbol = symbol.replace(".", "_");
 //"/cust/{username}/acc/{accountid}/st/{stockidsymbol}/tr/{trname}/tran/{signal}/order
@@ -298,7 +298,7 @@ var app = {
                             break;
                         }
                     }
-                    if (trObj.trsignal === sig) {
+                    if (trObj.trsignal == sig) {
                         window.location.href = "#page_index";
                     }
                     if (confirm('Do you want to Exit Buy or Sell Transaction?')) {
@@ -324,7 +324,7 @@ var app = {
                 }
             }
             if (type === "graph") {
-                if (trname !== null) {
+                if (trname != null) {
                     var symbol = stockObj.symbol;
                     symbol = symbol.replace(".", "_");
                     var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
@@ -335,7 +335,7 @@ var app = {
                 }
             }
             if (type === "table") {
-                if (trname !== null) {
+                if (trname != null) {
                     var symbol = stockObj.symbol;
                     symbol = symbol.replace(".", "_");
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/perf";
@@ -349,7 +349,7 @@ var app = {
                         },
                         success: function (resultPerfList) {
                             console.log(resultPerfList);
-                            if (resultPerfList !== null) {
+                            if (resultPerfList != null) {
                                 var PerfObj = resultPerfList[0];
                                 var trsignal = PerfObj.performData.trsignal;
                                 var perfStart = PerfObj.performData.fromdate;
@@ -419,7 +419,7 @@ var app = {
         $("ul[id*=myid] button").click(function () {
             buttonGraph = true;
             var trname = $(this).attr('value');
-            if (trname !== null) {
+            if (trname != null) {
                 var symbol = stockObj.symbol;
                 symbol = symbol.replace(".", "_");
                 var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
@@ -454,11 +454,11 @@ var app = {
 //            alert($(this).text()); // gets text contents of clicked li
             var nameId = $(this).attr('id');
             console.log(nameId);
-            if (nameId === 0) {
+            if (nameId == 0) {
 //                alert(nameId);
                 return;
             }
-            if (buttonGraph === true) {
+            if (buttonGraph == true) {
                 buttonGraph = false;
                 return;
             }
@@ -466,12 +466,12 @@ var app = {
             var trObj = null;
             for (i = 0; i < trObjList.length; i++) {
                 var trObjTmp = trObjList[i];
-                if (trObjTmp.id === nameId) {
+                if (trObjTmp.id == nameId) {
                     trObj = trObjTmp;
                     break;
                 }
             }
-            if (trObj === null) {
+            if (trObj == null) {
                 return;
             }
             var trName = trObj.trname;
@@ -491,11 +491,11 @@ var app = {
             }
             var trNum = trObjacc.linktradingruleid;
             var trName = "TR_NN2";
-            if (trNum === 0) {
+            if (trNum == 0) {
                 trName = "TR_ACC";
-            } else if (trNum === 2) {
+            } else if (trNum == 2) {
                 trName = "TR_MACD";
-            } else if (trNum === 5) {
+            } else if (trNum == 5) {
                 trName = "TR_NN2";
             }
             $('#myidtrmodel').val(trName).attr("selected", "selected");
@@ -542,7 +542,7 @@ var app = {
             function handleResult(result) {
                 //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
                 console.log(result);
-                if (result === 1) {
+                if (result == 1) {
                     window.location.href = "accountsttr_1.html";
                 }
                 window.location.href = "accountsttr_1.html";

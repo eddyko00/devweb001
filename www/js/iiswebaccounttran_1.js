@@ -18,7 +18,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr === null) {
+        if (custObjStr == null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
@@ -29,12 +29,12 @@ var app = {
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
-            if (accObjTmp.id === accId) {
+            if (accObjTmp.id == accId) {
                 accObj = accObjTmp;
                 break;
             }
         }
-        if (accObj === null) {
+        if (accObj == null) {
             window.location.href = "index.html";
         }
 
@@ -46,12 +46,12 @@ var app = {
         var stockObj = null;
         for (i = 0; i < stockObjList.length; i++) {
             var stockObjTmp = stockObjList[i];
-            if (stockObjTmp.id === sockId) {
+            if (stockObjTmp.id == sockId) {
                 stockObj = stockObjTmp;
                 break;
             }
         }
-        if (stockObj === null) {
+        if (stockObj == null) {
             window.location.href = "index.html";
         }
         var trObjListStr = iisWebObj.trObjListStr;
