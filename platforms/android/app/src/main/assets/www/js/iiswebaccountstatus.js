@@ -19,7 +19,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr == null) {
+        if (custObjStr === null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
@@ -46,7 +46,7 @@ var app = {
         for (i = 0; i < serverList.length; i++) {
             var srvObj = serverList[i];
             var trStr = srvObj.lastServUpdateESTdate + '   ' + srvObj.serverName;
-            trStr += '<br>Maintance:' + srvObj.sysMaintenance
+            trStr += '<br>Maintance:' + srvObj.sysMaintenance;
             trStr += '<br>processTimerCnt:' + srvObj.processTimerCnt + '   autoNNCnt:' + srvObj.autoNNCnt;
             trStr += '<br>Total Stock=' + srvObj.totalStock + '   Total StockAcc:' + srvObj.totalStockAcc;
 
@@ -63,7 +63,7 @@ var app = {
 //            alert($(this).text()); // gets text contents of clicked li
         });
 
-    },
+    }
 };
 app.initialize();
 

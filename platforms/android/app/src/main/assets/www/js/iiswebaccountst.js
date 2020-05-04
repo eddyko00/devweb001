@@ -19,7 +19,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr == null) {
+        if (custObjStr === null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
@@ -29,12 +29,12 @@ var app = {
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
-            if (accObjTmp.id == accId) {
+            if (accObjTmp.id === accId) {
                 accObj = accObjTmp;
                 break;
             }
         }
-        if (accObj == null) {
+        if (accObj === null) {
             window.location.href = "index.html";
         }
 
@@ -61,9 +61,9 @@ var app = {
             var htmlName = '<div class="ui-grid-c">';
             htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol + '</strong></div>';
             var signal = "B";
-            if (stockObj.trsignal == 1) {
+            if (stockObj.trsignal === 1) {
                 signal = "B";
-            } else if (stockObj.trsignal == 2) {
+            } else if (stockObj.trsignal === 2) {
                 signal = "S";
             } else {
                 signal = "E";
@@ -91,13 +91,13 @@ var app = {
 //            alert($(this).text()); // gets text contents of clicked li
             var nameId = $(this).attr('id');
             console.log(nameId);
-            if (nameId == 0) {
+            if (nameId === 0) {
 //                alert(nameId);
                 return;
             }
             var sockId = nameId;
             var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
-                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, };
+                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId };
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountsttr_1.html";
         });
@@ -105,11 +105,11 @@ var app = {
 
         $("#addsubmit").click(function () {
             var addsymbol = document.getElementById("addsymbol").value;
-            if (addsymbol == "") {
+            if (addsymbol === "") {
                 window.location.href = "accountst.html";
                 return;
             }
-            if (custObj.username.toUpperCase() == "GUEST") {
+            if (custObj.username.toUpperCase() === "GUEST") {
                 alert("Not supproted feature for GUEST accont");
                 window.location.href = "accountst.html";
                 return;
@@ -126,14 +126,14 @@ var app = {
             function handleResult(result) {
                 //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
                 console.log(result);
-                if (result == 1) {
+                if (result === 1) {
                     window.location.href = "accountst_1.html";
                     return;
                 }
-                if (result == 2) {
+                if (result === 2) {
                     alert("Stock alreday existed");
                 }
-                if (result == 100) {
+                if (result === 100) {
                     alert("Max stock exceeded plan configuration");
                 }
                 window.location.href = "accountst_1.html";
@@ -144,11 +144,11 @@ var app = {
 
         $("#removesubmit").click(function () {
             var rsymbol = document.getElementById("removesymbol").value;
-            if (rsymbol == "") {
+            if (rsymbol === "") {
                 window.location.href = "accountst.html";
                 return;
             }
-            if (custObj.username.toUpperCase() == "GUEST") {
+            if (custObj.username.toUpperCase() === "GUEST") {
                 alert("Not supproted feature for GUEST accont");
                 window.location.href = "accountst.html";
                 return;
@@ -166,7 +166,7 @@ var app = {
             function handleResult(result) {
                 //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
                 console.log(result);
-                if (result == 1) {
+                if (result === 1) {
                     window.location.href = "accountst_1.html";
                     return;
                 }
@@ -181,7 +181,7 @@ var app = {
 //var jsonObj = JSON.parse(jsonStr);
 //var jsonPretty = JSON.stringify(jsonObj, null, '\t');
 
-    },
+    }
 };
 app.initialize();
 

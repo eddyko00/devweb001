@@ -18,7 +18,7 @@ var app = {
         console.log(iisWebObj);
 
         var custObjStr = iisWebObj.custObjStr;
-        if (custObjStr == null) {
+        if (custObjStr === null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
@@ -38,7 +38,7 @@ var app = {
 
             success: function (resultAccObjList) {
                 console.log(resultAccObjList);
-                if (resultAccObjList == "") {
+                if (resultAccObjList === "") {
                     window.location.href = "index.html";
                 }
 
@@ -52,12 +52,12 @@ var app = {
                 var accObj = null;
                 for (i = 0; i < accObjList.length; i++) {
                     var accObjTmp = accObjList[i];
-                    if (accObjTmp.type == 110) { //INT_TRADING_ACCOUNT
+                    if (accObjTmp.type === 110) { //INT_TRADING_ACCOUNT
                         accObj = accObjTmp;
                         break;
                     }
                 }
-                if (accObj == null) {
+                if (accObj === null) {
                     window.location.href = "index.html";
                 }
                 $.ajax({
@@ -86,7 +86,7 @@ var app = {
             }
         });
 
-    },
+    }
 };
 app.initialize();
 
