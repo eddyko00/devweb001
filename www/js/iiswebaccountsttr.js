@@ -94,6 +94,8 @@ var app = {
                 ;
             } else if (trObj.trname === "TR_MACD") {
                 ;
+            } else if (trObj.trname === "TR_NN1") {
+                ;                
             } else if (trObj.trname === "TR_NN2") {
                 ;
             } else if (trObj.trname === "TR_ACC") {
