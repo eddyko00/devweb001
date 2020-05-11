@@ -90,26 +90,38 @@ var app = {
             var trObj = trObjList[i];
             console.log(trObj);
             var nameId = trObj.id;
-            if (trObj.trname === "TR_MV") {
-                ;
-            } else if (trObj.trname === "TR_MACD") {
-                ;
-            } else if (trObj.trname === "TR_NN1") {
-                ;
-            } else if (trObj.trname === "TR_NN2") {
-                ;
-            } else if (trObj.trname === "TR_ACC") {
-                trObjacc = trObj;
-            } else {
-                if (custObj.username.toUpperCase() === "GUEST") {
+            if (custObj.username.toUpperCase() === "GUEST") {
+                if (trObj.trname === "TR_MV") {
+                    ;
+                } else if (trObj.trname === "TR_MACD") {
+                    ;
+                } else if (trObj.trname === "TR_NN1") {
+                    ;
+                } else if (trObj.trname === "TR_NN2") {
+                    ;
+                } else if (trObj.trname === "TR_ACC") {
+                    trObjacc = trObj;
+                } else {
                     continue;
                 }
-                if (trObj.trname === "TR_NN3") {
+            } else {
+                if (trObj.trname === "TR_MV") {
                     ;
+                } else if (trObj.trname === "TR_MACD") {
+                    ;
+                } else if (trObj.trname === "TR_NN1") {
+                    ;
+                } else if (trObj.trname === "TR_NN2") {
+                    ;
+                } else if (trObj.trname === "TR_NN3") {
+                    ;
+                } else if (trObj.trname === "TR_ACC") {
+                    trObjacc = trObj;
                 } else {
                     continue;
                 }
             }
+
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-b">';
