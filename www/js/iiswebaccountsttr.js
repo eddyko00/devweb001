@@ -69,7 +69,7 @@ var app = {
         var stStatus = "";
         if (stockObj.substatus == 12) { //ConstantKey.STOCK_SPLIT STOCK_DETLA = 12
             stStatus = "St: L Detla";
-        }        
+        }
         if (stockObj.substatus == 10) { //ConstantKey.STOCK_SPLIT STOCK_SPLIT = 10
             stStatus = "St: Split";
         }
@@ -95,7 +95,7 @@ var app = {
             } else if (trObj.trname === "TR_MACD") {
                 ;
             } else if (trObj.trname === "TR_NN1") {
-                ;                
+                ;
             } else if (trObj.trname === "TR_NN2") {
                 ;
             } else if (trObj.trname === "TR_ACC") {
@@ -369,9 +369,13 @@ var app = {
                                 var balanceSt = Number(balance).toLocaleString('en');
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en');
 
+                                var percent = 100 * (PerfObj.netprofit / PerfObj.investment);
+                                var percentSt = Number(percent.toFixed(2)).toLocaleString('en');
+
                                 var htmlName = "";
+                                htmlName += '<div class="ui-grid-a">';
                                 htmlName += '<div class="ui-block-a" ><strong>' + 'Netprofit: $' + netprofitSt + '</strong></div>';
-                                htmlName += '<div class="ui-block-b" >' + " " + '</div>';
+                                htmlName += '<div class="ui-block-b" >Profit(%): ' + percentSt + '%</div>';
                                 htmlName += '</div>';
                                 htmlName += '<br>';
                                 htmlName += '<div class="ui-grid-a">';
