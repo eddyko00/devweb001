@@ -112,6 +112,7 @@ var app = {
                 return;
             }
             if (stockObj.afstockInfo == null) {
+                alert("Stock process not finished. Try again later");
                 return;
             }
 
