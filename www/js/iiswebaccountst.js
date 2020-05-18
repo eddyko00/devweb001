@@ -71,11 +71,15 @@ var app = {
 
             htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             htmlName += '<div class="ui-block-c">T: ' + stockObj.longterm + '</div>';
-
-            var close = stockObj.afstockInfo.fclose;
-            var preClose = stockObj.prevClose;
-            var percent = 100 * (close - preClose) / preClose;
-            var percentSt = percent.toFixed(2) + '%';
+            var percentSt = "";
+            var close = 0;
+            var preClose = 0;
+            if (stockObj.afstockInfo != null) {
+                close = stockObj.afstockInfo.fclose;
+                preClose = stockObj.prevClose;
+                var percent = 100 * (close - preClose) / preClose;
+                percentSt = percent.toFixed(2) + '%';
+            }
             htmlName += '<div class="ui-block-d">P: ' + percentSt + '</div>';
 
             htmlName += '</div>';
@@ -96,8 +100,23 @@ var app = {
                 return;
             }
             var sockId = nameId;
+            var stockObj = null;
+            for (i = 0; i < stockObjList.length; i++) {
+                var stockObjTmp = stockObjList[i];
+                if (stockObjTmp.id == sockId) {
+                    stockObj = stockObjTmp;
+                    break;
+                }
+            }
+            if (stockObj == null) {
+                return;
+            }
+            if (stockObj.afstockInfo == null) {
+                return;
+            }
+
             var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
-                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId };
+                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountsttr_1.html";
         });

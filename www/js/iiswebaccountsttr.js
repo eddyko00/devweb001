@@ -58,12 +58,15 @@ var app = {
         var trObjListStr = iisWebObj.trObjListStr;
         var trObjList = JSON.parse(trObjListStr);
         var trObjacc = null;
-
-        var close = stockObj.afstockInfo.fclose;
-        var preClose = stockObj.prevClose;
-        var percent = 100 * (close - preClose) / preClose;
-        var percentSt = percent.toFixed(2) + '%';
-
+        var percentSt = "";
+        var close = 0;
+        var preClose = 0;
+        if (stockObj.afstockInfo != null) {
+            close = stockObj.afstockInfo.fclose;
+            preClose = stockObj.prevClose;
+            var percent = 100 * (close - preClose) / preClose;
+            percentSt = percent.toFixed(2) + '%';
+        }
 
         var stStr = 'Trading Model Listing<br>';
         var stStatus = "";
