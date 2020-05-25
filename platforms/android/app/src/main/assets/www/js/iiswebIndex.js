@@ -24,13 +24,21 @@ var app = {
             if (keycode == '13') {
                 var txemail = document.getElementById("txt-email").value;
                 var txtpassword = document.getElementById("txt-password").value;
-                
-            if (txemail === "") {
-                if (txtpassword === "") {
-                    txemail = "GUEST";
-                    txtpassword = "guest";
+
+                if (txemail === "") {
+                    if (txtpassword === "") {
+                        txemail = "GUEST";
+                        txtpassword = "guest";
+                    }
                 }
-            }                
+                if (txemail === "11") {
+                    txemail = "admin1";
+                    txtpassword = "Passw0rd";
+                }
+                if (txemail === "22") {
+                    txemail = "fundmgr";
+                    txtpassword = "Passw0rd";
+                }
                 $.ajax({
                     url: iisurl + "cust/login?email=" + txemail + "&pass=" + txtpassword,
                     crossDomain: true,
@@ -119,7 +127,14 @@ var app = {
                     txtpassword = "guest";
                 }
             }
-
+            if (txemail === "11") {
+                txemail = "admin1";
+                txtpassword = "Passw0rd";
+            }
+            if (txemail === "22") {
+                txemail = "fundmgr";
+                txtpassword = "Passw0rd";
+            }
             $.ajax({
                 url: iisurl + "cust/login?email=" + txemail + "&pass=" + txtpassword,
                 crossDomain: true,
