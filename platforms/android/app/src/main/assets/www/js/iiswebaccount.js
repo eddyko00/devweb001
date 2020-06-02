@@ -76,34 +76,29 @@ var app = {
 
             var htmlName = '<li id="' + accId + '"><a href="#">Start date: ' + accObj.startdate;
             htmlName += '<br>Account: ' + accName;
+            if (accObj.type == 110) { //INT_TRADING_ACCOUNT           
+                var pp = "Basic Plan - Max 5 stocks";
+                if (custObj.substatus == 0) {
+                    pp = "Basic Plan - Max 5 stocks";
+                } else if (custObj.substatus == 10) {
+                    pp = "Premium Plan - Max 10 stocks";
+                } else if (custObj.substatus == 20) {
+                    pp = "Deluxe Plan - Max 20 stocks";
+                }
 
-//    public static final String PP_BASIC = "BASIC";
-//    public static final int INT_PP_BASIC = 0;
-//    public static final int INT_PP_BASIC_NUM = 5;
-//    public static final float INT_PP_BASIC_PRICE = 10;
-//    public static final String PP_PREMIUM = "PREMIUM";
-//    public static final int INT_PP_PREMIUM = 10;
-//    public static final int INT_PP_REMIUM_NUM = 10;
-//    public static final float INT_PP_REMIUM_PRICE = 15;
-//    public static final String PP_DELUXE = "DELUXE";
-//    public static final int INT_PP_DELUXE = 20;
-//    public static final int INT_PP_DELUXE_NUM = 20;
-//    public static final float INT_PP_DELUXE_PRICE = 30;            
-            var pp = "Basic Plan - Max 5 stocks";
-            if (custObj.substatus == 0) {
-                pp = "Basic Plan - Max 5 stocks";
-            } else if (custObj.substatus == 10) {
-                pp = "Premium Plan - Max 10 stocks";
-            } else if (custObj.substatus == 20) {
-                pp = "Deluxe Plan - Max 20 stocks";
-            }
-
-            htmlName += '<br>Plan: ' + pp;
-            if (accObj.type == 110) { //INT_TRADING_ACCOUNT
+                htmlName += '<br>Plan: ' + pp;
                 htmlName += '<br>Bal: $' + custObj.balance.toFixed(2)
                         + ' Amount due: $' + custObj.payment.toFixed(2);
 
             }
+            if (accObj.type == 120) { //INT_MUTUAL_FUND_ACCOUNT = 120;
+                var total = accObj.investment + accObj.balance;
+                htmlName += '<br>Past: $' + accObj.investment.toFixed(2)
+                        + ' Cur: $' + accObj.balance.toFixed(2)
+                +'   Total: $' + total.toFixed(2);
+
+            }
+
             htmlName += '</a></li>';
             $("#myid").append(htmlName);
         }
