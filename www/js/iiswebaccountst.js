@@ -59,12 +59,7 @@ var app = {
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-c">';
-            var status = stockObj.status;
-            var statusSt = "";
-            if (status === 2){ //int PENDING = 2;
-                statusSt = " (D)";
-            }
-            htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol + statusSt+'</strong></div>';
+            htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol +'</strong></div>';
             var signal = "B";
             if (stockObj.trsignal == 1) {
                 signal = "B";

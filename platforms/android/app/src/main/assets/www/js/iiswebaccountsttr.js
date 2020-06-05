@@ -130,7 +130,12 @@ var app = {
             var htmlName = '<div class="ui-grid-b">';
             var dispName = trObj.trname;
             if (trObj.trname === "TR_ACC") {
-                dispName = "ACCOUNT";
+                var status = trObj.status;
+                if (status == 2) { //int PENDING = 2;
+                    dispName = "Deleting"
+                } else {
+                    dispName = "ACCOUNT"
+                }
             }
 
             htmlName += '<div class="ui-block-a" ><strong>' + dispName + '</strong></div>';

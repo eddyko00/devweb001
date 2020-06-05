@@ -59,7 +59,7 @@ var app = {
 
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-c">';
-            htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol + '</strong></div>';
+            htmlName += '<div class="ui-block-a"><strong>' + stockObj.symbol +'</strong></div>';
             var signal = "B";
             if (stockObj.trsignal == 1) {
                 signal = "B";
