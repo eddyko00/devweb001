@@ -120,18 +120,6 @@
             <p></p><br>
             <button id="savesubmit" >Save Changes</button>
 
-            <!--            <div id="myidbtn"  data-role="controlgroup" data-type="horizontal" data-theme="a" style="font-size:0.7em; margin-left:auto; margin-right:auto;width:100%; ">
-                            <a href="#popupSave" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline " data-transition="pop">Save Changes</a>
-                            <div data-role="popup" id="popupSave" data-theme="a" class="ui-corner-all">
-                                    <form>
-                                            <div style="padding:0px 0px;">
-                                                    <h3>Confirm Your Changes</h3>
-                                                    <button type="submit" id="savesubmit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left">Confirm</button>
-                                                </div>
-                                        </form>
-                            </div>                
-                        </div>-->
-
         </div><!-- /page -->    
 
         <div data-role="page" id="page_graph">
@@ -140,7 +128,7 @@
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <div role="main" class="ui-content">
-                <h2 class="mc-text-center">Display graph</h2>
+                <h2 id="graphheader" class="mc-text-center">Display graph</h2>
             </div><!-- /content -->
             <div data-role="content" id="imgcontent ">                
                 <img id="spaceimage" src="images/loader.gif" style="max-width:100%;">Retrieving Graph. Please wait....</img>
@@ -154,7 +142,8 @@
                 <h1>IISWEB System</h1>
             </div><!-- /header -->
             <div role="main" class="ui-content">
-                <h2 class="mc-text-center">Trading Model Performance</h2>
+                <h2 id="tablehheader" class="mc-text-center">Trading Model Performance</h2>                
+
             </div><!-- /content -->
             <div data-role="content" id="textcontent">
 

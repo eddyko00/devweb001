@@ -348,6 +348,7 @@ var app = {
             if (type === "graph") {
                 if (trname != null) {
                     var symbol = stockObj.symbol;
+                    $("#graphheader").html("Display graph - " + stockObj.symbol);
                     symbol = symbol.replace(".", "_");
                     var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
@@ -359,6 +360,8 @@ var app = {
             if (type === "table") {
                 if (trname != null) {
                     var symbol = stockObj.symbol;
+                    $("#tablehheader").html("Trading Performance - " + stockObj.symbol);
+
                     symbol = symbol.replace(".", "_");
                     var urlSt = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/perf";
                     console.log(urlSt);
