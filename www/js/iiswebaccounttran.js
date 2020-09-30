@@ -122,8 +122,8 @@ var app = {
                     }
                     total += diff;
 //                    var totalSt = total.toFixed(2);
-                    var totalSt = Number(total).toLocaleString('en');
-                    var diffSt = Number(diff).toLocaleString('en');
+                    var totalSt = Number(total).toLocaleString('en-US', {style:'currency', currency:'USD'});
+                    var diffSt = Number(diff).toLocaleString('en-US', {style:'currency', currency:'USD'});
                     htmlName += 'Transaction: $' + diffSt + ' Total: $' + totalSt;
                 }
             } else {

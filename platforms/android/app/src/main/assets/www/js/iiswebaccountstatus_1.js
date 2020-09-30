@@ -42,6 +42,8 @@ var app = {
             success: function (lockObjList) {
                 console.log(lockObjList);
                 var lockObjListStr = JSON.stringify(lockObjList, null, '\t');
+
+
                 $.ajax({
                     url: iisurl + "server",
 
@@ -52,11 +54,19 @@ var app = {
                         var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
                             'lockObjListStr': lockObjListStr, 'serverListStr': serverListStr};
                         window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-                        window.location.href = "accountstatus.html";
+                        $.ajax({
+                            url: iisurl + "timerhandler?resttimerMsg=starttimer",
+
+                            crossDomain: true,
+                            cache: false,
+                            success: function (timer) {
+                                window.location.href = "accountstatus.html";
+                                return;
+                            }
+                        });
                         return;
                     }
                 });
-
                 return;
             }
         });

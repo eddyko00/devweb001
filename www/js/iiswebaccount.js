@@ -60,8 +60,9 @@ var app = {
 
         $("#adminid").html(htmlAdmin);
         if (custObj.type == 99) {
-            var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
+            var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';         
             htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
+
             $("#adminid").append(htmlAdmin);
         }
 
@@ -95,7 +96,7 @@ var app = {
                 var total = accObj.investment + accObj.balance;
                 htmlName += '<br>Past: $' + accObj.investment.toFixed(2)
                         + ' Cur: $' + accObj.balance.toFixed(2)
-                +'   Total: $' + total.toFixed(2);
+                        + '   Total: $' + total.toFixed(2);
 
             }
 
