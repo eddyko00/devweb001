@@ -153,9 +153,9 @@ var app = {
             htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             var total = trObj.balance + sharebalance;
             total = total - trObj.investment;
-            var totalSt = Number(total).toLocaleString('en');
+            var totalSt = Number(total).toLocaleString('en-US', {style:'currency', currency:'USD'});
 //            var totalSt = total.toFixed(2);
-            htmlName += '<div class="ui-block-c">Profit: $' + totalSt + '</div>';
+            htmlName += '<div class="ui-block-c">Profit: ' + totalSt + '</div>';
             htmlName += '</div>';
 
 //            var trStr = '  L:' + trObj.longamount + ' LS:' + trObj.longshare + ' S:' + trObj.shortamount + ' SS:' + trObj.shortshare
@@ -396,11 +396,11 @@ var app = {
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en-US', {style:'currency', currency:'USD'});
 
                                 var percent = 100 * (PerfObj.netprofit / PerfObj.investment);
-                                var percentSt = Number(percent.toFixed(2)).toLocaleString('en-US', {style:'currency', currency:'USD'});
+                                var percentSt = Number(percent.toFixed(2)).toLocaleString('en');
 
                                 var htmlName = "";
                                 htmlName += '<div class="ui-grid-a">';
-                                htmlName += '<div class="ui-block-a" ><strong>' + 'Netprofit: $' + netprofitSt + '</strong></div>';
+                                htmlName += '<div class="ui-block-a" ><strong>' + 'Netprofit: ' + netprofitSt + '</strong></div>';
                                 htmlName += '<div class="ui-block-b" >Profit(%): ' + percentSt + '%</div>';
                                 htmlName += '</div>';
                                 htmlName += '<br>';
@@ -412,9 +412,9 @@ var app = {
                                 htmlName += '<br>';
                                 htmlName += '<div class="ui-grid-a">';
                                 var investmentSt = Number(PerfObj.investment).toLocaleString('en-US', {style:'currency', currency:'USD'});
-                                htmlName += '<div class="ui-block-a" >' + 'Balance: $' + balanceSt + '</div>';
+                                htmlName += '<div class="ui-block-a" >' + 'Balance: ' + balanceSt + '</div>';
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en-US', {style:'currency', currency:'USD'});
-                                htmlName += '<div class="ui-block-b" >' + 'Invest: $' + investmentSt + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'Invest: ' + investmentSt + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';

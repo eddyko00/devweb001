@@ -124,7 +124,7 @@ var app = {
 //                    var totalSt = total.toFixed(2);
                     var totalSt = Number(total).toLocaleString('en-US', {style:'currency', currency:'USD'});
                     var diffSt = Number(diff).toLocaleString('en-US', {style:'currency', currency:'USD'});
-                    htmlName += 'Transaction: $' + diffSt + ' Total: $' + totalSt;
+                    htmlName += 'Transaction: ' + diffSt + ' Total: ' + totalSt;
                 }
             } else {
                 if (i == tranObjList.length - 1) {
@@ -138,9 +138,9 @@ var app = {
                     }
                     total += diff;
 //                    var totalSt = total.toFixed(2);
-                    var totalSt = Number(total).toLocaleString('en');
-                    var diffSt = Number(diff).toLocaleString('en');
-                    htmlName += 'Tran on close: $' + diffSt + ' Total: $' + totalSt;
+                    var totalSt = Number(total).toLocaleString('en-US', {style:'currency', currency:'USD'});
+                    var diffSt = Number(diff).toLocaleString('en-US', {style:'currency', currency:'USD'});
+                    htmlName += 'Tran on close: ' + diffSt + ' Total: ' + totalSt;
                 }
             }
             prevTranObj = tranObj;
