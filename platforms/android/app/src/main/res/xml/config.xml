@@ -8,6 +8,10 @@
     <feature name="CordovaHttpPlugin">
         <param name="android-package" value="com.silkimen.cordovahttp.CordovaHttpPlugin" />
     </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <name>iisweb100</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

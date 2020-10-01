@@ -527,6 +527,8 @@ var app = {
                 trName = "TR_ACC";
             } else if (trNum == 2) {
                 trName = "TR_MACD";
+            } else if (trNum == 4) {
+                trName = "TR_NN1";                
             } else if (trNum == 5) {
                 trName = "TR_NN2";
             }
