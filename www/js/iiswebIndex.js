@@ -43,6 +43,10 @@ var app = {
                     txemail = "indexmgr";
                     txtpassword = "Passw0rd";
                 }
+                if (txemail === "44") {
+                    txemail = "fundmgr";
+                    txtpassword = "Passw0rd";
+                }
                 $.ajax({
                     url: iisurl + "cust/login?email=" + txemail + "&pass=" + txtpassword,
                     crossDomain: true,
@@ -141,6 +145,10 @@ var app = {
             }
             if (txemail === "33") {
                 txemail = "indexmgr";
+                txtpassword = "Passw0rd";
+            }
+            if (txemail === "44") {
+                txemail = "fundmgr";
                 txtpassword = "Passw0rd";
             }
             $.ajax({
