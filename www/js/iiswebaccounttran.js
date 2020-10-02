@@ -119,6 +119,8 @@ var app = {
                     }
                     if (prevTranObj.trsignal == 2) {
                         diff = -diff;
+                        // assume buy only and no short selling
+                        diff =0;
                     }
                     total += diff;
 //                    var totalSt = total.toFixed(2);
@@ -135,6 +137,8 @@ var app = {
                     }
                     if (tranObj.trsignal == 2) {
                         diff = -diff;
+                        // assume buy only and no short selling
+                        diff =0;                        
                     }
                     total += diff;
 //                    var totalSt = total.toFixed(2);

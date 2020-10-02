@@ -414,7 +414,7 @@ var app = {
                                 var investmentSt = Number(PerfObj.investment).toLocaleString('en-US', {style:'currency', currency:'USD'});
                                 htmlName += '<div class="ui-block-a" >' + 'Balance: ' + balanceSt + '</div>';
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en-US', {style:'currency', currency:'USD'});
-                                htmlName += '<div class="ui-block-b" >' + 'Invest: ' + investmentSt + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'Max Inv: ' + investmentSt + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
