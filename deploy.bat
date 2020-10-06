@@ -1,5 +1,5 @@
 @ECHO OFF
-echo "cordova platform add android"
+echo "cordova platform add android make sure no ***VPN*** "
 call cordova1.bat
 REM "cordova plugin add cordova-plugin-advanced-http"
 
