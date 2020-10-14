@@ -153,7 +153,7 @@ var app = {
             htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             var total = trObj.balance + sharebalance;
             total = total - trObj.investment;
-            var totalSt = Number(total).toLocaleString('en-US', {style:'currency', currency:'USD'});
+            var totalSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
 //            var totalSt = total.toFixed(2);
             htmlName += '<div class="ui-block-c">Profit: ' + totalSt + '</div>';
             htmlName += '</div>';
@@ -384,17 +384,19 @@ var app = {
                                 var perfEnd = PerfObj.updatedatedisplay;
 
                                 var balance = PerfObj.balance;
-                                if (trsignal === "1") {
-                                    var shareAmount = PerfObj.performData.share * PerfObj.performData.close;
+                                var shareAmount = 0;
+                                if (trsignal == 1) {
+                                    shareAmount = PerfObj.performData.share * PerfObj.performData.close;
                                     balance += shareAmount;
                                 }
-                                if (trsignal === "2") {
-                                    var shareAmount = PerfObj.performData.share * PerfObj.performData.close;
+                                if (trsignal == 2) {
+                                    shareAmount = PerfObj.performData.share * PerfObj.performData.close;
                                     balance += shareAmount;
                                 }
-                                var balanceSt = Number(balance).toLocaleString('en-US', {style:'currency', currency:'USD'});
-                                var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en-US', {style:'currency', currency:'USD'});
-
+                                var balanceSt = Number(balance).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                                var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                                var investmentSt = Number(shareAmount).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                                
                                 var percent = 100 * (PerfObj.netprofit / PerfObj.investment);
                                 var percentSt = Number(percent.toFixed(2)).toLocaleString('en');
 
@@ -411,15 +413,13 @@ var app = {
                                 htmlName += '<div class="ui-grid-a">';
                                 htmlName += '<br>';
                                 htmlName += '<div class="ui-grid-a">';
-                                var investmentSt = Number(PerfObj.investment).toLocaleString('en-US', {style:'currency', currency:'USD'});
                                 htmlName += '<div class="ui-block-a" >' + 'Balance: ' + balanceSt + '</div>';
-                                var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en-US', {style:'currency', currency:'USD'});
-                                htmlName += '<div class="ui-block-b" >' + 'Max Inv: ' + investmentSt + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'Invest: ' + investmentSt + '</div>';
                                 htmlName += '</div>';
 
                                 htmlName += '<div class="ui-grid-a">';
                                 htmlName += '<div class="ui-block-a" >' + 'rating: ' + PerfObj.rating.toFixed(2) + '</div>';
-                                htmlName += '<div class="ui-block-b" >' + 'numtrade: ' + PerfObj.numtrade + '</div>';
+                                htmlName += '<div class="ui-block-b" >' + 'numtrade: ' + PerfObj.numtrade + ' x 2</div>';
                                 htmlName += '</div>';
                                 htmlName += '<br>';
 
@@ -528,7 +528,7 @@ var app = {
             } else if (trNum == 2) {
                 trName = "TR_MACD";
             } else if (trNum == 4) {
-                trName = "TR_NN1";                
+                trName = "TR_NN1";
             } else if (trNum == 5) {
                 trName = "TR_NN2";
             }
