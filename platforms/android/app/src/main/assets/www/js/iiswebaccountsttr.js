@@ -383,15 +383,15 @@ var app = {
                                 var perfStart = PerfObj.performData.fromdate;
                                 var perfEnd = PerfObj.updatedatedisplay;
 
-                                var balance = PerfObj.balance;
+                                var balance = PerfObj.balance+PerfObj.netprofit;
                                 var shareAmount = 0;
                                 if (trsignal == 1) {
                                     shareAmount = PerfObj.performData.share * PerfObj.performData.close;
-                                    balance += shareAmount;
+//                                    balance += shareAmount;
                                 }
                                 if (trsignal == 2) {
                                     shareAmount = PerfObj.performData.share * PerfObj.performData.close;
-                                    balance += shareAmount;
+//                                    balance += shareAmount;
                                 }
                                 var balanceSt = Number(balance).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
                                 var netprofitSt = Number(PerfObj.netprofit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
