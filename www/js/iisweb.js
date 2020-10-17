@@ -17,3 +17,4 @@ var S_STOPLOSS_SELL = 4; // stop loss sell
 var S_EXIT_LONG = 5;
 var S_EXIT_SHORT = 6;
 var S_EXIT = 8;
+var TRADING_AMOUNT = 6000;
