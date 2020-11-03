@@ -67,18 +67,17 @@ var app = {
             if (stockObj.trsignal == 1) {
                 signal = "B";
                 htmlName += '<div class="ui-block-a" style="color:green;width:20%"><strong>' + stockObj.symbol + '</strong></div>';
-
+                htmlName += '<div class="ui-block-b" style="color:green;width:20%">:' + signal + '</div>';
             } else if (stockObj.trsignal == 2) {
                 signal = "S";
                 htmlName += '<div class="ui-block-a" style="color:red;width:20%"><strong>' + stockObj.symbol + '</strong></div>';
-
+                htmlName += '<div class="ui-block-b" style="color:red;width:20%">:' + signal + '</div>';
             } else {
                 signal = "E";
                 htmlName += '<div class="ui-block-a" style="width:20%"><strong>' + stockObj.symbol + '</strong></div>';
-
+                htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             }
 
-            htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             htmlName += '<div class="ui-block-c" style="width:20%">T:' + stockObj.longterm + '</div>';
             var percentSt = "";
             var perSt = "";

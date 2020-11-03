@@ -148,13 +148,16 @@ var app = {
             if (trObj.trsignal == S_BUY) {
                 sharebalance = trObj.longamount;
                 signal = "B";
+                htmlName += '<div class="ui-block-b" style="color:green;width:20%">:' + signal + '</div>';
             } else if (trObj.trsignal == S_SELL) {
                 signal = "S";
                 sharebalance = trObj.shortamount;
+                htmlName += '<div class="ui-block-b" style="color:red;width:20%">:' + signal + '</div>';
             } else {
                 signal = "E";
+                htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
             }
-            htmlName += '<div class="ui-block-b" style="width:20%">:' + signal + '</div>';
+
             var total = trObj.balance + sharebalance;
             total = total - trObj.investment;
             var totalSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
