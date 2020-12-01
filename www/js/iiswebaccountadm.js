@@ -23,9 +23,21 @@ var app = {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
+
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
-
+        var accObj = null;
+        for (i = 0; i < accObjList.length; i++) {
+            var accObjTmp = accObjList[i];
+            if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+                accObj = accObjTmp;
+                break;
+            }
+        }
+        if (accObj == null) {
+            window.location.href = "index.html";
+        }
+        
         var commObjListStr = iisWebObj.commObjListStr;
 
         if (commObjListStr !== "") {
@@ -110,161 +122,52 @@ var app = {
         });
 
 
-        $("#clrbtn").click(function () {
-            var accObjList = JSON.parse(accObjListStr);
 
-            var accObj = null;
-            for (i = 0; i < accObjList.length; i++) {
-                var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 110) { //INT_TRADING_ACCOUNT
-                    accObj = accObjTmp;
-                    break;
-                }
+
+        $("#removemsgidsubmit").click(function () {
+            var msgid = document.getElementById("removemsgid").value;
+            if (msgid === "") {
+                window.location.href = "accountadm.html";
+                return;
             }
+            ///cust/{username}/acc/{accountid}/comm/remove/{id}
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id  + "/comm/remove/" + msgid,
                 crossDomain: true,
                 cache: false,
-                beforeSend: function () {
-                    $("#loader").show();
-                },
+                success: handleResult
+            }); // use promises
 
-                success: function (result) {
-                    console.log(result);
-                    window.location.href = "account_1.html";
-                }
-            });
-
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                window.location.href = "accountadm_1.html";
+            }
         });
 
-
-        $("#sysbtn").click(function () {
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
-            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountstatus_1.html";
-            return;
-        });
-
-
-        $("#admsgbtn").click(function () {
-            var accObjList = JSON.parse(accObjListStr);
-            var accObj = null;
-            for (i = 0; i < accObjList.length; i++) {
-                var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
-                    accObj = accObjTmp;
-                    break;
-                }
+        $("#accpaymentsubmit").click(function () {
+            var accpayment = document.getElementById("accpayment").value;
+            if (accpayment === "") {
+                window.location.href = "accountadm.html";
+                return;
             }
-            if (accObj == null) {
-                window.location.href = "#page-index";
-            }
+            ///cust/{username}/acc/{accountid}/comm/remove/{id}
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm",
-
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id  + "/comm/remove/" + msgid,
                 crossDomain: true,
                 cache: false,
-                success: function (resultCommAdmObjList) {
-                    console.log(resultCommAdmObjList);
-                    if (resultCommAdmObjList !== "") {
-                        ;
-                    } else {
-                        window.location.href = "#page-index";
-                        return;
-                    }
-                    var commAdmObjListStr = JSON.stringify(resultCommAdmObjList, null, '\t');
-                    console.log(commAdmObjListStr);
-                    if (commAdmObjListStr !== "") {
-                        var commAdmObjList = JSON.parse(commAdmObjListStr);
+                success: handleResult
+            }); // use promises
 
-                        var htmlhead = '<div class="ui-grid-b">';
-                        htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
-                        htmlhead += '<div class="ui-block-b" style="width:5%"></div>';
-                        htmlhead += '<div class="ui-block-c">Msg</div>';
-                        htmlhead += '</div>';
-
-                        $("#admmsgid").html('<li id="0" >' + htmlhead + '</li>');
-
-                        for (i = 0; i < commAdmObjList.length; i++) {
-                            var commObj = commAdmObjList[i];
-                            var commId = commObj.id;
-
-                            var htmlName = '<div class="ui-grid-b">';
-                            htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + commObj.updatedatedisplay + '</strong></div>';
-                            htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
-                            htmlName += '<div class="ui-block-c">id:' + commId + " " + commObj.data + '</div>';
-                            htmlName += '</div>';
-
-                            $("#admmsgid").append('<li id="' + commId + '" >' + htmlName + '</li>');
-
-                        }
-                        window.location.href = "#page-admmsg";
-                        return;
-                    }
-
-                }
-            });
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                window.location.href = "accountadm_1.html";
+            }
         });
 
-        $("#adbillgbtn").click(function () {
-            var accObjList = JSON.parse(accObjListStr);
-            var accObj = null;
-            for (i = 0; i < accObjList.length; i++) {
-                var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
-                    accObj = accObjTmp;
-                    break;
-                }
-            }
-            if (accObj == null) {
-                window.location.href = "#page-index";
-            }
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm",
 
-                crossDomain: true,
-                cache: false,
-                success: function (resultCommAdmObjList) {
-                    console.log(resultCommAdmObjList);
-                    if (resultCommAdmObjList !== "") {
-                        ;
-                    } else {
-                        window.location.href = "#page-index";
-                        return;
-                    }
-                    var commAdmObjListStr = JSON.stringify(resultCommAdmObjList, null, '\t');
-                    console.log(commAdmObjListStr);
-                    if (commAdmObjListStr !== "") {
-                        var commAdmObjList = JSON.parse(commAdmObjListStr);
 
-                        var htmlhead = '<div class="ui-grid-b">';
-                        htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
-                        htmlhead += '<div class="ui-block-b" style="width:5%"></div>';
-                        htmlhead += '<div class="ui-block-c">Msg</div>';
-                        htmlhead += '</div>';
-
-                        $("#admmsgid").html('<li id="0" >' + htmlhead + '</li>');
-
-                        for (i = 0; i < commAdmObjList.length; i++) {
-                            var commObj = commAdmObjList[i];
-                            var commId = commObj.id;
-
-                            var htmlName = '<div class="ui-grid-b">';
-                            htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + commObj.updatedatedisplay + '</strong></div>';
-                            htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
-                            htmlName += '<div class="ui-block-c">id:' + commId + " " + commObj.data + '</div>';
-                            htmlName += '</div>';
-
-                            $("#admmsgid").append('<li id="' + commId + '" >' + htmlName + '</li>');
-
-                        }
-                        window.location.href = "#page-admmsg";
-                        return;
-                    }
-
-                }
-            });
-        });
 
 
         $("#admclrbtn").click(function () {
@@ -292,19 +195,6 @@ var app = {
                     window.location.href = "account_1.html";
                 }
             });
-        });
-
-        $("#configbtn").click(function () {
-            if (custObj.username.toUpperCase() === "GUEST") {
-                alert("Not supproted feature for GUEST accont");
-                return;
-            }
-        });
-        $("#invoicebtn").click(function () {
-            if (custObj.username.toUpperCase() === "GUEST") {
-                alert("Not supproted feature for GUEST accont");
-                return;
-            }
         });
 
 
