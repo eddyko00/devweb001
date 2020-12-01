@@ -55,52 +55,40 @@ var app = {
         }
 
 
-        $("#adminid").html(htmlAdmin);
-        if (custObj.type == 99) {
-            var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
-            htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
-            $("#adminid").append(htmlAdmin);
-        }
+//        $("#adminid").html(htmlAdmin);
+//        if (custObj.type == 99) {
+//            var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
+//            htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
+//            $("#adminid").append(htmlAdmin);
+//        }
 
-        $("#accheader").html("Customer Account");
+        $("#accheader").html("Admin Control");
 
         $("#myid").html(" "); //clear the field
-        for (i = 0; i < accObjList.length; i++) {
-            var accObj = accObjList[i];
-            console.log(accObj);
-            var accName = accObj.accountname;
-            var accId = accObj.id;
+        var htmlhead = '<div class="ui-grid-b">';
+        htmlhead += '<div class="ui-block-a" style="width:15%"><strong>Date</strong></div>';
+        htmlhead += '<div class="ui-block-b" style="width:5%">Id</div>';
+        htmlhead += '<div class="ui-block-c">Msg</div>';
+        htmlhead += '</div>';
 
-            var htmlName = '';
-            htmlName += '<li id="' + accId + '"><a href="#">';
-            htmlName += '<br>Account: ' + accName;
-            if (accObj.type == 110) { //INT_TRADING_ACCOUNT           
-                var pp = "Basic Plan - Max 5 stocks";
-                if (custObj.substatus == 0) {
-                    pp = "Basic Plan - Max 5 stocks";
-                } else if (custObj.substatus == 10) {
-                    pp = "Premium Plan - Max 10 stocks";
-                } else if (custObj.substatus == 20) {
-                    pp = "Deluxe Plan - Max 20 stocks";
-                }
+        $("#myid").html('<li id="0" >' + htmlhead + '</li>');
 
-                htmlName += '<br>Plan: ' + pp;
+        if (commObjListStr !== "") {
+            var commObjList = JSON.parse(commObjListStr);
 
-                htmlName += '<br>Date: ' + accObj.startdate;
-                htmlName += '<br>Bal: $' + custObj.balance.toFixed(2)
-                        + ' Amount due: $' + custObj.payment.toFixed(2);
+            for (i = 0; i < commObjList.length; i++) {
+                var commObj = commObjList[i];
+                var commId = commObj.id;
+
+                var htmlName = '<div class="ui-grid-b">';
+                htmlName += '<div class="ui-block-a" style="width:15%"><strong>' + commObj.updatedatedisplay + '</strong></div>';
+                htmlName += '<div class="ui-block-b" style="width:5%">' + commId + '</div>';
+                htmlName += '<div class="ui-block-c">'+commObj.name +' '+ commObj.data + '</div>';
+                htmlName += '</div>';
+
+                $("#myid").append('<li id="' + commId + '" >' + htmlName + '</li>');
 
             }
-            if (accObj.type == 120) { //INT_MUTUAL_FUND_ACCOUNT = 120;
-                var total = accObj.investment + accObj.balance;
-                htmlName += '<br>Past: $' + accObj.investment.toFixed(2)
-                        + ' Cur: $' + accObj.balance.toFixed(2)
-                        + '   Total: $' + total.toFixed(2);
-
-            }
-
-            htmlName += '</a></li>';
-            $("#myid").append(htmlName);
         }
 
 
@@ -108,16 +96,17 @@ var app = {
         $("ul[id*=myid] li").click(function () {
 //            alert($(this).html()); // gets innerHTML of clicked li
 //            alert($(this).text()); // gets text contents of clicked li
-            var accId = $(this).attr('id');
-            console.log(accId);
-            if (accId == 0) {
+            var Id = $(this).attr('id');
+            console.log(Id);
+            if (Id === 0) {
 //                alert(accId);
                 return;
             }
-
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'accId': accId};
-            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountst_1.html";
+            
+            return;
+//            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+//            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+//            window.location.href = "#";
         });
 
 
