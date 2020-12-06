@@ -38,6 +38,14 @@ var app = {
             window.location.href = "index.html";
         }
 
+        var iisMsgSession = "iisMsgSession";
+        var msgObjStr = window.localStorage.getItem(iisMsgSession);
+//        msgObjStr ="This feature does not allow for GUEST account";
+        if (msgObjStr !== "") {
+            functionAlertConfirm(msgObjStr, function ok() {
+            });
+        }
+
         var physicalScreenWidth = window.screen.width * window.devicePixelRatio;
         var physicalScreenHeight = window.screen.height * window.devicePixelRatio;
 
@@ -142,9 +150,13 @@ var app = {
                 return;
             }
             if (custObj.username.toUpperCase() === "GUEST") {
-                alert("Not supproted feature for GUEST accont");
+                msgObjStr = "This feature does not allow for GUEST account";
+                window.localStorage.setItem(iisMsgSession, msgObjStr);
                 window.location.href = "accountst.html";
-                return;
+                
+//                alert("Not supproted feature for GUEST accont");
+//                window.location.href = "accountst.html";
+//                return;
             }
 //          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
             $.ajax({
@@ -162,13 +174,14 @@ var app = {
                     window.location.href = "accountst_1.html";
                     return;
                 }
+                
                 if (result == 2) {
                     alert("Stock alreday existed");
                 }
                 if (result == 100) {
                     alert("Max stock exceeded plan configuration");
                 }
-                window.location.href = "accountst_1.html";
+                window.location.href = "accountst.html";
             }
         });
 
@@ -181,9 +194,12 @@ var app = {
                 return;
             }
             if (custObj.username.toUpperCase() === "GUEST") {
-                alert("Not supproted feature for GUEST accont");
-                window.location.href = "accountst.html";
-                return;
+                msgObjStr = "This feature does not allow for GUEST account";
+                window.localStorage.setItem(iisMsgSession, msgObjStr);
+                window.location.href = "accountst.html";                
+//                alert("Not supproted feature for GUEST accont");
+//                window.location.href = "accountst.html";
+//                return;
             }
 //          ("/cust/{username}/acc/{accountid}/st/remove/{symbol}")
             $.ajax({
@@ -202,11 +218,25 @@ var app = {
                     window.location.href = "accountst_1.html";
                     return;
                 }
+                
                 alert("Cannot remove " + rsymbol);
                 window.location.href = "accountst.html";
             }
 
         });
+
+        function functionAlertConfirm(msg, myYes, myNo, myOk) {
+            var confirmBox = $("#alertconfirm");
+            confirmBox.find(".message").text(msg);
+            confirmBox.find(".yes,.no,.ok").unbind().click(function () {
+                confirmBox.hide();
+                window.localStorage.setItem(iisMsgSession, "");
+            });
+            confirmBox.find(".yes").click(myYes);
+            confirmBox.find(".no").click(myNo);
+            confirmBox.find(".ok").click(myOk);
+            confirmBox.show();
+        }
 
 // example        
 //alert("AJAX request successfully completed");
