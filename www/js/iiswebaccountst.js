@@ -153,7 +153,7 @@ var app = {
                 msgObjStr = "This feature does not allow for GUEST account";
                 window.localStorage.setItem(iisMsgSession, msgObjStr);
                 window.location.href = "accountst.html";
-                
+
 //                alert("Not supproted feature for GUEST accont");
 //                window.location.href = "accountst.html";
 //                return;
@@ -174,13 +174,16 @@ var app = {
                     window.location.href = "accountst_1.html";
                     return;
                 }
-                
+                var msgObjStr = "Fail to add stock " + addsymbol;
                 if (result == 2) {
-                    alert("Stock alreday existed");
+                    msgObjStr += " : Stock alreday existed";
+
                 }
                 if (result == 100) {
-                    alert("Max stock exceeded plan configuration");
+                    msgObjStr += " : Max number of stock exceeded the user plan";                    
                 }
+
+                window.localStorage.setItem(iisMsgSession, msgObjStr);
                 window.location.href = "accountst.html";
             }
         });
@@ -196,7 +199,7 @@ var app = {
             if (custObj.username.toUpperCase() === "GUEST") {
                 msgObjStr = "This feature does not allow for GUEST account";
                 window.localStorage.setItem(iisMsgSession, msgObjStr);
-                window.location.href = "accountst.html";                
+                window.location.href = "accountst.html";
 //                alert("Not supproted feature for GUEST accont");
 //                window.location.href = "accountst.html";
 //                return;
@@ -212,14 +215,18 @@ var app = {
             // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
 
             function handleResult(result) {
-                //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
                 console.log(result);
                 if (result == 1) {
                     window.location.href = "accountst_1.html";
                     return;
                 }
-                
-                alert("Cannot remove " + rsymbol);
+                var msgObjStr = "Fail to remove stock " + rsymbol;
+                 //NOTEXISTED = 3;
+                 if (result == 3) {
+                    msgObjStr += " : Stock not found";
+
+                }
+                window.localStorage.setItem(iisMsgSession, msgObjStr);
                 window.location.href = "accountst.html";
             }
 
