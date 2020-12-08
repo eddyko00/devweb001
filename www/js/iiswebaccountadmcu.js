@@ -38,7 +38,7 @@ var app = {
             window.location.href = "index.html";
         }
 
-
+        var cuObjStr = iisWebObj.cuObjStr;
 
         var cuObjListStr = iisWebObj.cuObjListStr;
         var cuObjList = JSON.parse(cuObjListStr);
@@ -108,17 +108,19 @@ var app = {
         });
 
 
-
-
-        $("#removemsgidsubmit").click(function () {
-            var msgid = document.getElementById("removemsgid").value;
-            if (msgid === "") {
+        $("#statussubmit").click(function () {
+            var subStatus = document.getElementById("statusSt").value;
+            if (subStatus === "") {
                 window.location.href = "accountadm.html";
                 return;
             }
-            ///cust/{username}/acc/{accountid}/comm/remove/{id}
+
+            var customername = cuObj.username;
+            var subS = subStatus;
+            //cust/{username}/uisys/{custid}/cust/{customername}/update?status=&payment=&balance="
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove/" + msgid,
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
+                        + "/update?status=" + subS,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -127,10 +129,19 @@ var app = {
             // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
             function handleResult(result) {
                 console.log(result);
-                alert("Remove Message Id result: " + result);
-                window.location.href = "accountadm_1.html";
+                // result 1 = good, 0 = error                
+                alert("Enable Status result: " + result);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                    'cuObjStr': cuObjStr};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmcu_1.html";
             }
         });
+
+
 
         $("#accbalancesubmit").click(function () {
             var accbalance = document.getElementById("accbalance").value;
@@ -141,7 +152,7 @@ var app = {
 
             var customername = cuObj.username;
             var balance = accbalance;
-            //"/cust/{username}/uisys/{custid}/cust/{customername}/update?substatus=&payment=&balance="
+            //cust/{username}/uisys/{custid}/cust/{customername}/update?status=&payment=&balance="
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
                         + "/update?balance=" + balance,
@@ -153,41 +164,17 @@ var app = {
             // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
             function handleResult(result) {
                 console.log(result);
-                alert("Account Payment update result: " + result);
+                alert("Account Balance Update result: " + result);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                    'cuObjStr': cuObjStr};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
                 window.location.href = "accountadmcu_1.html";
             }
         });
 
-
-
-
-
-        $("#admclrbtn").click(function () {
-
-            var accObjList = JSON.parse(accObjListStr);
-
-            var accObj = null;
-            for (i = 0; i < accObjList.length; i++) {
-                var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
-                    accObj = accObjTmp;
-                    break;
-                }
-            }
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
-                crossDomain: true,
-                cache: false,
-                beforeSend: function () {
-                    $("#loader").show();
-                },
-
-                success: function (result) {
-                    console.log(result);
-                    window.location.href = "account_1.html";
-                }
-            });
-        });
 
 
 // example        

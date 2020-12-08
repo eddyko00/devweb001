@@ -57,13 +57,13 @@ var app = {
                     if (resultCuObjList != null) {
                         if (resultCuObjList.length == 0) {
                             var cuObjListStr = JSON.stringify(resultCuObjList, null, '\t');
-                            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+                            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'cuObjStr': cuObjStr};
                             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                             window.location.href = "accountadm_1.html";
                             return;
                         }
                         var cuObjListStr = JSON.stringify(resultCuObjList, null, '\t');
-                        var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'cuObjListStr': cuObjListStr};
+                        var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'cuObjStr': cuObjStr, 'cuObjListStr': cuObjListStr};
                         window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                         window.location.href = "accountadmcu.html";
                     }
