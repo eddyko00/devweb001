@@ -38,10 +38,24 @@ var app = {
             window.location.href = "index.html";
         }
 
-        var commObjListStr = iisWebObj.commObjListStr;
 
-        if (commObjListStr !== "") {
-            var commObjList = JSON.parse(commObjListStr);
+
+        var cuObjListStr = iisWebObj.cuObjListStr;
+        var cuObjList = JSON.parse(cuObjListStr);
+        if (cuObjList == null) {
+            window.location.href = "index.html";
+        }
+        if (cuObjList.length != 1) {
+            window.location.href = "index.html";
+        }
+        var cuObj = cuObjList[0];  // pick the first one
+
+        $("#accheader").html("Admin Control");
+
+        $("#myid").html(" "); //clear the field
+
+        if (cuObjListStr !== "") {
+            var cuObjList = JSON.parse(cuObjListStr);
 
             var htmlhead = '<div class="ui-grid-b">';
             htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
@@ -49,52 +63,32 @@ var app = {
             htmlhead += '<div class="ui-block-c">Msg</div>';
             htmlhead += '</div>';
 
-            $("#msgid").html('<li id="0" >' + htmlhead + '</li>');
+            $("#myid").html('<li id="0" >' + htmlhead + '</li>');
 
-            for (i = 0; i < commObjList.length; i++) {
-                var commObj = commObjList[i];
-                var commId = commObj.id;
+            for (i = 0; i < cuObjList.length; i++) {
+                var cuObj = cuObjList[i];
+                var cuId = cuObj.id;
 
                 var htmlName = '<div class="ui-grid-b">';
-                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + commObj.updatedatedisplay + '</strong></div>';
+                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + cuObj.updatedatedisplay + '</strong></div>';
                 htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
-                htmlName += '<div class="ui-block-c">' + commObj.data + '</div>';
+                htmlName += '<div class="ui-block-c">' + cuObj.username
+                        + ' First:' + cuObj.firstname
+                        + ' Last:' + cuObj.lastname
+
+                        + '<br>Type:' + cuObj.type
+                        + ' Status:' + cuObj.status
+                        + ' SubStatus:' + cuObj.substatus
+
+                        + '<br>Balance:' + cuObj.balance
+                        + ' AmountDue:' + cuObj.payment
+
+                        + '</div>';
                 htmlName += '</div>';
 
-                $("#msgid").append('<li id="' + commId + '" >' + htmlName + '</li>');
-
+                $("#myid").append('<li id="' + cuId + '" >' + htmlName + '</li>');
             }
         }
-
-        $("#accheader").html("Admin Control");
-
-        $("#myid").html(" "); //clear the field
-        var htmlhead = '<div class="ui-grid-b">';
-        htmlhead += '<div class="ui-block-a" style="width:15%"><strong>Date</strong></div>';
-        htmlhead += '<div class="ui-block-b" style="width:5%">Id</div>';
-        htmlhead += '<div class="ui-block-c">Msg</div>';
-        htmlhead += '</div>';
-
-        $("#myid").html('<li id="0" >' + htmlhead + '</li>');
-
-        if (commObjListStr !== "") {
-            var commObjList = JSON.parse(commObjListStr);
-
-            for (i = 0; i < commObjList.length; i++) {
-                var commObj = commObjList[i];
-                var commId = commObj.id;
-
-                var htmlName = '<div class="ui-grid-b">';
-                htmlName += '<div class="ui-block-a" style="width:15%"><strong>' + commObj.updatedatedisplay + '</strong></div>';
-                htmlName += '<div class="ui-block-b" style="width:5%">' + commId + '</div>';
-                htmlName += '<div class="ui-block-c">' + commObj.name + ' ' + commObj.data + '</div>';
-                htmlName += '</div>';
-
-                $("#myid").append('<li id="' + commId + '" >' + htmlName + '</li>');
-
-            }
-        }
-
 
 
         $("ul[id*=myid] li").click(function () {
@@ -138,22 +132,30 @@ var app = {
             }
         });
 
-        $("#custnamesubmit").click(function () {
-            var username = document.getElementById("custname").value;
-            if (username === "") {
+        $("#accbalancesubmit").click(function () {
+            var accbalance = document.getElementById("accbalance").value;
+            if (accbalance === "") {
                 window.location.href = "accountadm.html";
                 return;
             }
-            var cuObj = {'cmd': 'name', 'username': username,
-                'firstid': '0', 'lastid': '0'};
-            var cuObjStr = JSON.stringify(cuObj);
-            
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
-                'cuObjStr': cuObjStr};
-            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
-            window.location.href = "accountadmcu_1.html";
+            var customername = cuObj.username;
+            var balance = accbalance;
+            //"/cust/{username}/uisys/{custid}/cust/{customername}/update?substatus=&payment=&balance="
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
+                        + "/update?balance=" + balance,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
 
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                alert("Account Payment update result: " + result);
+                window.location.href = "accountadmcu_1.html";
+            }
         });
 
 
