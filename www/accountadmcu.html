@@ -81,11 +81,11 @@
                             <form>
                                     <div style="padding:0px 0px;">
                                             <h3>Enable Status</h3>
-                                            <br>============
-                                             <br>OPEN = 0
-                                             <br>DISABLE = 1
-                                             <br>PENDING = 2
-                                            <br>============ 
+                                <br>============
+                                <br>OPEN = 0
+                                <br>DISABLE = 1
+                                <br>PENDING = 2
+                                <br>============ 
                                             <label for="un" class="ui-hidden-accessible">Status</label>
                                             <input type="text" name="statusSt" id="statusSt" value="" placeholder="status" data-theme="a">
                                            
@@ -93,6 +93,15 @@
                                         </div>
                                 </form>
                     </div>    
+                    <a href="#popupReLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline " data-transition="pop">Remote Login</a>
+                    <div data-role="popup" id="popupReLogin" data-theme="a" class="ui-corner-all">
+                            <form>
+                                    <div style="padding:0px 0px;">
+                                            <label >Login to customer account</label>                                          
+                                            <button type="submit" id="loginsubmit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left">Login</button>
+                                        </div>
+                                </form>
+                    </div>                        
                 </div>
 
 

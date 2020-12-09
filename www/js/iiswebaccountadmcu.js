@@ -70,7 +70,7 @@ var app = {
                 var cuId = cuObj.id;
 
                 var htmlName = '<div class="ui-grid-b">';
-                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + cuObj.updatedatedisplay + '</strong></div>';
+                htmlName += '<div class="ui-block-a" style="width:20%"><strong>' + cuObj.startdate + '</strong></div>';
                 htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
                 htmlName += '<div class="ui-block-c">' + cuObj.username
                         + ' First:' + cuObj.firstname
@@ -79,9 +79,11 @@ var app = {
                         + '<br>Type:' + cuObj.type
                         + ' Status:' + cuObj.status
                         + ' SubStatus:' + cuObj.substatus
-
+                
+                        + '<br>Bill date:' + cuObj.updatedatedisplay
+                
                         + '<br>Balance:' + cuObj.balance
-                        + ' AmountDue:' + cuObj.payment
+                        + '  AmountDue:' + cuObj.payment
 
                         + '</div>';
                 htmlName += '</div>';
@@ -130,8 +132,13 @@ var app = {
             function handleResult(result) {
                 console.log(result);
                 // result 1 = good, 0 = error                
-                alert("Enable Status result: " + result);
-
+                var resultmsg = "Enable Status result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
 
                 var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
                     'cuObjStr': cuObjStr};
@@ -164,7 +171,13 @@ var app = {
             // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
             function handleResult(result) {
                 console.log(result);
-                alert("Account Balance Update result: " + result);
+                var resultmsg = "Account Balance Update result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
 
 
                 var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
@@ -172,6 +185,46 @@ var app = {
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
                 window.location.href = "accountadmcu_1.html";
+            }
+        });
+
+
+
+        $("#loginsubmit").click(function () {
+//            var r = confirm("Do you want to remote login?");
+//            if (r == false) {
+//                return;
+//            }
+            var txemail = cuObj.username;
+            var txtpassword = cuObj.password;
+
+            $.ajax({
+                url: iisurl + "cust/login?email=" + txemail + "&pass=" + txtpassword,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+
+            function handleResult(result) {
+
+                var custObj = result.custObj;
+                console.log(custObj);
+
+                var custObjStr = JSON.stringify(custObj, null, '\t');
+                var iisWebObj = {'custObjStr': custObjStr};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+//                var iisWebObjStr = window.localStorage.getItem('iisWebSession');
+//                var iisWebObj = JSON.parse(iisWebObjStr);
+//                console.log(iisWebObj);
+
+                if (custObj != null) {
+                    window.location.href = "account_1.html";
+                } else {
+
+                }
             }
         });
 

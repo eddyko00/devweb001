@@ -147,7 +147,7 @@ var app = {
             var cuObj = {'cmd': 'name', 'username': username,
                 'firstid': '0', 'lastid': '0'};
             var cuObjStr = JSON.stringify(cuObj);
-            
+
             var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
                 'cuObjStr': cuObjStr};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
@@ -156,36 +156,28 @@ var app = {
 
         });
 
+        $("#nextCust").click(function () {
 
-
-
-
-        $("#admclrbtn").click(function () {
-
-            var accObjList = JSON.parse(accObjListStr);
-
-            var accObj = null;
-            for (i = 0; i < accObjList.length; i++) {
-                var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
-                    accObj = accObjTmp;
-                    break;
-                }
-            }
+            // cust/{username}/uisys/{custid}/custnlist?length={0 for all} - default 20");
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/custnlist?length=0",
                 crossDomain: true,
                 cache: false,
-                beforeSend: function () {
-                    $("#loader").show();
-                },
+                success: handleResult
+            }); // use promises
 
-                success: function (result) {
-                    console.log(result);
-                    window.location.href = "account_1.html";
-                }
-            });
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(resultCustNList) {
+                console.log(resultCustNList);
+                var CustNListStr = JSON.stringify(resultCustNList, null, '\t');
+                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
+                    'CustNListStr': CustNListStr};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+                window.location.href = "accountadm.html";
+            }
+
         });
+
 
 
 // example        
