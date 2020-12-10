@@ -13,8 +13,6 @@ var app = {
         var iisWebSession = "iisWebSession";
 //        var custObj = 'custObj';
 //        var accList = 'accList';
-        var iisurlStr = iisWebObj.iisurlStr;
-        iisurl = iisurlStr;
         
         var iisWebObjStr = window.localStorage.getItem(iisWebSession);
         var iisWebObj = JSON.parse(iisWebObjStr);
