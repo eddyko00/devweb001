@@ -74,7 +74,7 @@ var app = {
                 window.localStorage.setItem(iisMsgSession, "");
 
                 var trObjListStr = JSON.stringify(resultTRList, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                     'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, 'trObjListStr': trObjListStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 

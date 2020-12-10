@@ -51,7 +51,7 @@ var app = {
                     cache: false,
                     success: function (serverList) {
                         var serverListStr = JSON.stringify(serverList, null, '\t');
-                        var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                        var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                             'lockObjListStr': lockObjListStr, 'serverListStr': serverListStr};
                         window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                         $.ajax({

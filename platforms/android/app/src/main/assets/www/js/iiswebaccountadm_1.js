@@ -56,7 +56,7 @@ var app = {
                     commObjListStr = JSON.stringify(resultCommObjList, null, '\t');
                 }
                 
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
                     'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                 window.location.href = "accountadm.html";

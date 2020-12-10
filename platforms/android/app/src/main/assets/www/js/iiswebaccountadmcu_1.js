@@ -61,7 +61,7 @@ var app = {
 
                     if (resultCuObjList != null) {
                         var cuObjListStr = JSON.stringify(resultCuObjList, null, '\t');
-                        var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                        var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                             'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt,
                             'cuObjStr': cuObjStr, 'cuObjListStr': cuObjListStr};
                         window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));

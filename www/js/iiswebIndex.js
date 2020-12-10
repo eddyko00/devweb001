@@ -14,12 +14,12 @@ var app = {
 
 
 //        var iisurl = "https://iiswebsrv.herokuapp.com/";
-        var iisMsgSession = "iisMsgSession";       
+        var iisMsgSession = "iisMsgSession";
         var iisWebSession = "iisWebSession";
 //        var custObj = 'custObj';
 //        var accList = 'accList';
 
-
+        var iisurlStr = iisurl;
 
         $(document).keypress(function (event) {
             var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -32,6 +32,11 @@ var app = {
                         txemail = "GUEST";
                         txtpassword = "guest";
                     }
+                }
+                if (txemail === "111") {
+                    txemail = "admin1";
+                    txtpassword = "Passw0rd";
+                    iisurlStr = iisurl_LOCAL;
                 }
                 if (txemail === "11") {
                     txemail = "admin1";
@@ -64,7 +69,7 @@ var app = {
                     console.log(custObj);
 
                     var custObjStr = JSON.stringify(custObj, null, '\t');
-                    var iisWebObj = {'custObjStr': custObjStr};
+                    var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr};
                     window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
 
@@ -127,12 +132,17 @@ var app = {
         $("#btn-login").click(function () {
             var txemail = document.getElementById("txt-email").value;
             var txtpassword = document.getElementById("txt-password").value;
-            
+
             if (txemail === "") {
                 if (txtpassword === "") {
                     txemail = "GUEST";
                     txtpassword = "guest";
                 }
+            }
+            if (txemail === "111") {
+                txemail = "admin1";
+                txtpassword = "Passw0rd";
+                iisurlStr = iisurl_LOCAL;
             }
             if (txemail === "11") {
                 txemail = "admin1";
@@ -165,7 +175,7 @@ var app = {
                 console.log(custObj);
 
                 var custObjStr = JSON.stringify(custObj, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr};
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
 //                var iisWebObjStr = window.localStorage.getItem('iisWebSession');

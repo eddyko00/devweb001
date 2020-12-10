@@ -107,7 +107,7 @@ var app = {
             }
 
             return;
-//            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+//            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr};
 //            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 //            window.location.href = "#";
         });
@@ -143,7 +143,7 @@ var app = {
                 }
                 alert(resultmsg);
 
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                     'cuObjStr': cuObjStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
@@ -183,7 +183,7 @@ var app = {
                 alert(resultmsg);
 
 
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                     'cuObjStr': cuObjStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 

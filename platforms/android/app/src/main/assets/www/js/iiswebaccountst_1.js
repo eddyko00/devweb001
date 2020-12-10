@@ -43,7 +43,7 @@ var app = {
                 window.localStorage.setItem(iisMsgSession, "");
 
                 var stockObjListStr = JSON.stringify(resultStockList, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'accId': accId, 'stockObjListStr': stockObjListStr};
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId, 'stockObjListStr': stockObjListStr};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                 window.location.href = "accountst.html";
             }

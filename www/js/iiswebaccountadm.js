@@ -17,7 +17,10 @@ var app = {
         var iisWebObjStr = window.localStorage.getItem(iisWebSession);
         var iisWebObj = JSON.parse(iisWebObjStr);
         console.log(iisWebObj);
-
+        
+        var iisurlStr = iisWebObj.iisurlStr;
+        iisurl = iisurlStr;
+        
         var custObjStr = iisWebObj.custObjStr;
         if (custObjStr == null) {
             window.location.href = "index.html";
@@ -123,7 +126,7 @@ var app = {
                 'firstid': '0', 'lastid': '0'};
             var cuObjStr = JSON.stringify(cuObj);
 
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                 'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt,
                 'cuObjStr': cuObjStr};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
@@ -131,7 +134,7 @@ var app = {
             window.location.href = "accountadmcu_1.html";
 
             return;
-//            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+//            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr};
 //            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 //            window.location.href = "#";
         });
@@ -191,7 +194,7 @@ var app = {
                 'firstid': '0', 'lastid': '0'};
             var cuObjStr = JSON.stringify(cuObj);
 
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                 'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt,
                 'cuObjStr': cuObjStr};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
@@ -206,7 +209,7 @@ var app = {
                 if (beg <= CustNList.length) {
                     CustNListCnt++;
                 }
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
                     'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                 window.location.href = "accountadm.html";
@@ -225,7 +228,7 @@ var app = {
                 console.log(resultCustNList);
                 var CustNListStr = JSON.stringify(resultCustNList, null, '\t');
                 CustNListCnt = 0;
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
                     'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                 window.location.href = "accountadm.html";
@@ -239,7 +242,7 @@ var app = {
                     return;
                 }
                 CustNListCnt--;
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
                     'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                 window.location.href = "accountadm.html";
@@ -258,7 +261,7 @@ var app = {
                 console.log(resultCustNList);
                 var CustNListStr = JSON.stringify(resultCustNList, null, '\t');
                 CustNListCnt = 0;
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
                     'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                 window.location.href = "accountadm.html";

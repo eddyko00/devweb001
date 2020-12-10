@@ -77,7 +77,7 @@ var app = {
                 console.log(resultTranList);
 
                 var tranObjListStr = JSON.stringify(resultTranList, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                     'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId,
                     'trObjListStr': trObjListStr, 'trName': trName, 'tranObjListStr': tranObjListStr};
 
