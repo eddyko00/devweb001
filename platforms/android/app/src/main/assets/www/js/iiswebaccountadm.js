@@ -17,7 +17,10 @@ var app = {
         var iisWebObjStr = window.localStorage.getItem(iisWebSession);
         var iisWebObj = JSON.parse(iisWebObjStr);
 //        console.log(iisWebObj);
-
+        
+        var iisurlStr = iisWebObj.iisurlStr;
+        iisurl = iisurlStr;
+        
         var custObjStr = iisWebObj.custObjStr;
         if (custObjStr == null) {
             window.location.href = "index.html";
@@ -96,7 +99,7 @@ var app = {
             for (i = beg; i < end; i++) {
 
                 var CustN = CustNList[i];
-                var commId = i;
+                var commId = i+1;
 
                 var htmlName = '<div class="ui-grid-b">';
                 htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + CustN + '</strong></div>';
@@ -118,12 +121,12 @@ var app = {
             if (Id === 0) {
                 return;
             }
-            var username = CustNList[Id - 1];
+            var username = CustNList[Id-1];
             var cuObj = {'cmd': 'name', 'username': username,
                 'firstid': '0', 'lastid': '0'};
             var cuObjStr = JSON.stringify(cuObj);
 
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                 'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt,
                 'cuObjStr': cuObjStr};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
@@ -131,7 +134,7 @@ var app = {
             window.location.href = "accountadmcu_1.html";
 
             return;
-//            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+//            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr};
 //            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 //            window.location.href = "#";
         });
