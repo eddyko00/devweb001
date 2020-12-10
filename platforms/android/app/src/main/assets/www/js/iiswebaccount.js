@@ -28,6 +28,14 @@ var app = {
 
         var commObjListStr = iisWebObj.commObjListStr;
 
+        var iisMsgSession = "iisMsgSession";
+        var msgObjStr = window.localStorage.getItem(iisMsgSession);
+//        msgObjStr ="This feature does not allow for GUEST account";
+        if (msgObjStr !== "") {
+            functionAlertConfirm(msgObjStr, function ok() {
+            });
+        }
+
         if (commObjListStr !== "") {
             var commObjList = JSON.parse(commObjListStr);
 
@@ -173,8 +181,10 @@ var app = {
             if (accObj == null) {
                 window.location.href = "#page-index";
             }
-
-            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr};
+            var CustNListStr = "";
+            var CustNListCnt = 0;
+            var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr,
+                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountadm_1.html";
 //            $.ajax({
@@ -253,17 +263,17 @@ var app = {
 
         $("#configbtn").click(function () {
             if (custObj.username.toUpperCase() === "GUEST") {
-                functionAlertConfirm("This feature does not allow for GUEST account", function ok() {
-//                alert("Yes")
-                })
+                msgObjStr = "This feature does not allow for GUEST account";
+                window.localStorage.setItem(iisMsgSession, msgObjStr);
+                window.location.href = "account.html";
             }
         });
 
         $("#invoicebtn").click(function () {
             if (custObj.username.toUpperCase() === "GUEST") {
-                functionAlertConfirm("This feature does not allow for GUEST account", function ok() {
-//                alert("Yes")
-                })
+                msgObjStr = "This feature does not allow for GUEST account";
+                window.localStorage.setItem(iisMsgSession, msgObjStr);
+                window.location.href = "account.html";
             }
         });
 
@@ -272,6 +282,7 @@ var app = {
             confirmBox.find(".message").text(msg);
             confirmBox.find(".yes,.no,.ok").unbind().click(function () {
                 confirmBox.hide();
+                window.localStorage.setItem(iisMsgSession, "");
             });
             confirmBox.find(".yes").click(myYes);
             confirmBox.find(".no").click(myNo);
@@ -284,6 +295,7 @@ var app = {
             confirmBox.find(".message").text(msg);
             confirmBox.find(".yes,.no,.ok").unbind().click(function () {
                 confirmBox.hide();
+                window.localStorage.setItem(iisMsgSession, "");
             });
             confirmBox.find(".yes").click(myYes);
             confirmBox.find(".no").click(myNo);

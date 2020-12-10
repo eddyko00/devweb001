@@ -36,6 +36,10 @@ var app = {
         if (accObj == null) {
             window.location.href = "index.html";
         }
+        
+        var CustNListStr = iisWebObj.CustNListStr;
+        var CustNListCnt = iisWebObj.CustNListCnt;
+        
         $.ajax({
             url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm",
             crossDomain: true,
@@ -46,17 +50,16 @@ var app = {
 
             success: function (resultCommObjList) {
                 console.log(resultCommObjList);
+                var commObjListStr = "";
+                
                 if (resultCommObjList !== "") {
-                    var commObjListStr = JSON.stringify(resultCommObjList, null, '\t');
-                    var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr};
-                    window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-                    window.location.href = "accountadm.html";
-                } else {
-                    var commObjListStr = "";
-                    var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr};
-                    window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-                    window.location.href = "accountadm.html";
+                    commObjListStr = JSON.stringify(resultCommObjList, null, '\t');
                 }
+                
+                var iisWebObj = {'custObjStr': custObjStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
+                    'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+                window.location.href = "accountadm.html";
             }
         });
     }
