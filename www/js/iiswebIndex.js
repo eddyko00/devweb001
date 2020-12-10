@@ -33,11 +33,17 @@ var app = {
                         txtpassword = "guest";
                     }
                 }
-                if (txemail === "111") {
+                if (txemail === "00") {
                     txemail = "admin1";
                     txtpassword = "Passw0rd";
                     iisurlStr = iisurl_LOCAL;
                 }
+                if (txemail === "1111") {
+                    txemail = "admin1";
+                    txtpassword = "Passw0rd";
+                    iisurlStr = iisurl_OP;
+                }
+
                 if (txemail === "11") {
                     txemail = "admin1";
                     txtpassword = "Passw0rd";
@@ -139,11 +145,17 @@ var app = {
                     txtpassword = "guest";
                 }
             }
-            if (txemail === "111") {
+            if (txemail === "00") {
                 txemail = "admin1";
                 txtpassword = "Passw0rd";
                 iisurlStr = iisurl_LOCAL;
             }
+            if (txemail === "1111") {
+                txemail = "admin1";
+                txtpassword = "Passw0rd";
+                iisurlStr = iisurl_OP;
+            }
+
             if (txemail === "11") {
                 txemail = "admin1";
                 txtpassword = "Passw0rd";

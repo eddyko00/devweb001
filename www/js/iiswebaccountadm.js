@@ -99,7 +99,7 @@ var app = {
             for (i = beg; i < end; i++) {
 
                 var CustN = CustNList[i];
-                var commId = i;
+                var commId = i+1;
 
                 var htmlName = '<div class="ui-grid-b">';
                 htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + CustN + '</strong></div>';
@@ -121,7 +121,7 @@ var app = {
             if (Id === 0) {
                 return;
             }
-            var username = CustNList[Id - 1];
+            var username = CustNList[Id-1];
             var cuObj = {'cmd': 'name', 'username': username,
                 'firstid': '0', 'lastid': '0'};
             var cuObjStr = JSON.stringify(cuObj);
