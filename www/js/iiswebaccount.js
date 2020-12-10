@@ -16,7 +16,7 @@ var app = {
 
         var iisWebObjStr = window.localStorage.getItem(iisWebSession);
         var iisWebObj = JSON.parse(iisWebObjStr);
-        console.log(iisWebObj);
+//        console.log(iisWebObj);
 
         var iisurlStr = iisWebObj.iisurlStr;
         iisurl = iisurlStr;
