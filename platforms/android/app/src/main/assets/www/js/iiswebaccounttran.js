@@ -19,7 +19,7 @@ var app = {
 //        console.log(iisWebObj);
         var iisurlStr = iisWebObj.iisurlStr;
         iisurl = iisurlStr;
-        
+
         var custObjStr = iisWebObj.custObjStr;
         if (custObjStr == null) {
             window.location.href = "index.html";
@@ -69,7 +69,11 @@ var app = {
         var close = stockObj.afstockInfo.fclose;
         var preClose = stockObj.prevClose;
         var percent = 100 * (close - preClose) / preClose;
-        var percentSt = percent.toFixed(2) + '%';
+        if (percent > 0) {
+            percentSt = "<font style= color:green>" + percent.toFixed(2) + '%' + "</font>";
+        } else {
+            percentSt = "<font style= color:red>" + percent.toFixed(2) + '%' + "</font>";
+        }
 
         var stStr = 'Trading Model Transaction Listing<br>';
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + '<br>' +
@@ -92,12 +96,17 @@ var app = {
         var total = 0;
 
         var list = [];
-        var buyOnly = 1;
+
+        var buyOnly = 0;
+        if (trName === "TR_ACC") {
+            buyOnly = 1;
+        }
 
         for (i = 0; i < tranObjList.length; i++) {
             var tranObj = tranObjList[j - i];
             console.log(tranObj);
             var nameId = tranObj.id;
+
 
             var tranhtml = '';
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
@@ -163,11 +172,17 @@ var app = {
                     var totalSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
                     var diffSt = Number(diff).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
 
-                    tranhtml += 'Share=' + tranObj.share + ' Tran on close: ' + diffSt; // + ' Total: ' + totalSt;
+                    tranhtml += 'Share=' + tranObj.share + ' Tran amt change: ' + diffSt; // + ' Total: ' + totalSt;
                 }
             }
+            if (tranObj.trsignal == 1) {
+                htmlName += '<div class="ui-block-b" style="color:green;text-align: center">:' + signal + '</div>';
+            } else if (tranObj.trsignal == 2) {
+                htmlName += '<div class="ui-block-b" style="color:red;text-align: center">:' + signal + '</div>';
+            } else {
+                htmlName += '<div class="ui-block-b" style="text-align: center">:' + signal + '</div>';
+            }
 
-            htmlName += '<div class="ui-block-b" style="text-align: center">:' + signal + '</div>';
             var avgSt = tranObj.avgprice.toFixed(2);
             htmlName += '<div class="ui-block-c" style="width:25%">' + avgSt + '</div>';
             var totalSt = Number(total.toFixed(0)).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
