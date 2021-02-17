@@ -43,28 +43,38 @@ var app = {
             var billId = billObj.id;
 
             var htmlName = '';
-            htmlName += '<li id="' + billId + '"><a href="#">';
-            htmlName += '<br>Account: ' + billName;
-            htmlName += '</a></li>';
-            $("#myid").append(htmlName);
+            htmlName += '<br>Billing id: (' + billId + ') Account: ' + billName;
+
+            htmlName += '<br>Due date: ' + billObj.updatedatedisplay
+            var statusSt = 'NA';
+            if (billObj.status === 2) {
+                statusSt = 'Amount Due';
+            }
+            if (billObj.status === 5) {
+                statusSt = 'Amount Paid';
+            }
+            htmlName += '<br>Status:' + statusSt + ' Invoice due: ' + billObj.payment;
+
+            $("#myid").append('<li id="' + billId + '" >' + htmlName + '</li>');
+
         }
 
 
 
-        $("ul[id*=myid] li").click(function () {
-//            alert($(this).html()); // gets innerHTML of clicked li
-//            alert($(this).text()); // gets text contents of clicked li
-            var accId = $(this).attr('id');
-            console.log(accId);
-            if (accId == 0) {
-//                alert(accId);
-                return;
-            }
-
-            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId};
-            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountst_1.html";
-        });
+//        $("ul[id*=myid] li").click(function () {
+////            alert($(this).html()); // gets innerHTML of clicked li
+////            alert($(this).text()); // gets text contents of clicked li
+//            var accId = $(this).attr('id');
+//            console.log(accId);
+//            if (accId == 0) {
+////                alert(accId);
+//                return;
+//            }
+//
+//            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId};
+//            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+//            window.location.href = "accountst_1.html";
+//        });
 
 
         $("#clrbtn").click(function () {
