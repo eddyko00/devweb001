@@ -57,26 +57,28 @@ var app = {
             htmlName += '<br>Status:' + statusSt + ' invoice: ' + curPaySt;
 
             var dataSt = billObj.data;
-            if (dataSt != null) {
-                if (dataSt !== "") {
-                    dataSt = dataSt.replaceAll('#', '"');
-                    var detailObj = JSON.parse(dataSt);
-                    if (detailObj != null) {
-                        htmlName += '<br><br>Plan:' + detailObj.feat;
-                        var currencySt = Number(detailObj.prevOwn).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+            try {
+                if (dataSt != null) {
+                    if (dataSt !== "") {
+                        dataSt = dataSt.replaceAll('#', '"');
+                        var detailObj = JSON.parse(dataSt);
+                        if (detailObj != null) {
+                            htmlName += '<br><br>Plan:' + detailObj.feat;
+                            var currencySt = Number(detailObj.prevOwn).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
 
-                        htmlName += '<br>Previous outstanding:' + currencySt;
+                            htmlName += '<br>Previous outstanding:' + currencySt;
 
-                        currencySt = Number(detailObj.curPaym).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-                        htmlName += '<br>Current payment:' + currencySt;
+                            currencySt = Number(detailObj.curPaym).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                            htmlName += '<br>Current payment:' + currencySt;
 
-                        currencySt = Number(detailObj.prevOwn + detailObj.curPaym).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-                        htmlName += '<br>Total amount:' + currencySt;
+                            currencySt = Number(detailObj.prevOwn + detailObj.curPaym).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                            htmlName += '<br>Total amount:' + currencySt;
+                        }
                     }
                 }
+            } catch (err) {
 
             }
-
             $("#myid").append('<li id="' + billId + '" >' + htmlName + '</li>');
 
         }
