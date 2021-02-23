@@ -29,6 +29,7 @@ var app = {
 
 
 //        var iisurl = "https://iiswebsrv.herokuapp.com/";
+        var iisMsgSession = "iisMsgSession";
         var iisWebSession = "iisWebSession";
 //        var custObj = 'custObj';
 //        var accList = 'accList';
@@ -44,40 +45,43 @@ var app = {
         if (custObjStr == null) {
             window.location.href = "index.html";
         }
+        
         var custObj = JSON.parse(custObjStr);
         var accObjListStr = iisWebObj.accObjListStr;
-        var accObjList = JSON.parse(accObjListStr);
+        var accId = iisWebObj.accId;
+        console.log(accId);
 
-        var billObjListStr = iisWebObj.billObjListStr;
-        var billObjList = JSON.parse(billObjListStr);
+      $("#btn-submit").click(function () {
+            var txtfirstname = document.getElementById("txt-first-name").value;
+            var txtlastname = document.getElementById("txt-last-name").value;
+            var txtemailaddress = document.getElementById("txt-email-address-signup").value;
+            var txtpassword = document.getElementById("txt-password-signup").value;
 
 
-        $("#clrbtn").click(function () {
-            var accObjList = JSON.parse(accObjListStr);
-
-            var accObj = null;
-            for (i = 0; i < accObjList.length; i++) {
-                var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 110) { //INT_TRADING_ACCOUNT
-                    accObj = accObjTmp;
-                    break;
-                }
-            }
+//          ""/cust/{username}/acc/{accountid}/custupdate?email=&pass=&firstName=&lastName=&plan=""
+//          SUCC = 1;  EXISTED = 2; FAIL =0;
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/custupdate?email=" + txtemailaddress + "&pass=" + txtpassword + "&firstName=" + txtfirstname + "&lastName=" + txtlastname,
                 crossDomain: true,
                 cache: false,
-                beforeSend: function () {
-                    $("#loader").show();
-                },
+                success: handleResult
+            }); // use promises
 
-                success: function (result) {
-                    console.log(result);
-                    window.location.href = "account_1.html";
-                }
-            });
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
 
+            function handleResult(result) {
+//          SUCC = 1;  EXISTED = 2; FAIL =0;
+                var webMsg = result.webMsg;
+                console.log(webMsg);
+                var resultID = webMsg.resultID;
+                
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+                window.location.href = "config_1.html";                
+   
+            }
         });
+
 
 
 
