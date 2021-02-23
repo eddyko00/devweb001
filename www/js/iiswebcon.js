@@ -77,7 +77,7 @@ var app = {
                 
                 var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-                window.location.href = "config_1.html";                
+                window.location.href = "conf_1.html";                
    
             }
         });

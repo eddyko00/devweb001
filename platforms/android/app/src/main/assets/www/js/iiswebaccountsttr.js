@@ -156,11 +156,11 @@ var app = {
 
             var sharebalance = 0;
             var signal = "B";
-            if (trObj.trsignal === S_BUY) {
+            if (trObj.trsignal == S_BUY) {
                 sharebalance = trObj.longamount;
                 signal = "B";
                 htmlName += '<div class="ui-block-b" style="color:green;width:20%">:' + signal + '</div>';
-            } else if (trObj.trsignal === S_SELL) {
+            } else if (trObj.trsignal == S_SELL) {
                 signal = "S";
                 sharebalance = trObj.shortamount;
                 htmlName += '<div class="ui-block-b" style="color:red;width:20%">:' + signal + '</div>';

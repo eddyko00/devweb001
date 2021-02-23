@@ -19,18 +19,17 @@ var app = {
 //        console.log(iisWebObj);
         var iisurlStr = iisWebObj.iisurlStr;
         iisurl = iisurlStr;
-               
+
         var custObjStr = iisWebObj.custObjStr;
         if (custObjStr == null) {
             window.location.href = "index.html";
         }
         var custObj = JSON.parse(custObjStr);
         var accObjListStr = iisWebObj.accObjListStr;
-        var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
         console.log(accId);
         $.ajax({
-            url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/billing",
+            url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/custacc",
             crossDomain: true,
             cache: false,
             beforeSend: function () {
@@ -41,19 +40,17 @@ var app = {
                 window.location.href = "index.html";
             },
 
-            success: function (resultBillingList) {
-                console.log(resultBillingList);
-                window.localStorage.setItem(iisMsgSession, "");
+            success: function (result) {
+                var custObj = result.custObj;
+                console.log(custObj);
+                var custObjStr = JSON.stringify(custObj, null, '\t');
 
-                var billObjListStr = JSON.stringify(resultBillingList, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId, 'billObjListStr': billObjListStr};
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId};
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-                window.location.href = "billing.html";
+                window.location.href = "conf.html";
             }
         });
     }
 };
 app.initialize();
-
-
 

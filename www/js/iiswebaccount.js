@@ -245,7 +245,7 @@ var app = {
             var accId = accObj.id;
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "config_1.html";
+            window.location.href = "conf_1.html";
         });
 
         $("#invoicebtn").click(function () {
@@ -267,7 +267,7 @@ var app = {
             var accId = accObj.id;
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "billing_1.html";
+            window.location.href = "bill_1.html";
         });
 
         function functionConfirm(msg, myYes, myNo, myOk) {
