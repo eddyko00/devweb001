@@ -7,17 +7,23 @@ var app = {
         $(document).ready(function () {
 
 
-            var iisWebSession1 = "iisWebSession";
-            var iisWebObjStr1 = window.localStorage.getItem(iisWebSession1);
-            var iisWebObj1 = JSON.parse(iisWebObjStr1);
-            var custObjStr1 = iisWebObj1.custObjStr1;
-            var custObj1 = JSON.parse(custObjStr1);
-            document.getElementById("txt-first-name").setAttribute('value', custObj1.firstname);
-            document.getElementById("txt-last-name").setAttribute('value', custObj1.lastname);
+//            var iisWebSession = "iisWebSession";
+//            var iisWebObjStr = window.localStorage.getItem(iisWebSession);
+//            var iisWebObj = JSON.parse(iisWebObjStr);
+//            var custObjStr = iisWebObj1.custObjStr;
+//            var custObj = JSON.parse(custObjStr);
+//            
+            document.getElementById("txt-first-name").setAttribute('value', custObj.firstname);
+            document.getElementById("txt-last-name").setAttribute('value', custObj.lastname);
             
-            document.getElementById("txt-email-address-signup").setAttribute('value', custObj1.email);
-            document.getElementById("txt-password-signup").setAttribute('value', custObj1.password);
+            document.getElementById("txt-email-address-signup").setAttribute('value', custObj.email);
+            document.getElementById("txt-password-signup").setAttribute('value', custObj.password);
 
+//            document.getElementById("txt-first-name").setAttribute('value', 'firstname');
+//            document.getElementById("txt-last-name").setAttribute('value', 'lastname');
+//            
+//            document.getElementById("txt-email-address-signup").setAttribute('value', 'email');
+//            document.getElementById("txt-password-signup").setAttribute('value', 'password');
 
         });
 
