@@ -26,7 +26,6 @@ var app = {
         }
         var custObj = JSON.parse(custObjStr);
         var accObjListStr = iisWebObj.accObjListStr;
-        var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
         console.log(accId);
         $.ajax({
@@ -54,6 +53,4 @@ var app = {
     }
 };
 app.initialize();
-
-
 
