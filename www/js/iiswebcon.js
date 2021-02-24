@@ -6,12 +6,6 @@ var app = {
 
         $(document).ready(function () {
 
-
-//            var iisWebSession = "iisWebSession";
-//            var iisWebObjStr = window.localStorage.getItem(iisWebSession);
-//            var iisWebObj = JSON.parse(iisWebObjStr);
-//            var custObjStr = iisWebObj1.custObjStr;
-//            var custObj = JSON.parse(custObjStr);
 //            
             document.getElementById("txt-first-name").setAttribute('value', custObj.firstname);
             document.getElementById("txt-last-name").setAttribute('value', custObj.lastname);
@@ -29,11 +23,6 @@ var app = {
             }
             document.getElementById("txt-cur-plan").setAttribute('value', pp);
 
-//            document.getElementById("txt-first-name").setAttribute('value', 'firstname');
-//            document.getElementById("txt-last-name").setAttribute('value', 'lastname');
-//            
-//            document.getElementById("txt-email-address-signup").setAttribute('value', 'email');
-//            document.getElementById("txt-password-signup").setAttribute('value', 'password');
 
         });
 
