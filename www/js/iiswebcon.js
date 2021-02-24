@@ -23,7 +23,32 @@ var app = {
             }
             document.getElementById("txt-cur-plan").setAttribute('value', pp);
 
+            var dataSt = custObj.portfolio;
+            try {
+                if (dataSt != null) {
+                    if (dataSt !== "") {
+                        dataSt = dataSt.replaceAll('#', '"');
+                        var detailObj = JSON.parse(dataSt);
+                        if (detailObj != null) {
+                            if (detailObj.nPlan !== -1) {
+                                if (custObj.substatus != detailObj.nPlan) {
+                                    var pp = "Basic Plan - Max 2 stocks";
+                                    if (detailObj.nPlan == 0) {
+                                        pp = "Basic Plan - Max 2 stocks";
+                                    } else if (detailObj.nPlan == 10) {
+                                        pp = "Premium Plan - Max 10 stocks";
+                                    } else if (detailObj.nPlan == 20) {
+                                        pp = "Deluxe Plan - Max 20 stocks";
+                                    }
+                                    document.getElementById("txt-cur-plan").setAttribute('value', '*Pending to change* ' + pp);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
 
+            }
         });
 
 
