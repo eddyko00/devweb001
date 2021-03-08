@@ -150,7 +150,7 @@ var app = {
             }
             ///cust/{username}/acc/{accountid}/comm/remove/{id}
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove/" + msgid,
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove?idlist=" + msgid,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -168,7 +168,7 @@ var app = {
 
             ///cust/{username}/acc/{accountid}/comm/remove/{id}
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove",
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accObj.id + "/comm/remove?idlist=-1",
                 crossDomain: true,
                 cache: false,
                 success: handleResult
