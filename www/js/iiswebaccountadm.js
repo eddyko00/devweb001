@@ -182,7 +182,9 @@ var app = {
             }
         });
 
-
+        $("#getAllComm").click(function () {
+            window.location.href = "accountadm_1.html";
+        });
 
         $("#custnamesubmit").click(function () {
             var username = document.getElementById("custname").value;
