@@ -107,6 +107,9 @@ var app = {
             console.log(tranObj);
             var nameId = tranObj.id;
 
+            if (i === 0) {
+                prevTranObj = tranObj;
+            }
 
             var tranhtml = '';
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
@@ -145,10 +148,16 @@ var app = {
 //                    var totalSt = total.toFixed(2);
                     var totalSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
                     var diffSt = Number(diff).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-                    var tran = ' Tran on loss:' + diffSt;
+
+                    var perTran1 = 1.0 * diff / (tranObj.share * prevTranObj.avgprice);
+                    perTran1 = perTran1 * 100;
+
+                    var tran = ' Tran on loss:' + diffSt + ' (' + perTran1.toFixed(1) + '%)';
                     if (diff > 0) {
-                        tran = ' Tran on gain:' + diffSt;
+                        tran = ' Tran on gain:' + diffSt + ' (' + perTran1.toFixed(1) + '%)';
                     }
+
+
                     tranhtml += 'Share=' + tranObj.share + tran; // + ' Total: ' + totalSt;
                 }
             } else {
