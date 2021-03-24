@@ -103,7 +103,7 @@ var app = {
                 'Pre Cl:' + preClose + '  Close:' + close + '  Per:' + percentSt
         $("#0").html('<h1>' + stStr + '</h1>');
 
-        $("#accheader").html(' ' + accObj.accountname + ' ' + stockObj.symbol + ' ' + '<a href="#page-intro">Help</a>');
+        $("#accheader").html(' ' + accObj.accountname + ' ' + stockObj.symbol + ' ' + '<a href="#page-intro"><small>Help</small></a>');
 
 
         for (i = 0; i < trObjList.length; i++) {
@@ -150,7 +150,13 @@ var app = {
                 }
             }
 
-
+            if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) { //INT_MUTUAL_FUND_ACCOUNT = 120;
+                if (trObj.trname === "TR_ACC") {
+                    ;
+                } else {
+                    continue;
+                }
+            }
 //https://demos.jquerymobile.com/1.1.2/docs/content/content-grids.html
             var htmlName = '<div class="ui-grid-b">';
             var dispName = trObj.trname;
@@ -282,17 +288,19 @@ var app = {
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
 
         }
+        if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) { //INT_MUTUAL_FUND_ACCOUNT = 120;
+            ;
+        } else {
+            var htmlName = '<div class="ui-grid-b">';
+            htmlName += '<div class="ui-block-a" ></strong></div>';
+            htmlName += '<div class="ui-block-b" style="width:20%"></div>';
 
-        var htmlName = '<div class="ui-grid-b">';
-        htmlName += '<div class="ui-block-a" ></strong></div>';
-        htmlName += '<div class="ui-block-b" style="width:20%"></div>';
+            htmlName += '<div class="ui-block-c"></div>';
+            htmlName += '</div>';
+            htmlName = '<button id="configbtn"  >Configuration</button>';
 
-        htmlName += '<div class="ui-block-c"></div>';
-        htmlName += '</div>';
-        htmlName = '<button id="configbtn"  >Configuration</button>';
-
-        $("#myid").append('<li id="0">' + htmlName + '</li>');
-
+            $("#myid").append('<li id="0">' + htmlName + '</li>');
+        }
 //
         var buttonGraph = false;
 //        

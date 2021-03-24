@@ -76,7 +76,7 @@ var app = {
             $("#adminid").append(htmlAdmin);
         }
 
-        $("#accheader").html("Customer Account" + ' ' + '<a href="#page-intro">Help</a>');
+        $("#accheader").html("Customer Account" + ' ' + '<a href="#page-intro"><small>Help</small></a>');
 
         $("#myid").html(" "); //clear the field
         for (i = 0; i < accObjList.length; i++) {
@@ -109,7 +109,7 @@ var app = {
                 }
 
             }
-            if (accObj.type == 120) { //INT_MUTUAL_FUND_ACCOUNT = 120;
+            if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) { //INT_MUTUAL_FUND_ACCOUNT = 120;
                 var total = accObj.investment + accObj.balance;
                 var investSt = Number(accObj.investment).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
                 var balSt = Number(accObj.balance).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
