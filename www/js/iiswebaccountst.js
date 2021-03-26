@@ -110,8 +110,13 @@ var app = {
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
         }
 
-
-
+        if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) {
+            var total = accObj.investment + accObj.balance;
+            var totSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+            var htmlAdmin = '<button id="configbtn"  >Clear Fund Balance - ' + ' Total: ' + totSt + '</button>';
+            $("#adminid").html(htmlAdmin);
+        }
+        
         $("ul[id*=myid] li").click(function () {
 //            alert($(this).html()); // gets innerHTML of clicked li
 //            alert($(this).text()); // gets text contents of clicked li
@@ -162,7 +167,7 @@ var app = {
                 window.localStorage.setItem(iisMsgSession, msgObjStr);
                 window.location.href = "accountst.html";
                 return;
-            }            
+            }
 //          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/addsymbol?symbol=" + addsymbol,
@@ -212,7 +217,7 @@ var app = {
                 window.localStorage.setItem(iisMsgSession, msgObjStr);
                 window.location.href = "accountst.html";
                 return;
-            }                 
+            }
 //          ("/cust/{username}/acc/{accountid}/st/remove/{symbol}")
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/removesymbol?symbol=" + rsymbol,
