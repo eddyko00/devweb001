@@ -28,10 +28,12 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
+        
         var fundObjListStr = iisWebObj.fundObjListStr;
-        var fundObjList = JSON.parse(fundObjListStr);
-        var fundId = iisWebObj.fundId;
-
+        var fundObjList = "";
+        if (fundObjListStr != "") {
+            fundObjList = JSON.parse(fundObjListStr);
+        }
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
         var sockId = iisWebObj.sockId;

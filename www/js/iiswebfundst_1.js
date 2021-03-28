@@ -29,8 +29,12 @@ var app = {
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
         console.log(accId);
+        
         var fundObjListStr = iisWebObj.fundObjListStr;
-        var fundObjList = JSON.parse(fundObjListStr);
+        var fundObjList = "";
+        if (fundObjListStr != "") {
+            fundObjList = JSON.parse(fundObjListStr);
+        }
         var fundId = iisWebObj.fundId;
         $.ajax({
             url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundlink/" + fundId + "/st",
