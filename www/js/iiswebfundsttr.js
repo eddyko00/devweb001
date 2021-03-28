@@ -34,6 +34,12 @@ var app = {
         if (fundObjListStr != "") {
             fundObjList = JSON.parse(fundObjListStr);
         }
+        
+        var fundBestObjListStr = iisWebObj.fundBestObjListStr;
+        var fundBestObjList = "";
+        if (fundBestObjListStr != "") {
+            fundBestObjList = JSON.parse(fundBestObjListStr);
+        }
 
         var fundId = iisWebObj.fundId;
         

@@ -164,7 +164,7 @@ var app = {
             }
 
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
-                'fundObjListStr': fundObjListStr, 'fundId': fundId};
+                'fundObjListStr': fundObjListStr, 'fundBestObjListStr': fundBestObjListStr, 'fundId': fundId};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "fundst_1.html";
         });

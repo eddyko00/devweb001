@@ -28,12 +28,21 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
-        
+
         var fundObjListStr = iisWebObj.fundObjListStr;
         var fundObjList = "";
         if (fundObjListStr != "") {
             fundObjList = JSON.parse(fundObjListStr);
         }
+
+        var fundBestObjListStr = iisWebObj.fundBestObjListStr;
+        var fundBestObjList = "";
+        if (fundBestObjListStr != "") {
+            fundBestObjList = JSON.parse(fundBestObjListStr);
+        }
+
+        var fundId = iisWebObj.fundId;
+
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
         var sockId = iisWebObj.sockId;
@@ -70,7 +79,7 @@ var app = {
                 var trObjListStr = JSON.stringify(resultTRList, null, '\t');
 
                 var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
-                    'fundObjListStr': fundObjListStr, 'fundId': fundId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, 'trObjListStr': trObjListStr};
+                    'fundObjListStr': fundObjListStr, 'fundBestObjListStr': fundBestObjListStr, 'fundId': fundId, 'stockObjListStr': stockObjListStr, 'sockId': sockId, 'trObjListStr': trObjListStr};
 
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
