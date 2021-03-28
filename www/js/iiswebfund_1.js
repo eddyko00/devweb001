@@ -12,6 +12,7 @@ var app = {
 
 //        var iisurl = "https://iiswebsrv.herokuapp.com/";
 //        var iisMsgSession = "iisMsgSession";
+
         var iisWebSession = "iisWebSession";
         var iisWebObjStr = window.localStorage.getItem(iisWebSession);
         var iisWebObj = JSON.parse(iisWebObjStr);
