@@ -103,7 +103,7 @@ var app = {
 
             var subscribed = false;
             for (j = 0; j < fundObjList.length; j++) {
-                var accfeatObj = fundObjList[i];
+                var accfeatObj = fundObjList[j];
                 if (accfeatObj.accountname === accObj.accountname) {
                     subscribed = true;
                     break;
@@ -189,8 +189,11 @@ var app = {
                     break;
                 }
             }
+            if (fundObj === null) {
+                return;
+            }
             selectFundObj = fundObj;
-            $("#fundheader").html("Fund Mgr: " + fundObj.accountname);
+            $("#fundheader").html("Fund Mgr: " + selectFundObj.accountname);
 
             window.location.href = "#page-msg";
 
@@ -201,7 +204,8 @@ var app = {
             if (selectFundObj === null) {
                 return;
             }
-
+            console.log(selectFundObj.id);
+            
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundlink/" + selectFundObj.id + "/add",
                 crossDomain: true,
