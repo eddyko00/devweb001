@@ -50,7 +50,7 @@ var app = {
         }
 
         $.ajax({
-            url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundlink/" + fundId + "/st/" + sockId + "/tr/TR_ACC",
+            url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundlink/" + fundId + "/st/" + sockId + "/tr",
             crossDomain: true,
             cache: false,
             beforeSend: function () {

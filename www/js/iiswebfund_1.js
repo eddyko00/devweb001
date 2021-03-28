@@ -39,7 +39,7 @@ var app = {
             window.location.href = "index.html";
         }
         $.ajax({
-            url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundlist",
+            url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundbestlist",
             crossDomain: true,
             cache: false,
             beforeSend: function () {
