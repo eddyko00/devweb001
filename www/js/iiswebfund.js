@@ -29,18 +29,20 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
-        
+
         var fundObjListStr = iisWebObj.fundObjListStr;
         var fundObjList = "";
         if (fundObjListStr != "") {
             fundObjList = JSON.parse(fundObjListStr);
         }
-        
+
         var fundBestObjListStr = iisWebObj.fundBestObjListStr;
         var fundBestObjList = "";
         if (fundBestObjListStr != "") {
             fundBestObjList = JSON.parse(fundBestObjListStr);
         }
+
+        var selectFundObj = null;
 
         $("#accheader").html("Fund Mgr Account" + ' ' + '<a href="#page-intro"><small>Help</small></a>');
 
@@ -168,6 +170,54 @@ var app = {
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "fundst_1.html";
         });
+
+        $("ul[id*=fundid] li").click(function () {
+//            alert($(this).html()); // gets innerHTML of clicked li
+//            alert($(this).text()); // gets text contents of clicked li
+            var fundId = $(this).attr('id');
+            console.log(fundId);
+            if (fundId == 0) {
+//                alert(accId);
+                return;
+            }
+
+            var fundObj = null;
+            for (i = 0; i < fundBestObjList.length; i++) {
+                var fundObjTmp = fundBestObjList[i];
+                if (fundObjTmp.id == accId) {
+                    fundObj = fundObjTmp;
+                    break;
+                }
+            }
+            selectFundObj = fundObj;
+            $("#fundheader").html("Fund Mgr: " + fundObj.accountname);
+
+            window.location.href = "#page-msg";
+
+        });
+
+
+        $("#subbtn").click(function () {
+            if (selectFundObj === null) {
+                return;
+            }
+
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundlink/" + selectFundObj.id + "/add",
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+
+            function handleResult(result) {
+//          SUCC = 1;  EXISTED = 2; FAIL =0;
+                window.location.href = "fund_1.html";
+
+            }
+        });
+
 
 
         function functionConfirm(msg, myYes, myNo, myOk) {
