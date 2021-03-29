@@ -28,15 +28,30 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
-        var accObj = null;
-        for (i = 0; i < accObjList.length; i++) {
-            var accObjTmp = accObjList[i];
-            if (accObjTmp.id == accId) {
-                accObj = accObjTmp;
+        
+        var fundObjListStr = iisWebObj.fundObjListStr;
+        var fundObjList = "";
+        if (fundObjListStr != "") {
+            fundObjList = JSON.parse(fundObjListStr);
+        }
+        
+        var fundBestObjListStr = iisWebObj.fundBestObjListStr;
+        var fundBestObjList = "";
+        if (fundBestObjListStr != "") {
+            fundBestObjList = JSON.parse(fundBestObjListStr);
+        }
+
+        var fundId = iisWebObj.fundId;
+
+        var fundObj = null;
+        for (i = 0; i < fundObjList.length; i++) {
+            var fundObjTmp = fundObjList[i];
+            if (fundObjTmp.id == fundId) {
+                fundObj = fundObjTmp;
                 break;
             }
         }
-        if (accObj == null) {
+        if (fundObj == null) {
             window.location.href = "index.html";
         }
 
@@ -54,7 +69,7 @@ var app = {
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
 
-        $("#accheader").html('Account ' + accObj.accountname + ' ' + '<a href="#page-intro"><small>Help</small></a>');
+        $("#accheader").html('Account ' + fundObj.accountname + ' ' + '<a href="#page-intro"><small>Help</small></a>');
 
         var htmlhead = '<div class="ui-grid-d">';
         htmlhead += '<div class="ui-block-a" style="width:20%"><strong>Sym</strong></div>';
@@ -110,12 +125,6 @@ var app = {
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
         }
 
-        if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) {
-            var total = accObj.investment + accObj.balance;
-            var totSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-            var htmlAdmin = '<button id="configbtn"  >Clear Fund Balance - ' + ' Total: ' + totSt + '</button>';
-            $("#adminid").html(htmlAdmin);
-        }
 
         $("ul[id*=myid] li").click(function () {
 //            alert($(this).html()); // gets innerHTML of clicked li
@@ -142,140 +151,12 @@ var app = {
                 alert("Stock process not finished. Try again later");
                 return;
             }
-
-            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId};
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
+                'fundObjListStr': fundObjListStr, 'fundBestObjListStr': fundBestObjListStr, 'fundId': fundId, 'stockObjListStr': stockObjListStr, 'sockId': sockId};
+            ;
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountsttr_1.html";
+            window.location.href = "fundsttr_1.html";
         });
-
-
-        $("#addsubmit").click(function () {
-            var addsymbol = document.getElementById("addsymbol").value;
-            if (addsymbol === "") {
-                window.location.href = "accountst.html";
-                return;
-            }
-            if (custObj.username.toUpperCase() === "GUEST") {
-                msgObjStr = "This feature does not allow for GUEST account";
-                window.localStorage.setItem(iisMsgSession, msgObjStr);
-                window.location.href = "accountst.html";
-                return;
-            }
-            if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) {
-                msgObjStr = "This feature does not allow for the account";
-                window.localStorage.setItem(iisMsgSession, msgObjStr);
-                window.location.href = "accountst.html";
-                return;
-            }
-//          ("/cust/{username}/acc/{accountid}/st/add/{symbol}")
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/addsymbol?symbol=" + addsymbol,
-                crossDomain: true,
-                cache: false,
-                success: handleResult
-            }); // use promises
-
-            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-            function handleResult(result) {
-                //MAX_ALLOW_STOCK_ERROR = 100 ; NEW = 1; EXISTED = 2
-                console.log(result);
-                if (result == 1) {
-                    window.location.href = "accountst_1.html";
-                    return;
-                }
-                var msgObjStr = "Fail to add stock " + addsymbol;
-                if (result == 2) {
-                    msgObjStr += " : Stock alreday existed";
-
-                }
-                if (result == 100) {
-                    msgObjStr += " : Max number of stock exceeded the user plan";
-                }
-
-                window.localStorage.setItem(iisMsgSession, msgObjStr);
-                window.location.href = "accountst.html";
-            }
-        });
-
-
-
-        $("#removesubmit").click(function () {
-            var rsymbol = document.getElementById("removesymbol").value;
-            if (rsymbol === "") {
-                window.location.href = "accountst.html";
-                return;
-            }
-            if (custObj.username.toUpperCase() === "GUEST") {
-                msgObjStr = "This feature does not allow for GUEST account";
-                window.localStorage.setItem(iisMsgSession, msgObjStr);
-                window.location.href = "accountst.html";
-                return;
-            }
-            if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) {
-                msgObjStr = "This feature does not allow for the account";
-                window.localStorage.setItem(iisMsgSession, msgObjStr);
-                window.location.href = "accountst.html";
-                return;
-            }
-//          ("/cust/{username}/acc/{accountid}/st/remove/{symbol}")
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st/removesymbol?symbol=" + rsymbol,
-                crossDomain: true,
-                cache: false,
-                success: handleResult
-            }); // use promises
-
-            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-
-            function handleResult(result) {
-                console.log(result);
-                if (result == 1) {
-                    window.location.href = "accountst_1.html";
-                    return;
-                }
-                var msgObjStr = "Fail to remove stock " + rsymbol;
-                //NOTEXISTED = 3;
-                if (result == 3) {
-                    msgObjStr += " : Stock not found";
-
-                }
-                window.localStorage.setItem(iisMsgSession, msgObjStr);
-                window.location.href = "accountst.html";
-            }
-
-        });
-
-        $("#configbtn").click(function () {
-            var txt;
-            var r = confirm("Confrim to clear fund balance!");
-            if (r == true) {
-                
-            } else {
-                window.location.href = "accountst.html";
-                return;
-            }
-
-
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/clearfundbalance",
-                crossDomain: true,
-                cache: false,
-                success: handleResult
-            }); // use promises
-
-            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-
-            function handleResult(result) {
-                console.log(result);
-                if (result == 1) {
-                    window.location.href = "account_1.html";
-                    return;
-                }
-                window.location.href = "accountst.html";
-            }
-        });
-
 
         function functionAlertConfirm(msg, myYes, myNo, myOk) {
             var confirmBox = $("#alertconfirm");
