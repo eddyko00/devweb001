@@ -40,6 +40,14 @@ var app = {
             window.location.href = "index.html";
         }
 
+        var trName = "TR_ACC";
+        if (iisWebObj.trName != null) {
+            trName = iisWebObj.trName;
+        }
+        var trFilter = "";
+        if (iisWebObj.trFilter != null) {
+            trFilter = iisWebObj.trFilter;
+        }
         var iisMsgSession = "iisMsgSession";
         var msgObjStr = window.localStorage.getItem(iisMsgSession);
 //        msgObjStr ="This feature does not allow for GUEST account";
@@ -57,11 +65,11 @@ var app = {
         $("#accheader").html('Account ' + accObj.accountname + ' ' + '<a href="#page-intro"><small>Help</small></a>');
 
         var htmlhead = '<div class="ui-grid-d">';
-        htmlhead += '<div class="ui-block-a" style="width:20%"><strong>Sym</strong></div>';
+        htmlhead += '<div class="ui-block-a" style="width:20%"><strong>Sym <small>' + trName + '</small></strong></div>';
         htmlhead += '<div class="ui-block-b" style="text-align: center;width:20%">Sig</div>';
         htmlhead += '<div class="ui-block-c" style="text-align: center;width:20%">Trend</div>';
         htmlhead += '<div class="ui-block-d" style="text-align: center;width:20%">Daily %</div>';
-        htmlhead += '<div class="ui-block-e" style="text-align: center;width:20%">NN1 %</div>';
+        htmlhead += '<div class="ui-block-e" style="text-align: center;width:20%">perf %</div>';
         htmlhead += '</div>';
         htmlhead += '</div>';
         $("#myid").html('<li id="0" >' + htmlhead + '</li>');
@@ -97,9 +105,19 @@ var app = {
                 close = stockObj.afstockInfo.fclose;
                 preClose = stockObj.prevClose;
                 var percent = 100 * (close - preClose) / preClose;
-                percentSt = percent.toFixed(1); // + '%';
+                percentSt = percent.toFixed(1); // close price '%';
+                
                 var perform = stockObj.perform;
-                perSt = perform.toFixed(0); // + '%';
+                perSt = perform.toFixed(0); // performance '%';                
+                if (perform != 0) {
+                    if (perform < 10) {
+                        if (perform > -10) {
+                             perSt = perform.toFixed(2);
+                             perSt = perSt.replace("0.00","0");
+                        }
+                    }
+                }
+
 
             }
             htmlName += '<div class="ui-block-d" style="text-align: center;width:20%">P:' + percentSt + ' </div>';
@@ -115,6 +133,29 @@ var app = {
             var totSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
             var htmlAdmin = '<button id="configbtn"  >Clear Fund Balance - ' + ' Total: ' + totSt + '</button>';
             $("#adminid").html(htmlAdmin);
+
+            $("#tabheader").hide();
+        }
+
+
+
+
+
+        var htmltrHeader = "";
+        if (trName === "TR_ACC") {
+//            htmltrHeader += '<button type="submit" id="traccbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left"><small>*TR_ACC</small></button>';
+            htmltrHeader += '<button type="submit" id="trnn1btn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>TR_NN1</small></button>';
+
+        } else if (trName === "TR_NN1") {
+            htmltrHeader += '<button type="submit" id="traccbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>TR_ACC</small></button>';
+//            htmltrHeader += '<button type="submit" id="trnn1btn" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left"><small>*TR_NN1</small></button>';
+
+        }
+
+        $("#trheader").html(htmltrHeader);
+
+        if (stockObjList.length <= 10) {
+            $("#srcheader").hide();
         }
 
         $("ul[id*=myid] li").click(function () {
@@ -144,7 +185,7 @@ var app = {
             }
 
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId};
+                'accId': accId, 'trFilter': trFilter, 'stockObjListStr': stockObjListStr, 'sockId': sockId};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountsttr_1.html";
         });
@@ -246,11 +287,29 @@ var app = {
 
         });
 
+
+        $("#filtersubmit").click(function () {
+            var filter = document.getElementById("filtersymbol").value;
+            if (filter === "") {
+                window.location.href = "accountst.html";
+                return;
+            }
+            trFilter = filter;
+
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
+                'stockObjListStr': stockObjListStr, 'trName': trName, 'trFilter': trFilter};
+            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+            window.location.href = "accountst_1.html";
+        });
+
+
+
+
         $("#configbtn").click(function () {
             var txt;
             var r = confirm("Confrim to clear fund balance!");
             if (r == true) {
-                
+
             } else {
                 window.location.href = "accountst.html";
                 return;
@@ -275,6 +334,29 @@ var app = {
                 window.location.href = "accountst.html";
             }
         });
+
+        $("#traccbtn").click(function () {
+
+
+            trName = "TR_ACC"
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
+                'stockObjListStr': stockObjListStr, 'trName': trName, 'trFilter': trFilter};
+            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+            window.location.href = "accountst_1.html";
+        });
+
+        $("#trnn1btn").click(function () {
+
+
+            trName = "TR_NN1"
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
+                'stockObjListStr': stockObjListStr, 'trName': trName, 'trFilter': trFilter};
+            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+            window.location.href = "accountst_1.html";
+        });
+
+
+
 
 
         function functionAlertConfirm(msg, myYes, myNo, myOk) {

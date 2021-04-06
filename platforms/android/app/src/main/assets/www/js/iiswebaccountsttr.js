@@ -40,7 +40,10 @@ var app = {
         if (accObj == null) {
             window.location.href = "index.html";
         }
-
+        var trFilter = "";
+        if (iisWebObj.trFilter != null) {
+            trFilter = iisWebObj.trFilter;
+        }
         var iisMsgSession = "iisMsgSession";
         var msgObjStr = window.localStorage.getItem(iisMsgSession);
 //        msgObjStr ="This feature does not allow for GUEST account";
@@ -110,19 +113,8 @@ var app = {
             var trObj = trObjList[i];
             console.log(trObj);
             var nameId = trObj.id;
-            if (custObj.username.toUpperCase() === "GUEST") {
-                if (trObj.trname === "TR_ACC") {
-                    trObjacc = trObj;
-//                } else if (trObj.trname === "TR_MACD") {
-//                    ;
-                } else if (trObj.trname === "TR_NN1") {
-                    ;
-                } else if (trObj.trname === "TR_NN2") {
-                    ;
-                } else {
-                    continue;
-                }
-            } else if (custObj.username.toUpperCase() === "EDDY") {
+
+            if (custObj.type == 99) {
                 if (trObj.trname === "TR_ACC") {
                     trObjacc = trObj;
                 } else if (trObj.trname === "TR_MACD") {
@@ -139,12 +131,12 @@ var app = {
             } else {
                 if (trObj.trname === "TR_ACC") {
                     trObjacc = trObj;
-//                } else if (trObj.trname === "TR_MACD") {
-//                    ;
                 } else if (trObj.trname === "TR_NN1") {
                     ;
                 } else if (trObj.trname === "TR_NN2") {
                     ;
+//                } else if (trObj.trname === "TR_NN3") {
+//                    ;
                 } else {
                     continue;
                 }
@@ -598,7 +590,7 @@ var app = {
             }
             var trName = trObj.trname;
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                'accId': accId, 'stockObjListStr': stockObjListStr, 'sockId': sockId,
+                'accId': accId, 'trFilter': trFilter, 'stockObjListStr': stockObjListStr, 'sockId': sockId,
                 'trObjListStr': trObjListStr, 'trName': trName};
 
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
