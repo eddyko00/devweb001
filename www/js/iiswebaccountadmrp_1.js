@@ -38,14 +38,12 @@ var app = {
         if (accObj == null) {
             window.location.href = "index.html";
         }
-        var CustNListStr = iisWebObj.CustNListStr;
-        var CustNListCnt = iisWebObj.CustNListCnt;
 
 
 
         ///cust/{username}/uisys/{custid}/accounting/report?year=");
         $.ajax({
-            url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/accounting/report?year=" + yearStr,
+            url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/accounting/report",
             crossDomain: true,
             cache: false,
             beforeSend: function () {
@@ -59,9 +57,9 @@ var app = {
                 console.log(resultRptObj);
 
                 var reportObjStr = JSON.stringify(resultRptObj, null, '\t');
-                            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'reportObjStr': reportObjStr};
-            
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'reportObjStr': reportObjStr};
+
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
                 window.location.href = "accountadmrp.html";

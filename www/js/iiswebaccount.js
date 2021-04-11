@@ -79,8 +79,8 @@ var app = {
         $("#adminid").html(htmlAdmin);
         if (custObj.type == 99) {
             var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
-            htmlAdmin += '<button id="admsgbtn" >Adminiistration</button>';
-            htmlAdmin += '<button id="rptgbtn" >Accounting Report</button>';            
+            htmlAdmin += '<button id="admsgbtn" >Administration</button>';
+            htmlAdmin += '<button id="rptbtn" >Accounting Report</button>';            
             $("#adminid").append(htmlAdmin);
         }
 
@@ -318,12 +318,10 @@ var app = {
             if (accObj == null) {
                 window.location.href = "#page-index";
             }
-            var CustNListStr = "";
-            var CustNListCnt = 0;
-            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
+
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr };
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountadmrpt_1.html";
+            window.location.href = "accountadmrp_1.html";
         });
         
 ///////////////////////
