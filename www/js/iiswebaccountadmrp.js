@@ -43,27 +43,21 @@ var app = {
         if (iisWebObj.tabName != null) {
             tabName = iisWebObj.tabName;
         }
+
         var CustNListStr = iisWebObj.CustNListStr;
         var CustNListCnt = iisWebObj.CustNListCnt;
+        var commObjListStr = iisWebObj.commObjListStr;
 
-        var cuObjStr = iisWebObj.cuObjStr;
+        var yearStr = iisWebObj.yearStr;
 
-        var cuObjListStr = iisWebObj.cuObjListStr;
-        var cuObjList = JSON.parse(cuObjListStr);
-        if (cuObjList == null) {
-            window.location.href = "index.html";
-        }
-        if (cuObjList.length != 1) {
-            window.location.href = "index.html";
-        }
-        var cuObj = cuObjList[0];  // pick the first one
+        var reportObjStr = iisWebObj.reportObjStr;
 
-        $("#accheader").html("Admin Control");
+        $("#accheader").html("Accounting Report");
 
         $("#myid").html(" "); //clear the field
 
-        if (cuObjListStr !== "") {
-            var cuObjList = JSON.parse(cuObjListStr);
+        if (reportObjStr !== "") {
+            var reportObj = JSON.parse(reportObjStr);
 
             var htmlhead = '<div class="ui-grid-b">';
             htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
@@ -73,39 +67,18 @@ var app = {
 
             $("#myid").html('<li id="0" >' + htmlhead + '</li>');
 
-            for (i = 0; i < cuObjList.length; i++) {
-                var cuObj = cuObjList[i];
-                var cuId = cuObj.id;
+            var entryList = reportObj.accTotalEntryBal;
 
-                var htmlName = '<div class="ui-grid-b">';
-                htmlName += '<div class="ui-block-a" style="width:20%"><strong>' + cuObj.startdate + '</strong></div>';
-                htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
-                htmlName += '<div class="ui-block-c">' + cuObj.username
-                        + ' First:' + cuObj.firstname
-                        + ' Last:' + cuObj.lastname
+            var htmlName = '<div class="ui-grid-b">';
+            htmlName += '<div class="ui-block-a" style="width:20%"><strong></strong></div>';
+            htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
+            htmlName += '<div class="ui-block-c">StartDate:' + reportObj.begindisplay
+                    + ' EndDate:' + reportObj.enddisplay
+                     + '</div>';
+            htmlName += '</div>';
 
-                        + '<br>Type:' + cuObj.type
-                        + ' Status:' + cuObj.status
-                        + ' SubStatus:' + cuObj.substatus
+            $("#myid").append('<li>' + htmlName + '</li>');
 
-                        + '<br>Bill date:' + cuObj.updatedatedisplay
-
-                        + '<br>Balance:' + cuObj.balance
-                        + '  AmountDue:' + cuObj.payment
-
-                        + '</div>';
-                htmlName += '</div>';
-
-                $("#myid").append('<li id="' + cuId + '" >' + htmlName + '</li>');
-
-                if (cuObj.status !== 0) {
-                    $("#logheader").hide();
-                }
-                if (cuObj.type === 99) {
-                    $("#logheader").hide();
-                    $("#statusheader").hide();
-                }
-            }
         }
 
 
@@ -120,166 +93,9 @@ var app = {
             }
 
             return;
-//            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr};
-//            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-//            window.location.href = "#";
+
         });
 
-
-        $("#statussubmit").click(function () {
-            var subStatus = document.getElementById("statusSt").value;
-            if (subStatus === "") {
-                window.location.href = "accountadm.html";
-                return;
-            }
-
-            var customername = cuObj.username;
-            var subS = subStatus;
-            //cust/{username}/uisys/{custid}/cust/{customername}/update?status=&payment=&balance="
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
-                        + "/update?status=" + subS,
-                crossDomain: true,
-                cache: false,
-                success: handleResult
-            }); // use promises
-
-            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-            function handleResult(result) {
-                console.log(result);
-                // result 1 = good, 0 = error                
-                var resultmsg = "Enable Status result: " + result;
-                if (result == '1') {
-                    resultmsg += "  - success";
-                } else {
-                    resultmsg += "  - fail";
-                }
-                alert(resultmsg);
-
-                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                    'cuObjStr': cuObjStr};
-                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-
-                window.location.href = "accountadmcu_1.html";
-            }
-        });
-
-
-        $("#accbalancesubmit").click(function () {
-            var accbalance = document.getElementById("accbalance").value;
-            if (accbalance === "") {
-                window.location.href = "accountadm.html";
-                return;
-            }
-
-            var customername = cuObj.username;
-            var balance = accbalance;
-            //cust/{username}/uisys/{custid}/cust/{customername}/update?status=&payment=&balance="
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
-                        + "/update?balance=" + balance,
-                crossDomain: true,
-                cache: false,
-                success: handleResult
-            }); // use promises
-
-            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-            function handleResult(result) {
-                console.log(result);
-                var resultmsg = "Account Balance Update result: " + result;
-                if (result == '1') {
-                    resultmsg += "  - success";
-                } else {
-                    resultmsg += "  - fail";
-                }
-                alert(resultmsg);
-
-
-                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                    'cuObjStr': cuObjStr};
-                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-
-                window.location.href = "accountadmcu_1.html";
-            }
-        });
-
-        $("#accpaymentsubmit").click(function () {
-            var accbalance = document.getElementById("accpayment").value;
-            if (accbalance === "") {
-                window.location.href = "accountadm.html";
-                return;
-            }
-
-            var customername = cuObj.username;
-            var balance = accbalance;
-            //cust/{username}/uisys/{custid}/cust/{customername}/update?status=&payment=&balance="
-            $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
-                        + "/update?payment=" + balance,
-                crossDomain: true,
-                cache: false,
-                success: handleResult
-            }); // use promises
-
-            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-            function handleResult(result) {
-                console.log(result);
-                var resultmsg = "Account payment Update result: " + result;
-                if (result == '1') {
-                    resultmsg += "  - success";
-                } else {
-                    resultmsg += "  - fail";
-                }
-                alert(resultmsg);
-
-
-                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
-                    'cuObjStr': cuObjStr};
-                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-
-                window.location.href = "accountadmcu_1.html";
-            }
-        });
-
-
-
-        $("#loginsubmit").click(function () {
-//            var r = confirm("Do you want to remote login?");
-//            if (r == false) {
-//                return;
-//            }
-            var txemail = cuObj.username;
-            var txtpassword = cuObj.password;
-
-            $.ajax({
-                url: iisurl + "cust/login?email=" + txemail + "&pass=" + txtpassword,
-                crossDomain: true,
-                cache: false,
-                success: handleResult
-            }); // use promises
-
-            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
-
-            function handleResult(result) {
-
-                var custObj = result.custObj;
-                console.log(custObj);
-
-                var custObjStr = JSON.stringify(custObj, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr};
-                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-
-//                var iisWebObjStr = window.localStorage.getItem('iisWebSession');
-//                var iisWebObj = JSON.parse(iisWebObjStr);
-//                console.log(iisWebObj);
-
-                if (custObj != null) {
-                    window.location.href = "account_1.html";
-                } else {
-
-                }
-            }
-        });
 
 
 
