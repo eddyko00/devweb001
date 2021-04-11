@@ -19,7 +19,7 @@ var app = {
 //        console.log(iisWebObj);
         var iisurlStr = iisWebObj.iisurlStr;
         iisurl = iisurlStr;
-        
+
         var custObjStr = iisWebObj.custObjStr;
         if (custObjStr == null) {
             window.location.href = "index.html";
@@ -45,7 +45,7 @@ var app = {
         }
         var CustNListStr = iisWebObj.CustNListStr;
         var CustNListCnt = iisWebObj.CustNListCnt;
-        
+
         var cuObjStr = iisWebObj.cuObjStr;
 
         var cuObjListStr = iisWebObj.cuObjListStr;
@@ -87,9 +87,9 @@ var app = {
                         + '<br>Type:' + cuObj.type
                         + ' Status:' + cuObj.status
                         + ' SubStatus:' + cuObj.substatus
-                
+
                         + '<br>Bill date:' + cuObj.updatedatedisplay
-                
+
                         + '<br>Balance:' + cuObj.balance
                         + '  AmountDue:' + cuObj.payment
 
@@ -97,6 +97,14 @@ var app = {
                 htmlName += '</div>';
 
                 $("#myid").append('<li id="' + cuId + '" >' + htmlName + '</li>');
+
+                if (cuObj.status !== 0) {
+                    $("#logheader").hide();
+                }
+                if (cuObj.type === 99) {
+                    $("#logheader").hide();
+                    $("#statusheader").hide();
+                }
             }
         }
 
@@ -155,6 +163,83 @@ var app = {
                 window.location.href = "accountadmcu_1.html";
             }
         });
+        
+        $("#accpaidsubmit").click(function () {
+            var accpaid = document.getElementById("accpaid").value;
+            if (accpaid === "") {
+                window.location.href = "accountadm.html";
+                return;
+            }
+
+            var customername = cuObj.username;
+            var balance = accpaid;
+            //cust/{username}/uisys/{custid}/cust/{customername}/update?status=&payment=&balance="
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
+                        + "/update?balance=" + balance + "&reason=R_USER_PAYMENT",
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Account Balance Update result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'cuObjStr': cuObjStr};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmcu_1.html";
+            }
+        });
+        
+
+        $("#accdrawsubmit").click(function () {
+            var accdraw = document.getElementById("accdraw").value;
+            if (accdraw === "") {
+                window.location.href = "accountadm.html";
+                return;
+            }
+
+            var customername = cuObj.username;
+            var balance = -accdraw;
+            //cust/{username}/uisys/{custid}/cust/{customername}/update?status=&payment=&balance="
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/cust/" + customername
+                        + "/update?balance=" + balance + "&reason=R_USER_WITHDRAWAL",
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Account Balance Update result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'cuObjStr': cuObjStr};
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmcu_1.html";
+            }
+        });
 
 
         $("#accbalancesubmit").click(function () {
@@ -194,7 +279,7 @@ var app = {
                 window.location.href = "accountadmcu_1.html";
             }
         });
-        
+
         $("#accpaymentsubmit").click(function () {
             var accbalance = document.getElementById("accpayment").value;
             if (accbalance === "") {
