@@ -43,7 +43,7 @@ var app = {
 
         var commObjListStr = iisWebObj.commObjListStr;
 
-        $("#accheader").html("Admin Control");
+        $("#accheader").html("System Control");
 
         var tabName = "COMM";
         if (iisWebObj.tabName != null) {

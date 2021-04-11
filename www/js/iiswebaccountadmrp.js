@@ -60,14 +60,13 @@ var app = {
             var entryList = reportObj.accTotalEntryBal;
 
             for (i = 0; i < entryList.length; i++) {
-                var entrySt = entryList[i];
-                var entryList = entrySt.split(",");
+                var entryObj = entryList[i];
                 var entryId = i + 1;
 
                 var htmlName = '<div class="ui-grid-b">';
-                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + entryList[0] + '</strong></div>';
-                htmlName += '<div class="ui-block-b" >' + entryList[1] + '</div>';
-                htmlName += '<div class="ui-block-c" >' + entryList[2] + '</div>';
+                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + entryObj.dateSt + '</strong></div>';
+                htmlName += '<div class="ui-block-b" >' + entryObj.name + '</div>';
+                htmlName += '<div class="ui-block-c" >' + entryObj.amount + '</div>';
                 htmlName += '</div>';
                 $("#myid").append('<li id="' + entryId + '" >' + htmlName + '</li>');
 
