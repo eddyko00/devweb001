@@ -60,24 +60,38 @@ var app = {
             var reportObj = JSON.parse(reportObjStr);
 
             var htmlhead = '<div class="ui-grid-b">';
-            htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
+            htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Entry</strong></div>';
             htmlhead += '<div class="ui-block-b" style="width:5%"></div>';
-            htmlhead += '<div class="ui-block-c">Msg</div>';
+            htmlhead += '<div class="ui-block-c">Amount</div>';
             htmlhead += '</div>';
+            $("#myid").html('<li >' + htmlhead + '</li>');
 
-            $("#myid").html('<li id="0" >' + htmlhead + '</li>');
-
+            htmlhead = '<div class="ui-grid-b">';
+            htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Entry</strong></div>';
+            htmlhead += '<div class="ui-block-b" style="width:5%"></div>';
+            htmlhead += '<div class="ui-block-c">Amount</div>';
+            htmlhead += '</div>';
+            $("#myid").html('<li >' + htmlhead + '</li>');
             var entryList = reportObj.accTotalEntryBal;
 
             var htmlName = '<div class="ui-grid-b">';
             htmlName += '<div class="ui-block-a" style="width:20%"><strong></strong></div>';
             htmlName += '<div class="ui-block-b" style="width:5%"> </div>';
-            htmlName += '<div class="ui-block-c">StartDate:' + reportObj.begindisplay
-                    + ' EndDate:' + reportObj.enddisplay
-                     + '</div>';
+            htmlName += '<div class="ui-block-c">StartDate:' + reportObj.begindisplay + ' EndDate:' + reportObj.enddisplay + '</div>';
             htmlName += '</div>';
+            $("#msgid").append('<li >' + htmlName + '</li>');
+            for (i = 0; i < entryList.length; i++) {
+                var entrySt = entryList[i];
+                var entryList = entrySt.split(",");
+                htmlName = '<div class="ui-grid-b">';
+                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + entryList[0] + '</strong></div>';
+                htmlName += '<div class="ui-block-b" style="width:5%"></div>';
+                htmlName += '<div class="ui-block-c">' + entryList[1] + '</div>';
+                htmlName += '</div>';
+                $("#msgid").append('<li >' + htmlName + '</li>');
 
-            $("#myid").append('<li>' + htmlName + '</li>');
+            }
+
 
         }
 

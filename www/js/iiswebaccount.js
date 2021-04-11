@@ -79,7 +79,8 @@ var app = {
         $("#adminid").html(htmlAdmin);
         if (custObj.type == 99) {
             var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
-            htmlAdmin += '<button id="admsgbtn"  >Admin Msg</button>';
+            htmlAdmin += '<button id="admsgbtn" >Adminiistration</button>';
+            htmlAdmin += '<button id="rptgbtn" >Account Report</button>';            
             $("#adminid").append(htmlAdmin);
         }
 
@@ -189,7 +190,7 @@ var app = {
             var accObj = null;
             for (i = 0; i < accObjList.length; i++) {
                 var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+                if (accObjTmp.type == 140) { 
                     accObj = accObjTmp;
                     break;
                 }
@@ -204,6 +205,7 @@ var app = {
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "accountadm_1.html";
         });
+        
 /////////////////
         $("#admclrbtn").click(function () {
 
@@ -212,7 +214,7 @@ var app = {
             var accObj = null;
             for (i = 0; i < accObjList.length; i++) {
                 var accObjTmp = accObjList[i];
-                if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+                if (accObjTmp.type == 140) { 
                     accObj = accObjTmp;
                     break;
                 }
@@ -301,6 +303,29 @@ var app = {
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "fund_1.html";
         });
+
+
+        $("#rptbtn").click(function () {
+            var accObjList = JSON.parse(accObjListStr);
+            var accObj = null;
+            for (i = 0; i < accObjList.length; i++) {
+                var accObjTmp = accObjList[i];
+                if (accObjTmp.type == 140) { //adminstration;
+                    accObj = accObjTmp;
+                    break;
+                }
+            }
+            if (accObj == null) {
+                window.location.href = "#page-index";
+            }
+            var CustNListStr = "";
+            var CustNListCnt = 0;
+            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
+            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+            window.location.href = "accountadm_1.html";
+        });
+        
 
         function functionConfirm(msg, myYes, myNo, myOk) {
             var confirmBox = $("#confirm");

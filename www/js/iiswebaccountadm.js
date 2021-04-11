@@ -32,7 +32,7 @@ var app = {
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
-            if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+            if (accObjTmp.type == 140) { //administration
                 accObj = accObjTmp;
                 break;
             }
