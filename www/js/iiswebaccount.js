@@ -80,7 +80,7 @@ var app = {
         if (custObj.type == 99) {
             var htmlAdmin = '<br><br><button id="sysbtn" >System Status</button>';
             htmlAdmin += '<button id="admsgbtn" >Adminiistration</button>';
-            htmlAdmin += '<button id="rptgbtn" >Account Report</button>';            
+            htmlAdmin += '<button id="rptgbtn" >Accounting Report</button>';            
             $("#adminid").append(htmlAdmin);
         }
 
@@ -323,10 +323,10 @@ var app = {
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                 'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountadm_1.html";
+            window.location.href = "accountadmrpt_1.html";
         });
         
-
+///////////////////////
         function functionConfirm(msg, myYes, myNo, myOk) {
             var confirmBox = $("#confirm");
             confirmBox.find(".message").text(msg);

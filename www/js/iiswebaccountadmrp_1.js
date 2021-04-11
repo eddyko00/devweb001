@@ -30,7 +30,7 @@ var app = {
         var accObj = null;
         for (i = 0; i < accObjList.length; i++) {
             var accObjTmp = accObjList[i];
-            if (accObjTmp.type == 140) { //INT_ADMIN_ACCOUNT = 140;
+            if (accObjTmp.type == 140) { //administrator
                 accObj = accObjTmp;
                 break;
             }
@@ -38,14 +38,9 @@ var app = {
         if (accObj == null) {
             window.location.href = "index.html";
         }
-        var tabName = "COMM";
-        if (iisWebObj.tabName != null) {
-            tabName = iisWebObj.tabName;
-        }
         var CustNListStr = iisWebObj.CustNListStr;
         var CustNListCnt = iisWebObj.CustNListCnt;
-        var commObjListStr = iisWebObj.commObjListStr;
-        var yearStr = iisWebObj.yearStr;
+
 
 
         ///cust/{username}/uisys/{custid}/accounting/report?year=");
@@ -63,17 +58,10 @@ var app = {
             success: function (resultRptObj) {
                 console.log(resultRptObj);
 
-                if (resultRptObj == null) {
-                    var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
-                        'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'tabName': tabName, 'yearStr': yearStr};
-                    window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-
-                    window.location.href = "accountadm.html";
-
-                }
                 var reportObjStr = JSON.stringify(resultRptObj, null, '\t');
-                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
-                    'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'tabName': tabName, 'yearStr': yearStr, 'reportObjStr': reportObjStr};
+                            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'reportObjStr': reportObjStr};
+            
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
                 window.location.href = "accountadmrp.html";

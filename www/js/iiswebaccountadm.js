@@ -54,28 +54,17 @@ var app = {
         if (tabName === "CUST") {
             htmltrHeader += '<button type="submit" id="custtab" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left"><small>CustTab</small></button>';
             htmltrHeader += '<button type="submit" id="commtab" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>CommTab</small></button>';
-            htmltrHeader += '<button type="submit" id="rpttab" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>RptTab</small></button>';
             htmltrHeader += '<br>';
             $("#commheader").hide(0);
             $("#commid").hide(0);
-            $("#rptheader").hide(0);
         } else if (tabName === "COMM") {
             htmltrHeader += '<button type="submit" id="custtab" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>CustTab</small></button>';
             htmltrHeader += '<button type="submit" id="commtab" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left"><small>CommTab</small></button>';
-            htmltrHeader += '<button type="submit" id="rpttab" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>RptTab</small></button>';
             htmltrHeader += '<br>';
             $("#custheader").hide(0);
-            $("#rptheader").hide(0);
             $("#myid").hide();
-        } else { //RPT
-            htmltrHeader += '<button type="submit" id="custtab" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>CustTab</small></button>';
-            htmltrHeader += '<button type="submit" id="commtab" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>CommTab</small></button>';
-            htmltrHeader += '<button type="submit" id="rpttab" class="ui-btn ui-corner-all ui-shadow ui-btn-c ui-btn-icon-left"><small>RptTab</small></button>';
+        } else { 
 
-            htmltrHeader += '<br>';
-            $("#custheader").hide(0);
-            $("#commheader").hide(0);
-            $("#commid").hide(0);
         }
         $("#trheader").html(htmltrHeader);
 
@@ -333,22 +322,6 @@ var app = {
 
         });
 
-        $("#rptsubmit").click(function () {
-
-            var yearStr = document.getElementById("rptyear").value;
-            if (yearStr === "") {
-                yearStr = 0;
-            }
-
-            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
-                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'tabName': tabName, 'yearStr': yearStr};
-            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-
-            window.location.href = "accountadmrp_1.html";
-
-        });
-
-
 
         $("#custtab").click(function () {
             tabName = "CUST"
@@ -368,14 +341,7 @@ var app = {
             window.location.href = "accountadm_1.html";
         });
 
-        $("#rpttab").click(function () {
-            tabName = "RPT"
-            var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
-                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'tabName': tabName};
 
-            window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
-            window.location.href = "accountadm_1.html";
-        });
 // example        
 //alert("AJAX request successfully completed");
 //var jsonObj = JSON.parse(jsonStr);

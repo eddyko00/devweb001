@@ -39,16 +39,9 @@ var app = {
         if (accObj == null) {
             window.location.href = "index.html";
         }
-        var tabName = "COMM";
-        if (iisWebObj.tabName != null) {
-            tabName = iisWebObj.tabName;
-        }
 
         var CustNListStr = iisWebObj.CustNListStr;
         var CustNListCnt = iisWebObj.CustNListCnt;
-        var commObjListStr = iisWebObj.commObjListStr;
-
-        var yearStr = iisWebObj.yearStr;
 
         var reportObjStr = iisWebObj.reportObjStr;
 
