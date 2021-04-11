@@ -335,16 +335,16 @@ var app = {
 
         $("#rptsubmit").click(function () {
 
-            var year = document.getElementById("rptyear").value;
-            if (year === "") {
-                year = 0;
+            var yearStr = document.getElementById("rptyear").value;
+            if (yearStr === "") {
+                yearStr = 0;
             }
 
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'commObjListStr': commObjListStr,
-                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'tabName': tabName};
+                'CustNListStr': CustNListStr, 'CustNListCnt': CustNListCnt, 'tabName': tabName, 'yearStr': yearStr};
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
-            window.location.href = "accountadm_1.html";
+            window.location.href = "accountadmrp_1.html";
 
         });
 
