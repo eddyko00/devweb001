@@ -40,40 +40,74 @@ var app = {
             window.location.href = "index.html";
         }
 
-
         var reportObjStr = iisWebObj.reportObjStr;
-
+        var entryObjStr = iisWebObj.entryObjStr;
+///////////////////////////
         $("#accheader").html("Accounting Report");
 
 
-        $("#commid").html(" "); //clear the field
-        var htmlhead = '<div class="ui-grid-b">';
-        htmlhead += '<div class="ui-block-a" style="width:30%"><strong>Date</strong></div>';
-        htmlhead += '<div class="ui-block-b" >Name</div>';
-        htmlhead += '<div class="ui-block-c" >Amount</div>';
-        htmlhead += '</div>';
 
-        $("#myid").html('<li id="0" >' + htmlhead + '</li>');
 
         if (reportObjStr !== "") {
             var reportObj = JSON.parse(reportObjStr);
             var entryList = reportObj.accTotalEntryBal;
+            var beginDate = reportObj.begindisplay;
+            var endDate = reportObj.enddisplay;
+            var rangeSt = 'Begin Date:' + beginDate + ' - ' + 'End Date:' + endDate;
+            $("#myid").html('<li ">' + rangeSt + '</li>');
+
+            var htmlhead = '<div class="ui-grid-d">';
+            htmlhead += '<div class="ui-block-a" style="width:20%"><strong>Date</strong></div>';
+            htmlhead += '<div class="ui-block-b" style="text-align: center;width:10%">Id</div>';
+            htmlhead += '<div class="ui-block-c" style="text-align: left;width:30%">Name</div>';
+            htmlhead += '<div class="ui-block-d" style="text-align: right">Debit</div>';
+            htmlhead += '<div class="ui-block-e" style="text-align: right">Credit</div>';
+            htmlhead += '</div>';
+
+            $("#myid").append('<li id="0" >' + htmlhead + '</li>');
+            for (i = 0; i < entryList.length; i++) {
+                var entryObj = entryList[i];
+                var entryId = i + 1;
+
+                var htmlName = '<div class="ui-grid-d">';
+                htmlName += '<div class="ui-block-a" style="width:20%"><strong>' + entryObj.dateSt + '</strong></div>';
+                htmlName += '<div class="ui-block-b" style="text-align: center;width:10%">' + entryObj.id + '</div>';
+                htmlName += '<div class="ui-block-c" style="text-align: left;width:30%"><small>' + entryObj.name + '</small></div>';
+
+                var totSt = Number(entryObj.debit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                htmlName += '<div class="ui-block-d" style="text-align: right">' + totSt + '</div>';
+                totSt = Number(entryObj.credit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                htmlName += '<div class="ui-block-e" style="text-align: right">' + totSt + '</div>';
+                htmlName += '</div>';
+                $("#myid").append('<li id="' + entryId + ' "><a href="#">' + htmlName + '</a></li>');
+            }
+        }
+
+        htmlhead = 'Accounting Entry Listing';
+        $("#entryid").html('<li id="0" >' + htmlhead + '</li>');
+
+        if (entryObjStr !== "") {
+            var entryObjList = JSON.parse(entryObjStr);
+            var entryList = entryObjList.accEntryBal;
 
             for (i = 0; i < entryList.length; i++) {
                 var entryObj = entryList[i];
                 var entryId = i + 1;
 
-                var htmlName = '<div class="ui-grid-b">';
-                htmlName += '<div class="ui-block-a" style="width:30%"><strong>' + entryObj.dateSt + '</strong></div>';
-                htmlName += '<div class="ui-block-b" >' + entryObj.name + '</div>';
-                htmlName += '<div class="ui-block-c" >' + entryObj.amount + '</div>';
-                htmlName += '</div>';
-                $("#myid").append('<li id="' + entryId + '" >' + htmlName + '</li>');
+                var htmlName = '<div class="ui-grid-d">';
+                htmlName += '<div class="ui-block-a" style="width:20%"><strong>' + entryObj.dateSt + '</strong></div>';
+                htmlName += '<div class="ui-block-b" style="text-align: center;width:10%">' + entryObj.id + '</div>';
+                htmlName += '<div class="ui-block-c" style="text-align: left;width:30%"><small>' + entryObj.name + '</small></div>';
 
+                var totSt = Number(entryObj.debit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                htmlName += '<div class="ui-block-d" style="text-align: right">' + totSt + '</div>';
+                totSt = Number(entryObj.credit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                htmlName += '<div class="ui-block-e" style="text-align: right">' + totSt + '</div>';
+                htmlName += '</div>';
+                htmlName += '<p>' + entryObj.comment;
+                $("#entryid").append('<li id="' + entryId + ' ">' + htmlName + '</li>');
             }
         }
-
-
 
         $("ul[id*=myid] li").click(function () {
 //            alert($(this).html()); // gets innerHTML of clicked li
@@ -84,13 +118,196 @@ var app = {
 //                alert(accId);
                 return;
             }
+            var entryList = reportObj.accTotalEntryBal;
+            var entryObj = entryList[Id - 1];
+            var name = entryObj.name;
 
-            return;
+            ///cust/{username}/uisys/{custid}/accounting/report?year=");
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/accounting/report?name=" + name,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function () {
+                    $("#loader").show();
+                },
+                error: function () {
+                    alert('Network failure. Please try again later.');
+                    window.location.href = "index.html";
+                },
+                success: function (resultRptObj) {
+                    console.log(resultRptObj);
+
+                    var entryObjStr = JSON.stringify(resultRptObj, null, '\t');
+                    var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                        'reportObjStr': reportObjStr, 'entryObjStr': entryObjStr};
+
+                    window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                    window.location.href = "accountadmrp.html";
+                }
+            });
 
         });
 
 
 
+        $("#costsubmit").click(function () {
+            var costamount = document.getElementById("costamount").value;
+            if (costamount === "") {
+                window.location.href = "accountadmrp.html";
+                return;
+            }
+            var comment = document.getElementById("costcomm").value;
+            var payment = costamount;
+            ///cust/{username}/uisys/{custid}/accounting/update?payment=&balance=&reason=&comment=
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
+                        + "/accounting/update?payment=" + payment + "&reason=E_COST_SERVICE&comment=" + comment,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Accounting Update result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'reportObjStr': reportObjStr};
+
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmrp.html";
+            }
+        });
+
+        $("#exsubmit").click(function () {
+            var examount = document.getElementById("examount").value;
+            if (examount === "") {
+                window.location.href = "accountadmrp.html";
+                return;
+            }
+            var comment = document.getElementById("excomm").value;
+            var payment = examount;
+            ///cust/{username}/uisys/{custid}/accounting/update?payment=&balance=&reason=&comment=
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
+                        + "/accounting/update?payment=" + payment + "&comment=" + comment,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Accounting Update result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'reportObjStr': reportObjStr};
+
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmrp_1.html";
+            }
+        });
+
+        $("#revsubmit").click(function () {
+            var revamount = document.getElementById("revamount").value;
+            if (revamount === "") {
+                window.location.href = "accountadmrp.html";
+                return;
+            }
+            var comment = document.getElementById("revcomm").value;
+            var balance = revamount;
+            ///cust/{username}/uisys/{custid}/accounting/update?payment=&balance=&reason=&comment=
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
+                        + "/accounting/update?balance=" + balance + "&comment=" + comment,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Accounting Update result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'reportObjStr': reportObjStr};
+
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmrp_1.html";
+            }
+        });
+
+
+        $("#depsubmit").click(function () {
+            var depamount = document.getElementById("depamount").value;
+            if (depamount === "") {
+                window.location.href = "accountadmrp.html";
+                return;
+            }
+            var deprate = document.getElementById("deprate").value;
+            if (deprate === "") {
+                window.location.href = "accountadmrp.html";
+                return;
+            }
+            var comment = document.getElementById("depcomm").value;
+            var payment = depamount;
+            ///cust/{username}/uisys/{custid}/accounting/deprecation?payment=&rate=&reason=&comment="
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
+                        + "/accounting/deprecation?payment=" + payment + +"&rate=" + deprate + "&comment=" + comment,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Accounting Update result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'reportObjStr': reportObjStr};
+
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmrp_1.html";
+            }
+        });
 
 // example        
 //alert("AJAX request successfully completed");
