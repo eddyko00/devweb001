@@ -133,6 +133,16 @@ var app = {
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
         }
 
+        var accObj = fundObj;
+
+        var total = accObj.investment + accObj.balance;
+        var investSt = Number(accObj.investment).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+        var balSt = Number(accObj.balance).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+
+        var totSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+        htmlName = 'Acc Bal: ' + investSt + ' Cur Bal: ' + balSt + '<br>Total: ' + totSt;
+        $("#myid").append('<li><strong>' + htmlName + '</strong></li>');
+
 
         $("ul[id*=myid] li").click(function () {
 //            alert($(this).html()); // gets innerHTML of clicked li
