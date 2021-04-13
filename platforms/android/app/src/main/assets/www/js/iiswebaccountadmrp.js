@@ -52,18 +52,17 @@ var app = {
 
 
         var htmltrHeader = "";
-
-        htmltrHeader += '<button type="submit" id="nextbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>next year</small></button>';
         htmltrHeader += '<button type="submit" id="prevbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>prev year</small></button>';
-
+        htmltrHeader += '<button type="submit" id="nextbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>next year</small></button>';
         $("#trheader").html(htmltrHeader);
+
 
         if (reportObjStr !== "") {
             var reportObj = JSON.parse(reportObjStr);
             var entryList = reportObj.accTotalEntryBal;
             var beginDate = reportObj.begindisplay;
             var endDate = reportObj.enddisplay;
-            var rangeSt = 'Begin Date:' + beginDate + ' - ' + 'End Date:' + endDate;
+            var rangeSt = 'Yr:' + yearRpt + ' Date:' + beginDate + ' - ' + ':' + endDate;
             $("#myid").html('<li ">' + rangeSt + '</li>');
 
             var htmlhead = '<div class="ui-grid-d">';
@@ -79,7 +78,24 @@ var app = {
                 var entryObj = entryList[i];
                 var entryId = i + 1;
 
+
                 var htmlName = '<div class="ui-grid-d">';
+                if (i == 0) {
+
+                    htmlName += '<div class="ui-block-a" style="color:SteelBlue;width:20%"><strong>' + entryObj.dateSt + '</strong></div>';
+                    htmlName += '<div class="ui-block-b" style="color:SteelBlue;text-align: center;width:10%">' + entryObj.id + '</div>';
+                    htmlName += '<div class="ui-block-c" style="color:SteelBlue;text-align: left;width:30%"><small>' + entryObj.name + '</small></div>';
+
+                    var totSt = Number(entryObj.debit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                    htmlName += '<div class="ui-block-d" style="color:SteelBlue;text-align: right">' + totSt + '</div>';
+                    totSt = Number(entryObj.credit).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+                    htmlName += '<div class="ui-block-e" style="color:SteelBlue;text-align: right">' + totSt + '</div>';
+                    htmlName += '</div>';
+                    $("#myid").append('<li id="' + entryId + ' "><a href="#">' + htmlName + '</a></li>');
+                    $("#myid").append('<li> </li>');
+                    
+                    continue;
+                }
                 htmlName += '<div class="ui-block-a" style="width:20%"><strong>' + entryObj.dateSt + '</strong></div>';
                 htmlName += '<div class="ui-block-b" style="text-align: center;width:10%">' + entryObj.id + '</div>';
                 htmlName += '<div class="ui-block-c" style="text-align: left;width:30%"><small>' + entryObj.name + '</small></div>';
@@ -134,7 +150,7 @@ var app = {
 
             ///cust/{username}/uisys/{custid}/accounting/report?year=");
             $.ajax({
-                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/accounting/report?name=" + name+"&year="+yearRpt,
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id + "/accounting/report?name=" + name + "&year=" + yearRpt,
                 crossDomain: true,
                 cache: false,
                 beforeSend: function () {
@@ -167,12 +183,17 @@ var app = {
                 window.location.href = "accountadmrp.html";
                 return;
             }
+            var costyr = document.getElementById("costyr").value;
+            if (costyr === "") {
+                window.location.href = "accountadmrp.html";
+                return;
+            }
             var comment = document.getElementById("costcomm").value;
             var payment = costamount;
-            ///cust/{username}/uisys/{custid}/accounting/update?payment=&balance=&reason=&comment=
+            ///cust/{username}/uisys/{custid}/accounting/costofgoodsold?payment=&curyear=&reason=&comment=
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/update?payment=" + payment + "&reason=E_COST_SERVICE&comment=" + comment,
+                        + "/accounting/costofgoodsold?payment=" + payment + "&curyear=" + costyr + "&comment=" + comment,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -195,7 +216,7 @@ var app = {
 
                 window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
 
-                window.location.href = "accountadmrp.html";
+                window.location.href = "accountadmrp_1.html";
             }
         });
 
@@ -320,7 +341,7 @@ var app = {
         });
 
         $("#nextbtn").click(function () {
-            yearRpt = 1;
+            yearRpt = yearRpt + 1;
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                 'reportObjStr': reportObjStr, 'yearRpt': yearRpt};
 
@@ -330,7 +351,7 @@ var app = {
         });
 
         $("#prevbtn").click(function () {
-            yearRpt = -1;
+            yearRpt = yearRpt - 1;
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
                 'reportObjStr': reportObjStr, 'yearRpt': yearRpt};
 
