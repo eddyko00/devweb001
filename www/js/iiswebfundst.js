@@ -54,17 +54,12 @@ var app = {
         if (fundObj == null) {
             window.location.href = "index.html";
         }
+//var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId, 
+//      'fundObjListStr': fundObjListStr, 'fundBestObjListStr': fundBestObjListStr, 'fundId': fundId, 'stockObjListStr': stockObjListStr};
 
-        var iisMsgSession = "iisMsgSession";
-        var msgObjStr = window.localStorage.getItem(iisMsgSession);
-//        msgObjStr ="This feature does not allow for GUEST account";
-        if (msgObjStr !== "") {
-            functionAlertConfirm(msgObjStr, function ok() {
-            });
-        }
 
-        var physicalScreenWidth = window.screen.width * window.devicePixelRatio;
-        var physicalScreenHeight = window.screen.height * window.devicePixelRatio;
+//        var physicalScreenWidth = window.screen.width * window.devicePixelRatio;
+//        var physicalScreenHeight = window.screen.height * window.devicePixelRatio;
 
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
@@ -173,9 +168,10 @@ var app = {
                 alert("Stock process not finished. Try again later");
                 return;
             }
+
             var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
                 'fundObjListStr': fundObjListStr, 'fundBestObjListStr': fundBestObjListStr, 'fundId': fundId, 'stockObjListStr': stockObjListStr, 'sockId': sockId};
-            ;
+
             window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
             window.location.href = "fundsttr_1.html";
         });

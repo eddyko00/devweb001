@@ -30,6 +30,9 @@ var app = {
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
 
+//var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
+//      'fundObjListStr': fundObjListStr, 'fundBestObjListStr': fundBestObjListStr};
+
         var fundObjListStr = iisWebObj.fundObjListStr;
         var fundObjList = "";
         if (fundObjListStr != "") {
@@ -42,7 +45,11 @@ var app = {
             fundBestObjList = JSON.parse(fundBestObjListStr);
         }
 
+
         var selectFundObj = null;
+
+//var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'accId': accId,
+//     'fundObjListStr': fundObjListStr, 'fundBestObjListStr': fundBestObjListStr, 'fundId': fundId};
 
         $("#accheader").html("Fund Mgr Account" + ' ' + '<a href="#page-intro"><small>Help</small></a>');
 
@@ -209,18 +216,6 @@ var app = {
 
             window.location.href = "#page-remove";
 
-//            $.ajax({
-//                url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/fundlink/" + fundId + "/remove",
-//                crossDomain: true,
-//                cache: false,
-//                success: handleResult
-//            }); // use promises
-//
-//            function handleResult(result) {
-////          SUCC = 1;  EXISTED = 2; FAIL =0;
-//                window.location.href = "fund_1.html";
-//
-//            }
         });
 
         $("ul[id*=fundid] li").click(function () {
