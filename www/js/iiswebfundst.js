@@ -28,13 +28,13 @@ var app = {
         var accObjListStr = iisWebObj.accObjListStr;
         var accObjList = JSON.parse(accObjListStr);
         var accId = iisWebObj.accId;
-        
+
         var fundObjListStr = iisWebObj.fundObjListStr;
         var fundObjList = "";
         if (fundObjListStr != "") {
             fundObjList = JSON.parse(fundObjListStr);
         }
-        
+
         var fundBestObjListStr = iisWebObj.fundBestObjListStr;
         var fundBestObjList = "";
         if (fundBestObjListStr != "") {
@@ -118,11 +118,11 @@ var app = {
                 if (perform != 0) {
                     if (perform < 10) {
                         if (perform > -10) {
-                             perSt = perform.toFixed(2);
-                             perSt = perSt.replace("0.00","0");
+                            perSt = perform.toFixed(2);
+                            perSt = perSt.replace("0.00", "0");
                         }
                     }
-                }                
+                }
 
             }
             htmlName += '<div class="ui-block-d" style="text-align: center;width:20%">P:' + percentSt + ' </div>';
@@ -133,16 +133,20 @@ var app = {
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
         }
 
-        var accObj = fundObj;
+        if (stockObjList.length > 0) {
+            var accObj = fundObj;
 
-        var total = accObj.investment + accObj.balance;
-        var investSt = Number(accObj.investment).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-        var balSt = Number(accObj.balance).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+            var total = accObj.investment + accObj.balance;
+            var investSt = Number(accObj.investment).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+            var balSt = Number(accObj.balance).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
 
-        var totSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-        htmlName = 'Acc Bal: ' + investSt + ' Cur Bal: ' + balSt + '<br>Total: ' + totSt;
-        $("#myid").append('<li><strong>' + htmlName + '</strong></li>');
-
+            var percent = 100 * (total) / (6000 * stockObjList.length);
+            percentSt = percent.toFixed(2); // + '%';
+            var totSt = Number(total).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+            htmlName = 'Acc Bal: ' + investSt + ' Cur Bal: ' + balSt;
+            htmlName += '<br>Total: ' + totSt + ' (per:' + percentSt + '%)';
+            $("#myid").append('<li><strong>' + htmlName + '</strong></li>');
+        }
 
         $("ul[id*=myid] li").click(function () {
 //            alert($(this).html()); // gets innerHTML of clicked li
