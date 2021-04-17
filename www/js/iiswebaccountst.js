@@ -39,7 +39,14 @@ var app = {
         if (accObj == null) {
             window.location.href = "index.html";
         }
-
+        var STnameListStr = iisWebObj.STnameListStr;
+        var STnameNum=0;
+        var STnameList = "";
+        if (STnameListStr !== "") {
+            STnameList = JSON.parse(STnameListStr);
+            STnameNum = STnameList.length; 
+        }
+        
         var trName = "TR_ACC";
         if (iisWebObj.trName != null) {
             trName = iisWebObj.trName;
@@ -56,8 +63,8 @@ var app = {
             });
         }
 
-        var physicalScreenWidth = window.screen.width * window.devicePixelRatio;
-        var physicalScreenHeight = window.screen.height * window.devicePixelRatio;
+//        var physicalScreenWidth = window.screen.width * window.devicePixelRatio;
+//        var physicalScreenHeight = window.screen.height * window.devicePixelRatio;
 
         var stockObjListStr = iisWebObj.stockObjListStr;
         var stockObjList = JSON.parse(stockObjListStr);
@@ -81,6 +88,7 @@ var app = {
         }
         htmlhead += '</div>';
         htmlhead += '</div>';
+        htmlhead += 'Number of Stock:'+ STnameNum;
         $("#myid").html('<li id="0" >' + htmlhead + '</li>');
         for (i = 0; i < stockObjList.length; i++) {
             var stockObj = stockObjList[i];
