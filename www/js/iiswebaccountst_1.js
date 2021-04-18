@@ -30,6 +30,12 @@ var app = {
         var accId = iisWebObj.accId;
         console.log(accId);
 
+        var StNListCnt = iisWebObj.StNListCnt;
+        if (typeof StNListCnt === "undefined") {
+            StNListCnt = 0;
+        }
+
+
         var trName = "TR_ACC";
         if (iisWebObj.trName != null) {
             trName = iisWebObj.trName;
@@ -58,6 +64,7 @@ var app = {
                     }
                 }
                 $.ajax({
+                    // default st size 20
                     url: iisurl + "/cust/" + custObj.username + "/acc/" + accId + "/st?trname=" + trName + "&filter=" + trFilter,
                     crossDomain: true,
                     cache: false,
@@ -74,7 +81,7 @@ var app = {
 
                         var stockObjListStr = JSON.stringify(resultStockList, null, '\t');
                         var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr, 'STnameListStr': STnameListStr,
-                            'accId': accId, 'trFilter': trFilter, 'stockObjListStr': stockObjListStr, 'trName': trName};
+                            'StNListCnt': StNListCnt, 'accId': accId, 'trFilter': trFilter, 'stockObjListStr': stockObjListStr, 'trName': trName};
                         window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
                         window.location.href = "accountst.html";
                     }
