@@ -430,7 +430,7 @@ var app = {
                         $("#grtxt1").hide(0);
                     }, 6000);
                     var symbol = stockObj.symbol;
-                    $("#graphheader").html("Display graph - " + stockObj.symbol);
+                    $("#graphheader1").html("Display graph - " + stockObj.symbol);
                     symbol = symbol.replace(".", "_");
                     var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
@@ -548,7 +548,7 @@ var app = {
             if (trname != null) {
                 var symbol = stockObj.symbol;
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage").attr("src", resultURL);
 
@@ -604,15 +604,15 @@ var app = {
                 var symbol = stockObj.symbol;
                 $("#graphheader").html("Display graph - " + stockObj.symbol);
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage").attr("src", resultURL);
 
                 window.location.href = "#page_graph";
             }
         });
-        
-        
+
+
         $("#y2btn").click(function () {
             $("#grtxt2").show(0);
             if (trname !== null) {
@@ -623,7 +623,7 @@ var app = {
                 var symbol = stockObj.symbol;
                 $("#graphheader2").html("Display graph - " + stockObj.symbol);
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=24";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage2").attr("src", resultURL);
 
@@ -631,7 +631,25 @@ var app = {
                 window.location.href = "#page_graph2";
             }
         });
-        
+        $("#y3btn").click(function () {
+            $("#grtxt3").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt3").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader3").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=24";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage3").attr("src", resultURL);
+
+                $("#grtxt3").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph3";
+            }
+        });
+
         $("#y21btn").click(function () {
             $("#grtxt1").show(0);
             if (trname !== null) {
@@ -642,14 +660,14 @@ var app = {
                 var symbol = stockObj.symbol;
                 $("#graphheader").html("Display graph - " + stockObj.symbol);
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage").attr("src", resultURL);
 
                 window.location.href = "#page_graph";
             }
         });
-        
+
         $("#y22btn").click(function () {
             $("#grtxt2").show(0);
             if (trname !== null) {
@@ -660,7 +678,7 @@ var app = {
                 var symbol = stockObj.symbol;
                 $("#graphheader2").html("Display graph - " + stockObj.symbol);
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=24";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage2").attr("src", resultURL);
 
@@ -668,7 +686,82 @@ var app = {
                 window.location.href = "#page_graph2";
             }
         });
-                
+
+        $("#y23btn").click(function () {
+            $("#grtxt3").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt3").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader3").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=24";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage3").attr("src", resultURL);
+
+                $("#grtxt3").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph3";
+            }
+        });
+
+        $("#y31btn").click(function () {
+            $("#grtxt1").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt1").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage").attr("src", resultURL);
+
+                window.location.href = "#page_graph";
+            }
+        });
+
+        $("#y32btn").click(function () {
+            $("#grtxt2").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt2").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader2").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage2").attr("src", resultURL);
+
+                $("#grtxt2").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph2";
+            }
+        });
+
+        $("#y33btn").click(function () {
+            $("#grtxt3").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt3").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader3").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=24";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage3").attr("src", resultURL);
+
+                $("#grtxt3").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph3";
+            }
+        });
+
         $("#configbtn").click(function () {
             if (custObj.username.toUpperCase() === "GUEST") {
                 msgObjStr = "This feature does not allow for GUEST account";
