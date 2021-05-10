@@ -88,12 +88,15 @@ var app = {
 
         var stockData = null;
         var stockD = stockObj.data;
-        if (stockD !== "") {
+        try {
+
             var objDataStr = stockD.replaceAll('#', '"');
             var objData = JSON.parse(objDataStr);
             if (objData != null) {
                 stockData = objData;
             }
+
+        } catch (err) {
         }
 
         var stStr = 'Trading Model Listing<br>';
@@ -305,7 +308,7 @@ var app = {
                     stockMsg += ' <a id="link" href="#"><small>continue....</a></small>';
                     $("#myid").append('<li></li>');
                     $("#myid").append(stockMsg);
-                    $("#myid").append('<li></li>');                    
+                    $("#myid").append('<li></li>');
                 }
             }
         } // end for loop
