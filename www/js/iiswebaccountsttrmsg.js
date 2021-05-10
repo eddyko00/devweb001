@@ -120,12 +120,54 @@ var app = {
         $("#accheader").html(' ' + accObj.accountname + ' ' + stockObj.symbol);
 
 
-
         var htmlName = '<div class="ui-grid-b">';
         htmlName += '<div class="ui-block-a" ></strong></div>';
         htmlName += '<div class="ui-block-b" style="width:20%"></div>';
-
         $("#myid").append('<li id="0">' + htmlName + '</li>');
+
+        if (stockData !== null) {
+            var stockMsg = "";
+            var rec = stockData.rec;
+            if (rec < recMsg.length) {
+                stockMsg = recMsg[rec];
+            }
+            if (stockData.pCl > 0) {
+                var updown = " going up to $";
+                if (stockData.pCl < close) {
+                    updown = " going down to $";
+                }
+                stockMsg += "The predict price will be " + updown + stockData.pCl.toFixed(2) + " in the next few days.";
+            }
+            stockMsg += "<p>";
+
+            var stockMsg1 = "";
+            if (stockData.upDn != 0) {
+                if (stockData.upDn > 50) {
+                    stockMsg1 = "The up trend is strong";
+                }
+                if (stockData.upDn > 70) {
+                    stockMsg1 = "The up trend is very strong";
+                }
+                if (stockData.top == 1) {
+                    stockMsg1 += " and price is near to the top.";
+                } else {
+                    stockMsg1 += ".";
+                }
+            }
+            if (stockData.upDn < -50) {
+                stockMsg1 = "The down trend is strong";
+                if (stockData.upDn < -70) {
+                    stockMsg1 = "The down trend is very strong";
+                }
+                if (stockData.top == -1) {
+                    stockMsg1 += " and price is near to the bottom.";
+                } else {
+                    stockMsg1 += ".";
+                }
+            }
+        }
+
+        $("#myid").append(stockMsg + stockMsg1);
 
 
 

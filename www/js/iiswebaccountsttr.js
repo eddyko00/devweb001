@@ -293,9 +293,6 @@ var app = {
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
 
             if (findTR_ACC === true) {
-                var recMsg = ["NN1 AI cannot find a signal pattern. You should wait unit the pattern is found.",
-                    "NN1 AI is able to find a signal pattern. You can follow signal.",
-                    "NN1 AI finds a strong related signal pattern. You should follow the signal."];
 
                 if (stockData !== null) {
                     var stockMsg = "";
