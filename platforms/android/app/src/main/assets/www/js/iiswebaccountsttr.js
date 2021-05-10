@@ -86,6 +86,16 @@ var app = {
             }
         }
 
+        var stockData = null;
+        var stockD = stockObj.data;
+        if (stockD !== "") {
+            var objDataStr = stockD.replaceAll('#', '"');
+            var objData = JSON.parse(objDataStr);
+            if (objData != null) {
+                stockData = objData;
+            }
+        }
+
         var stStr = 'Trading Model Listing<br>';
         var stStatus = "";
         if (stockObj.substatus == 12) { //ConstantKey.STOCK_SPLIT STOCK_DETLA = 12
@@ -114,6 +124,8 @@ var app = {
             var trObj = trObjList[i];
             console.log(trObj);
             var nameId = trObj.id;
+
+            var findTR_ACC = false;
 
             if (custObj.type == 99) {
                 if (trObj.trname === "TR_ACC") {
@@ -154,6 +166,7 @@ var app = {
             var htmlName = '<div class="ui-grid-b">';
             var dispName = trObj.trname;
             if (trObj.trname === "TR_ACC") {
+                findTR_ACC = true;
                 var status = trObj.status;
                 if (status == 2) { //int PENDING = 2;
                     dispName = 'PENDING'
@@ -274,13 +287,28 @@ var app = {
                 }
             }
             htmlBtn += '</div>';
-
             htmlName += htmlBtn;
 
 
             $("#myid").append('<li id="' + nameId + '"><a href="#">' + htmlName + '</a></li>');
 
-        }
+            if (findTR_ACC === true) {
+
+                if (stockData !== null) {
+                    var stockMsg = "";
+                    var rec = stockData.rec;
+                    if (rec < recMsg.length) {
+                        stockMsg = recMsg[rec];
+                    }
+//                    stockMsg += ' <a href="accountsttrmsg.html"><small>continue....</a></small>';
+
+                    stockMsg += ' <a id="link" href="#"><small>continue....</a></small>';
+                    $("#myid").append('<li></li>');
+                    $("#myid").append(stockMsg);
+                    $("#myid").append('<li></li>');                    
+                }
+            }
+        } // end for loop
         if (accObj.type === INT_MUTUAL_FUND_ACCOUNT) { //INT_MUTUAL_FUND_ACCOUNT = 120;
             ;
         } else {
@@ -430,17 +458,11 @@ var app = {
                         $("#grtxt1").hide(0);
                     }, 6000);
                     var symbol = stockObj.symbol;
-                    $("#graphheader").html("Display graph - " + stockObj.symbol);
+                    $("#graphheader1").html("Display graph - " + stockObj.symbol);
                     symbol = symbol.replace(".", "_");
-                    var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
+                    var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                     $("#spaceimage").attr("src", resultURL);
-
-
-//                    var grHeader = '<button type="submit" id="y1btn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ">1 year</button>';
-//                    grHeader += '<button type="submit" id="y2btn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ">2 year</button>';
-//                    $("#grheader").html(grHeader);
-
                     window.location.href = "#page_graph";
                 }
             }
@@ -548,28 +570,12 @@ var app = {
             if (trname != null) {
                 var symbol = stockObj.symbol;
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage").attr("src", resultURL);
 
                 window.location.href = "#page_graph";
             }
-//            $.ajax({
-//                url: "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart",
-//                datatype: "binary",
-//                beforeSend: function (xhr) {
-//                    xhr.overrideMimeType("text/plain; charset=x-user-defined");
-//                },
-//                success: function (image) {
-//
-//                    var imgBase64 = $.base64.encode(image);
-//                    console.log(imgBase64);
-//                    window.location.href = "#page_graph";
-//                },
-//                error: function (xhr, text_status) {
-//                    console.log("An error again " + text_status);
-//                }
-//            });
 
 
         });
@@ -620,13 +626,14 @@ var app = {
                 var symbol = stockObj.symbol;
                 $("#graphheader").html("Display graph - " + stockObj.symbol);
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=3";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage").attr("src", resultURL);
 
                 window.location.href = "#page_graph";
             }
         });
+
         $("#y2btn").click(function () {
             $("#grtxt2").show(0);
             if (trname !== null) {
@@ -637,12 +644,143 @@ var app = {
                 var symbol = stockObj.symbol;
                 $("#graphheader2").html("Display graph - " + stockObj.symbol);
                 symbol = symbol.replace(".", "_");
-                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?year=2";
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
 //                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
                 $("#spaceimage2").attr("src", resultURL);
 
                 $("#grtxt2").show(0).delay(1000).hide(0);
                 window.location.href = "#page_graph2";
+            }
+        });
+
+        $("#y3btn").click(function () {
+            $("#grtxt3").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt3").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader3").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage3").attr("src", resultURL);
+
+                $("#grtxt3").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph3";
+            }
+        });
+
+        $("#y21btn").click(function () {
+            $("#grtxt1").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt1").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=3";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage").attr("src", resultURL);
+
+                window.location.href = "#page_graph";
+            }
+        });
+
+        $("#y22btn").click(function () {
+            $("#grtxt2").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt2").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader2").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage2").attr("src", resultURL);
+
+                $("#grtxt2").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph2";
+            }
+        });
+
+        $("#y23btn").click(function () {
+            $("#grtxt3").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt3").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader3").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage3").attr("src", resultURL);
+
+                $("#grtxt3").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph3";
+            }
+        });
+
+        $("#y31btn").click(function () {
+            $("#grtxt1").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt1").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=3";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage").attr("src", resultURL);
+
+                window.location.href = "#page_graph";
+            }
+        });
+
+        $("#y32btn").click(function () {
+            $("#grtxt2").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt2").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader2").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=6";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage2").attr("src", resultURL);
+
+                $("#grtxt2").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph2";
+            }
+        });
+
+        $("#y33btn").click(function () {
+            $("#grtxt3").show(0);
+            if (trname !== null) {
+                setTimeout(function () {
+                    $("#grtxt3").hide(0);
+                }, 4000);
+
+                var symbol = stockObj.symbol;
+                $("#graphheader3").html("Display graph - " + stockObj.symbol);
+                symbol = symbol.replace(".", "_");
+                var resultURL = iisurl + "cust/" + custObj.username + "/acc/" + accId + "/st/" + symbol + "/tr/" + trname + "/tran/history/chart?month=12";
+//                resultURL = "https://iiswebsrv.herokuapp.com/cust/guest/acc/3/st/hou_to/tr/tr_macd/tran/history/chart";
+                $("#spaceimage3").attr("src", resultURL);
+
+                $("#grtxt3").show(0).delay(1000).hide(0);
+                window.location.href = "#page_graph3";
             }
         });
 
@@ -671,21 +809,6 @@ var app = {
 
             window.location.href = "#page_conf";
         });
-
-//    public static final String TR_ACC = "TR_ACC";  // transaction account
-//    public static final int INT_TR_ACC = 0;
-//    public static final String TR_MV = "TR_MV";  // simulation 
-//    public static final int INT_TR_MV = 1;
-//    public static final String TR_MACD = "TR_MACD";
-//    public static final int INT_TR_MACD = 2;
-//    public static final String TR_RSI = "TR_RSI";
-//    public static final int INT_TR_RSI = 3;
-//    public static final String TR_NN1 = "TR_NN1"; //NN for MACD fast
-//    public static final int INT_TR_NN1 = 4;
-//    public static final String TR_NN2 = "TR_NN2"; //NN for MACD 12 26
-//    public static final int INT_TR_NN2 = 5;
-//    public static final String TR_NN3 = "TR_NN3"; //NN for MV
-//    public static final int INT_TR_NN3 = 6;    
 
         $("#savesubmit").click(function () {
 
@@ -717,6 +840,13 @@ var app = {
                 }
                 window.location.href = "accountsttr_1.html";
             }
+        });
+
+        $('a#link').click(function () {
+//            alert("Hello");
+//            window.location.href = "#page-intro";
+            window.location.href = "accountsttrmsg.html";
+
         });
 
 
