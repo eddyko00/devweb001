@@ -114,7 +114,7 @@ var app = {
         stStr += stockObj.stockname + '<br>' + stockObj.updateDateD + " " + stStatus + '<br>' +
                 'Pre Close:' + preClose + '  Close:' + close + '  Per:' + percentSt
         stStr += '<br>' + 'Long trend:' + stockObj.longterm + '<br>' + 'Short trend:' + stockObj.shortterm + '<br>' +
-                'Change Direction:' + stockObj.direction
+                'Direction:' + stockObj.direction
 
         $("#0").html('<h1>' + stStr + '</h1>');
 
