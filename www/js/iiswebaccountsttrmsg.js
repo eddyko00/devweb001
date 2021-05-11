@@ -120,13 +120,13 @@ var app = {
 
         $("#accheader").html(' ' + accObj.accountname + ' ' + stockObj.symbol);
 
-        $("#myid").append('<li>Stock Analysis:</li>');
+        $("#myid").append('<li></li>');
 
         if (stockData !== null) {
-            var stockMsg = "";
+            var stockMsg = "Stock Analysis:<p>";
             var rec = stockData.rec;
             if (rec < recMsg.length) {
-                stockMsg = recMsg[rec];
+                stockMsg += recMsg[rec];
             }
             if (stockData.pCl > 0) {
                 var updown = " going up to $";
