@@ -62,7 +62,8 @@ var app = {
 
         htmltrHeader += '<button type="submit" id="prevbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>prev year</small></button>';
         htmltrHeader += '<button type="submit" id="nextbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>next year</small></button>';
-        htmltrHeader += '<button type="submit" id="deletebtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>*Delete All*</small></button>';
+        htmltrHeader += '<button type="submit" id="yearendbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>YearEnd</small></button>';
+        htmltrHeader += '<button type="submit" id="deletebtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>*DeleteInYear*</small></button>';
 
         $("#trheader").html(htmltrHeader);
 
@@ -470,7 +471,7 @@ var app = {
             }
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/tax?payment=" + payment + "&year=" + yearRpt + "&comment=" + comment,
+                        + "/accounting/tax?payment=" + payment + "&comment=" + comment,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -513,7 +514,7 @@ var app = {
             }
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/tax?payment=" + payment + "&year=" + yearRpt + "&comment=" + comment,
+                        + "/accounting/cash?payment=" + payment + "&year=" + yearRpt + "&comment=" + comment,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -636,6 +637,46 @@ var app = {
             window.location.href = "accountadmrp_1.html";
         });
 
+        $("#yearendbtn").click(function () {
+            if (confirm('Do you want to proceed year end closing in year ' + yearRpt + '?')) {
+                ;
+            } else {
+                return;
+            }
+            if (confirm('Are you really sure?')) {
+                ;
+            } else {
+                return;
+            }
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
+                        + "/accounting/yearend?year=" + yearRpt,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Accounting delete result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'reportObjStr': reportObjStr, 'yearRpt': yearRpt, 'nameRpt': nameRpt};
+
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmrp_1.html";
+            }
+        });
+        
         $("#deletebtn").click(function () {
             if (confirm('Do you want to delete all accounting in year ' + yearRpt + '?')) {
                 ;
@@ -675,6 +716,8 @@ var app = {
                 window.location.href = "accountadmrp_1.html";
             }
         });
+        
+// 
 // example        
 //alert("AJAX request successfully completed");
 //var jsonObj = JSON.parse(jsonStr);
