@@ -62,7 +62,8 @@ var app = {
 
         htmltrHeader += '<button type="submit" id="prevbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>prev year</small></button>';
         htmltrHeader += '<button type="submit" id="nextbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>next year</small></button>';
-        htmltrHeader += '<button type="submit" id="deletebtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>*Delete All*</small></button>';
+        htmltrHeader += '<button type="submit" id="yearendbtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>YearEnd</small></button>';
+        htmltrHeader += '<button type="submit" id="deletebtn" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left"><small>*DeleteInYear*</small></button>';
 
         $("#trheader").html(htmltrHeader);
 
@@ -121,7 +122,7 @@ var app = {
                         var tmp = totStCredit;
                         totStCredit = totStDebit;
                         totStDebit = tmp;
-                    }                   
+                    }
 
                     htmlName += '<div class="ui-block-d" style="color:SteelBlue;text-align: right">' + totStDebit + '</div>';
                     htmlName += '<div class="ui-block-e" style="color:SteelBlue;text-align: right">' + totStCredit + '</div>';
@@ -342,10 +343,17 @@ var app = {
                 return;
             }
             var payment = examount;
+            if (yearRpt !== 0) {
+                if (confirm('Do you want to add transaction in year ' + yearRpt + '?')) {
+                    ;
+                } else {
+                    return;
+                }
+            }
             ///cust/{username}/uisys/{custid}/accounting/update?payment=&balance=&reason=&comment=
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/update?payment=" + payment + "&rate=" + rate + "&comment=" + comment,
+                        + "/accounting/update?payment=" + payment + "&year=" + yearRpt + "&rate=" + rate + "&comment=" + comment,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -380,10 +388,17 @@ var app = {
             }
             var comment = document.getElementById("revcomm").value;
             var balance = revamount;
+            if (yearRpt !== 0) {
+                if (confirm('Do you want to add transaction in year ' + yearRpt + '?')) {
+                    ;
+                } else {
+                    return;
+                }
+            }
             ///cust/{username}/uisys/{custid}/accounting/update?payment=&balance=&reason=&comment=
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/update?balance=" + balance + "&comment=" + comment,
+                        + "/accounting/update?balance=" + balance + "&year=" + yearRpt + "&comment=" + comment,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -463,9 +478,16 @@ var app = {
             var comment = document.getElementById("taxcomm").value;
 
             var payment = taxamount;
+            if (yearRpt !== 0) {
+                if (confirm('Do you want to add transaction in year ' + yearRpt + '?')) {
+                    ;
+                } else {
+                    return;
+                }
+            }
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/tax?payment=" + payment + "&comment=" + comment,
+                        + "/accounting/tax?payment=" + payment + "&year=" + yearRpt + "&comment=" + comment,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -492,19 +514,25 @@ var app = {
             }
         });
 
-        //"/cust/{username}/uisys/{custid}/accounting/tax?payment=&reason=&comment=
-        $("#earnsubmit").click(function () {
-            var taxamount = document.getElementById("earnamount").value;
+        $("#casubmit").click(function () {
+            var taxamount = document.getElementById("caamount").value;
             if (taxamount === "") {
                 window.location.href = "accountadmrp.html";
                 return;
             }
-            var comment = document.getElementById("earncomm").value;
+            var comment = document.getElementById("cacomm").value;
 
             var payment = taxamount;
+            if (yearRpt !== 0) {
+                if (confirm('Do you want to add transaction in year ' + yearRpt + '?')) {
+                    ;
+                } else {
+                    return;
+                }
+            }
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/earning?payment=" + payment + "&comment=" + comment,
+                        + "/accounting/cash?payment=" + payment + "&year=" + yearRpt + "&comment=" + comment,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -530,6 +558,7 @@ var app = {
                 window.location.href = "accountadmrp_1.html";
             }
         });
+
 
         $("#nextbtn").click(function () {
             yearRpt = yearRpt + 1;
@@ -583,8 +612,8 @@ var app = {
             window.location.href = "accountadmrp_1.html";
         });
 
-        $("#deletebtn").click(function () {
-            if (confirm('Do you want to delete all accounting?')) {
+        $("#yearendbtn").click(function () {
+            if (confirm('Do you want to proceed year end closing in year ' + yearRpt + '?')) {
                 ;
             } else {
                 return;
@@ -593,10 +622,10 @@ var app = {
                 ;
             } else {
                 return;
-            }            
+            }
             $.ajax({
                 url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
-                        + "/accounting/removeall",
+                        + "/accounting/yearend?year=" + yearRpt,
                 crossDomain: true,
                 cache: false,
                 success: handleResult
@@ -622,6 +651,48 @@ var app = {
                 window.location.href = "accountadmrp_1.html";
             }
         });
+
+        $("#deletebtn").click(function () {
+            if (confirm('Do you want to delete all accounting in year ' + yearRpt + '?')) {
+                ;
+            } else {
+                return;
+            }
+            if (confirm('Are you really sure?')) {
+                ;
+            } else {
+                return;
+            }
+            $.ajax({
+                url: iisurl + "/cust/" + custObj.username + "/uisys/" + custObj.id
+                        + "/accounting/removeaccounting?year=" + yearRpt,
+                crossDomain: true,
+                cache: false,
+                success: handleResult
+            }); // use promises
+
+            // add cordova progress indicator https://www.npmjs.com/package/cordova-plugin-progress-indicator
+            function handleResult(result) {
+                console.log(result);
+                var resultmsg = "Accounting delete result: " + result;
+                if (result == '1') {
+                    resultmsg += "  - success";
+                } else {
+                    resultmsg += "  - fail";
+                }
+                alert(resultmsg);
+
+
+                var iisWebObj = {'custObjStr': custObjStr, 'iisurlStr': iisurlStr, 'accObjListStr': accObjListStr,
+                    'reportObjStr': reportObjStr, 'yearRpt': yearRpt, 'nameRpt': nameRpt};
+
+                window.localStorage.setItem(iisWebSession, JSON.stringify(iisWebObj));
+
+                window.location.href = "accountadmrp_1.html";
+            }
+        });
+
+// 
 // example        
 //alert("AJAX request successfully completed");
 //var jsonObj = JSON.parse(jsonStr);
