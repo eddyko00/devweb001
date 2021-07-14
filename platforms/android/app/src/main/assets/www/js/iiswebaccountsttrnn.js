@@ -287,16 +287,22 @@ var app = {
                 if (stockData !== null) {
 
                     var stockMsg = "Stock Analysis:<p>";
-                    var rec = stockData.rec;
-                    if (rec < recMsg.length) {
-                        stockMsg += recMsg[rec];
+                    if (trObj.trname === "TR_NN1") {
+                        var rec = stockData.rec;
+                        if (rec < recMsg.length) {
+                            stockMsg += recMsg[rec];
+                        }
                     }
                     if (stockData.pCl > 0) {
-                        var updown = " going up to $";
-                        if (stockData.pCl < close) {
-                            updown = " going down to $";
+                        if (trObj.trsignal == S_BUY) {
+                            stockMsg += "<br>The predict price will be going up to $" + updown + stockData.pCl.toFixed(2) + " in the next few days.";
                         }
-                        stockMsg += "<br>The predict price will be " + updown + stockData.pCl.toFixed(2) + " in the next few days.";
+                    }
+                    if (stockData.pCl < close) {
+                        if (trObj.trsignal == S_SELL) {
+                            stockMsg += "<br>The predict price will be going down to $" + updown + stockData.pCl.toFixed(2) + " in the next few days.";
+
+                        }
                     }
                     stockMsg += "<p>";
 
